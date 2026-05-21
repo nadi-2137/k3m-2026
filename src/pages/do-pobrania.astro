@@ -1,0 +1,114 @@
+---
+import DownloadMaterialList from "../components/DownloadMaterialList.astro";
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="do-pobrania"
+  title="Materiały do pobrania"
+  navLabel="Do pobrania"
+  eyebrow="Gotowe do lekcji i powtórki"
+  description="Gotowe materiały PDF i strony drukowalne: notatka, oś czasu, karta pracy, quiz, słownik, mini-plakat, tabela przed/po i plan prezentacji."
+  lead="Wybierz materiał, pobierz PDF albo otwórz wersję do druku w przeglądarce. Wszystko jest przygotowane tak, żeby dało się szybko użyć na lekcji, w domu albo przy prezentacji."
+  quickQuestion="Który materiał najlepiej pasuje do twojego celu: powtórka, lekcja czy prezentacja?"
+  conceptTerm="Materiały do pobrania"
+  conceptDefinition="Krótkie pomoce edukacyjne, które można pobrać jako PDF albo wydrukować bezpośrednio ze strony."
+  related={related}
+  readingTopic="Co tu znajdziesz"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Co tu znajdziesz">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Na tej stronie są krótkie materiały do nauki o Konstytucji 3 Maja: od szybkiej notatki po kartę pracy, quiz i plan prezentacji."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Każdy materiał ma dwa wygodne warianty. PDF przyda się, gdy chcesz od razu pobrać plik. Strona do druku pozwala najpierw obejrzeć treść i wydrukować ją z przeglądarki."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        title="Najprościej"
+        body="Do szybkiej powtórki wybierz notatkę albo słownik. Do pracy na lekcji wybierz kartę pracy, tabelę przed/po albo quiz."
+      />
+    </ContentSection>
+    <ContentSection title="Materiały w zestawie">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="notatka z najważniejszymi faktami"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="oś czasu od I rozbioru do upadku reform"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="karta pracy do lekcji albo samodzielnej powtórki"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="quiz z kluczem odpowiedzi" maxTooltips={2} />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="słownik najważniejszych pojęć" maxTooltips={2} />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="mini-plakat A4" maxTooltips={2} />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="tabela „przed i po”" maxTooltips={2} />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="plan krótkiej prezentacji" maxTooltips={2} />
+        </li>
+      </ul>
+    </ContentSection>
+    <ContentSection title="Jak wybrać">
+      <ContentTable
+        columns={["Potrzeba", "Wybierz", "Dlaczego"]}
+        rows={[
+          [
+            "Mam mało czasu",
+            "Notatka albo słownik",
+            "Dają najważniejsze fakty i pojęcia bez długich zadań.",
+          ],
+          [
+            "Chcę popracować na lekcji",
+            "Karta pracy",
+            "Łączy źródło, porównanie i krótką odpowiedź pisemną.",
+          ],
+          [
+            "Chcę sprawdzić wiedzę",
+            "Quiz",
+            "Zawiera pytania różnych typów oraz klucz odpowiedzi.",
+          ],
+          [
+            "Robię prezentację",
+            "Mini-plakat albo plan prezentacji",
+            "Pomagają uporządkować najważniejsze informacje i kolejność wypowiedzi.",
+          ],
+        ]}
+      />
+    </ContentSection>
+  </div>
+
+  <DownloadMaterialList />
+</ContentPageLayout>

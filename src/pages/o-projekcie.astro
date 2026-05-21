@@ -1,0 +1,154 @@
+---
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="o-projekcie"
+  title="O projekcie"
+  navLabel="O projekcie"
+  eyebrow="Serwis edukacyjny"
+  description="Informacje o autorce, konkursie i celu serwisu Konstytucja 3 Maja dla uczniów."
+  lead="Konstytucja 3 Maja dla uczniów to edukacyjny serwis konkursowy poświęcony jednej z najważniejszych ustaw w historii Polski."
+  quickQuestion="Co sprawia, że strona historyczna jest naprawdę pomocna?"
+  conceptTerm="Cel serwisu"
+  conceptDefinition="Prosty język, źródła pierwotne, porównania przed/po i elementy pomagające utrwalać wiedzę."
+  related={related}
+  readingTopic="Po co jest ten serwis"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Po co jest ten serwis">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text='Serwis został przygotowany na konkurs "Konstytucja 3 Maja". Ma prowadzić ucznia od prostego pytania "co to było?" do pracy z tekstem źródłowym, archiwaliami i samodzielnym wyjaśnieniem znaczenia Konstytucji 3 Maja.'
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Konstytucja 3 Maja jest tu pokazywana jednocześnie jako dokument prawny, próba naprawy państwa, wydarzenie polityczne i symbol pamięci. Dlatego strona łączy narrację historyczną, akordeon artykułów, porównania przed/po, quiz, materiały dla nauczyciela i lokalnie serwowane ilustracje."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        title="Warto wiedzieć"
+        body="Treści mają charakter edukacyjny. Mimo dołożenia najwyższej staranności mogą zawierać uproszczenia, skróty albo nieścisłości, dlatego przy pracy szkolnej warto porównywać je ze wskazanymi źródłami."
+      />
+    </ContentSection>
+    <ContentSection title="Autorka i konkurs">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Autorką serwisu jest Nadia Zofia Łuczak, uczennica klasy VIII A w Szkole Podstawowej nr 83 w Łodzi."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Strona powstała jako projekt konkursowy. Jej celem jest przystępne wyjaśnienie Konstytucji 3 Maja, a nie zastąpienie podręcznika, nauczyciela albo pełnej pracy ze źródłami."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Nadia Zofia Łuczak"
+          text="Autorka projektu konkursowego, uczennica klasy VIII A, SP 83 w Łodzi."
+          href="https://nadia.luczak.org/"
+          label="Autorka"
+          actionLabel="Strona autorki"
+        />
+        <Card
+          title='Konkurs "Konstytucja 3 Maja"'
+          text="Projekt edukacyjny przygotowany z myślą o uczniach poznających historię i znaczenie Ustawy Rządowej."
+          label="Konkurs"
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Dla kogo">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Strona jest przygotowana z myślą o uczniach, nauczycielach i osobach, które chcą lepiej zrozumieć znaczenie Konstytucji 3 Maja."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Łączy proste wyjaśnienia, oś czasu, opis twórców, najważniejsze postanowienia, quiz oraz materiały do nauki."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Cztery filary">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Prosty język"
+          text="Najpierw jasne odpowiedzi, potem pogłębienie."
+        />
+        <Card
+          title="Źródła pierwotne"
+          text="Kontakt z tekstem Ustawy Rządowej i archiwaliami."
+        />
+        <Card
+          title="Porównania"
+          text="Tabele przed/po oraz mity/fakty pomagają unikać uproszczeń."
+        />
+        <Card
+          title="Utrwalanie"
+          text="Quiz, fiszki, scenariusze lekcji i materiały do pobrania."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Najważniejsza zasada">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Strona ma pomagać w rozumieniu tematu: najpierw prosty sens, potem źródła, pojęcia, przykłady i samodzielna powtórka."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Jak dbamy o jakość">
+      <ContentTable
+        columns={[
+          "Zasada",
+          "Co oznacza w praktyce",
+          "Gdzie widać to w serwisie",
+        ]}
+        rows={[
+          [
+            "Najpierw sens",
+            "uczeń dostaje krótką odpowiedź zanim przejdzie do szczegółów",
+            "Start, szybka powtórka, pytania i odpowiedzi",
+          ],
+          [
+            "Źródło plus komentarz",
+            "cytat nie zostaje sam, ma objaśnienie i pytanie",
+            "tekst konstytucji i karty źródłowe",
+          ],
+          [
+            "Bez uproszczeń",
+            "trudne sprawy są dopowiadane, np. chłopi i pańszczyzna",
+            "mity i fakty, objaśnienia trudniejszych fragmentów",
+          ],
+          [
+            "Utrwalanie",
+            "po lekturze można od razu sprawdzić wiedzę",
+            "quiz, chronologia, materiały do druku",
+          ],
+          [
+            "Jawne źródła",
+            "linki są opisane według roli i statusu",
+            "strona źródeł i bibliografia",
+          ],
+        ]}
+      />
+    </ContentSection>
+  </div>
+</ContentPageLayout>

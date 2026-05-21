@@ -1,0 +1,48 @@
+---
+import Timeline from "../components/Timeline.astro";
+import { timeline, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="os-czasu"
+  title="Oś czasu Konstytucji 3 Maja"
+  navLabel="Oś czasu"
+  eyebrow="Od kryzysu do pamięci"
+  description="Interaktywna oś czasu wydarzeń od wyboru Stanisława Augusta Poniatowskiego po przywrócenie święta 3 maja."
+  lead="Konstytucja była częścią większego ciągu wydarzeń. Oś czasu pokazuje, co doprowadziło do reformy, co ją obaliło i jak wróciła do pamięci publicznej."
+  quickQuestion="Które wydarzenie najbardziej przyspieszyło potrzebę reform?"
+  conceptTerm="Chronologia"
+  conceptDefinition="Porządek wydarzeń w czasie, który pomaga zobaczyć przyczyny i skutki."
+  related={related}
+  readingTopic="Jak czytać tę oś"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Jak czytać tę oś">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Lata 1764-1791 pokazują dojrzewanie reform. Lata 1792-1795 pokazują ich załamanie. Daty 1919 i 1990 przypominają, że konstytucja żyła dalej jako symbol państwowy."
+          />
+        </p>
+      </div>
+    </ContentSection>
+  </div>
+
+  <section class="k3m-section k3m-section--bordered">
+    <p class="k3m-label">Pełna oś czasu</p>
+    <h2 class="k3m-h2 mt-3">Od reform do pamięci</h2>
+    <p class="k3m-body mt-4 max-w-2xl">
+      Zwróć uwagę na ciąg przyczyn i skutków: kryzys państwa prowadzi do reform,
+      reformy wywołują konflikt, a po upadku dokument zaczyna działać jako
+      symbol.
+    </p>
+    <div class="mt-8">
+      <Timeline events={timeline} variant="detailed" />
+    </div>
+  </section>
+</ContentPageLayout>

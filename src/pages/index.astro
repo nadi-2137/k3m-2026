@@ -1,0 +1,333 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  beforeAfter,
+  facts,
+  homeCallouts,
+  homeCards,
+  learningPath,
+  quickReview,
+  seoByHref,
+  sourceLinks,
+  timeline,
+} from "../data/site";
+import Callout from "../components/Callout.astro";
+import Card from "../components/Card.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import LearningPath from "../components/LearningPath.astro";
+import QuickReview from "../components/QuickReview.astro";
+import Timeline from "../components/Timeline.astro";
+import { absoluteWithBase, withBase } from "../utils/base";
+
+const homeSeo = seoByHref["/"];
+const homeSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Konstytucja 3 Maja dla uczniów",
+    description: homeSeo.metaDescription,
+    inLanguage: "pl",
+    url: absoluteWithBase("/", Astro.site ?? Astro.url),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "Konstytucja 3 Maja dla uczniów",
+    url: absoluteWithBase("/", Astro.site ?? Astro.url),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: homeSeo.metaTitle,
+    description: homeSeo.metaDescription,
+    inLanguage: "pl",
+    url: absoluteWithBase("/", Astro.site ?? Astro.url),
+    educationalLevel: ["szkoła podstawowa", "szkoła ponadpodstawowa"],
+    learningResourceType: "educational website",
+    about: "Konstytucja 3 Maja",
+  },
+];
+---
+
+<BaseLayout
+  title={homeSeo.metaTitle}
+  description={homeSeo.metaDescription}
+  schema={homeSchema}
+>
+  <main>
+    <section class="k3m-hero">
+      <div
+        class="k3m-container grid min-h-[calc(100vh-var(--k3m-header-height))] items-center gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[1fr_0.9fr] lg:px-10"
+      >
+        <div>
+          <p class="k3m-label">3 maja 1791</p>
+          <h1 class="k3m-display mt-5 max-w-4xl">Konstytucja 3 Maja</h1>
+          <p class="k3m-lead mt-6 max-w-2xl">
+            <GlossaryText
+              text="Pierwsza nowoczesna konstytucja w Europie i wielka próba naprawy Rzeczypospolitej. Dokument, który porządkował władzę, ograniczał dawne słabości ustroju i dawał nadzieję na silniejsze państwo."
+              maxTooltips={4}
+            />
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              class="k3m-button k3m-button--primary"
+              href={withBase("/historia")}
+            >
+              Zacznij od historii
+            </a>
+            <a
+              class="k3m-button k3m-button--secondary"
+              href={withBase("/postanowienia-konstytucji-3-maja")}
+            >
+              Sprawdź, co zmieniała
+            </a>
+          </div>
+        </div>
+
+        <div class="grid gap-5">
+          <aside class="k3m-card p-6">
+            <p class="k3m-label">Konstytucja w 30 sekund</p>
+            <p class="k3m-section-note mt-4">
+              <GlossaryText
+                text="Sejm Wielki uchwalił Ustawę Rządową, aby naprawić ustrój państwa, znieść liberum veto, wzmocnić władzę i poprawić sytuację mieszczan oraz chłopów. Obowiązywała krótko, ale stała się symbolem reform."
+                maxTooltips={6}
+              />
+            </p>
+          </aside>
+          <figure class="k3m-card overflow-hidden">
+            <img
+              class="aspect-[16/9] w-full object-cover"
+              src={withBase("/images/matejko-konstytucja-3-maja-1791.jpg")}
+              alt="Obraz Jana Matejki przedstawiający pochód po uchwaleniu Konstytucji 3 Maja"
+              width="1600"
+              height="895"
+              decoding="async"
+              loading="eager"
+            />
+            <figcaption class="k3m-small-muted px-5 py-3">
+              Jan Matejko, Konstytucja 3 Maja 1791, reprodukcja z
+              <a
+                class="k3m-link"
+                href="https://commons.wikimedia.org/wiki/File:Jan_Matejko_-_Konstytucja_3_maja_1791.jpg"
+              >
+                Wikimedia Commons
+              </a>
+              - domena publiczna / Public Domain Mark 1.0.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="k3m-container grid gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[1fr_22rem] lg:px-10"
+    >
+      <div>
+        <p class="k3m-label">W skrócie</p>
+        <h2 class="k3m-h2 mt-3">Najkrótsze sensowne wyjaśnienie</h2>
+        <p class="k3m-body mt-5 max-w-3xl text-lg">
+          <GlossaryText
+            text="Konstytucja 3 Maja została uchwalona 3 maja 1791 roku przez Sejm Wielki. Miała naprawić ustrój Rzeczypospolitej, znieść liberum veto, wzmocnić władzę państwową oraz poprawić sytuację mieszczan i chłopów. Choć obowiązywała krótko, stała się jednym z najważniejszych symboli polskiej historii."
+            maxTooltips={6}
+          />
+        </p>
+      </div>
+      <aside class="k3m-card k3m-stat-card p-6">
+        <p class="k3m-label">Data uchwalenia</p>
+        <p class="k3m-stat-card__value mt-3">3 maja 1791</p>
+        <p class="k3m-body mt-5">
+          <GlossaryText
+            text="Ustawa Rządowa miała preambułę i 11 artykułów. Wprowadzała monarchię konstytucyjną, trójpodział władzy i zasadę większości głosów."
+            maxTooltips={4}
+          />
+        </p>
+      </aside>
+    </section>
+
+    <LearningPath steps={learningPath} variant="full" />
+
+    <section id="najwazniejsze-fakty" class="k3m-section--surface">
+      <div class="k3m-container px-5 py-12 sm:px-8 lg:px-10">
+        <h2 class="k3m-h2">Najważniejsze fakty</h2>
+        <div class="mt-6">
+          <div class="k3m-table-wrap">
+            <table class="k3m-table text-sm">
+              <thead>
+                <tr>
+                  {
+                    facts.columns.map((column) => (
+                      <th class="font-semibold">{column}</th>
+                    ))
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  facts.rows.map((row) => (
+                    <tr>
+                      {row.map((cell) => (
+                        <td>
+                          <GlossaryText text={cell} maxTooltips={2} />
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="k3m-table-cards">
+            {
+              facts.rows.map((row) => (
+                <dl class="k3m-table-card">
+                  {row.map((cell, index) => (
+                    <div>
+                      <dt>{facts.columns[index]}</dt>
+                      <dd>
+                        <GlossaryText text={cell} maxTooltips={2} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="k3m-container px-5 py-12 sm:px-8 lg:px-10">
+      <div class="max-w-3xl">
+        <p class="k3m-label">Od kryzysu do pamięci</p>
+        <h2 class="k3m-h2 mt-3">Krótka oś czasu</h2>
+        <p class="k3m-body mt-5">
+          <GlossaryText
+            text="Te wydarzenia porządkują całą opowieść: najpierw kryzys i reforma, potem upadek, rozbiory i powrót konstytucji jako symbolu."
+            maxTooltips={3}
+          />
+        </p>
+        <a class="k3m-link mt-6 inline-block" href={withBase("/os-czasu")}>
+          Zobacz pełną oś czasu
+        </a>
+      </div>
+      <div class="mt-8">
+        <Timeline events={timeline.slice(1, 9)} variant="compact" />
+      </div>
+    </section>
+
+    <section class="k3m-section--muted">
+      <div class="k3m-container px-5 py-12 sm:px-8 lg:px-10">
+        <h2 class="k3m-h2">Co znajdziesz na stronie?</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {homeCards.map((card) => <Card {...card} variant="navigation" />)}
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="k3m-container grid items-start gap-8 px-5 py-12 sm:px-8 lg:grid-cols-2 lg:px-10"
+    >
+      <Callout {...homeCallouts[0]} />
+      <QuickReview items={quickReview} variant="compact" />
+    </section>
+
+    <section class="k3m-section--surface">
+      <div class="k3m-container px-5 py-12 sm:px-8 lg:px-10">
+        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <p class="k3m-label">Przed i po</p>
+            <h2 class="k3m-h2 mt-3">Co zmieniła Konstytucja 3 Maja?</h2>
+            <p class="k3m-body mt-5">
+              <GlossaryText
+                text="Porównanie pomaga zobaczyć konstytucję jako praktyczny projekt zmiany państwa, nie tylko datę do zapamiętania."
+                maxTooltips={2}
+              />
+            </p>
+          </div>
+          <div>
+            <div class="k3m-table-wrap">
+              <table class="k3m-table text-sm">
+                <thead>
+                  <tr>
+                    {
+                      beforeAfter.columns.map((column) => (
+                        <th class="font-semibold">{column}</th>
+                      ))
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    beforeAfter.rows.slice(0, 4).map((row) => (
+                      <tr>
+                        {row.map((cell) => (
+                          <td>
+                            <GlossaryText text={cell} maxTooltips={2} />
+                          </td>
+                        ))}
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+            <div class="k3m-table-cards">
+              {
+                beforeAfter.rows.slice(0, 4).map((row) => (
+                  <dl class="k3m-table-card">
+                    {row.map((cell, index) => (
+                      <div>
+                        <dt>{beforeAfter.columns[index]}</dt>
+                        <dd>
+                          <GlossaryText text={cell} maxTooltips={2} />
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="k3m-container px-5 py-12 sm:px-8 lg:px-10">
+      <div class="max-w-3xl">
+        <h2 class="k3m-h2">Źródła i materiały</h2>
+        <p class="k3m-body mt-4">
+          <GlossaryText
+            text="Serwis prowadzi od prostego wprowadzenia do źródeł: tekstu Ustawy Rządowej, rękopisów, materiałów archiwalnych, scenariuszy lekcji i opracowań edukacyjnych."
+            maxTooltips={2}
+          />
+        </p>
+      </div>
+      <div class="mt-8 grid gap-4 lg:grid-cols-2">
+        {
+          sourceLinks
+            .slice(0, 4)
+            .map((source) => <Card {...source} variant="source" />)
+        }
+      </div>
+    </section>
+
+    <section class="k3m-section--inverse">
+      <div
+        class="k3m-container flex flex-col gap-5 px-5 py-12 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10"
+      >
+        <div>
+          <h2 class="k3m-h2">Sprawdź swoją wiedzę</h2>
+          <p class="k3m-body mt-3 max-w-2xl">
+            <GlossaryText
+              text="Znasz już podstawy? Rozwiąż quiz i sprawdź, czy pamiętasz najważniejsze daty, pojęcia, postacie i sens reform."
+              maxTooltips={2}
+            />
+          </p>
+        </div>
+        <a class="k3m-button k3m-button--accent" href={withBase("/quiz")}>
+          Rozpocznij quiz
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

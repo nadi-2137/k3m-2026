@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { DownloadMaterial } from "../../data/site";
+import { downloadMaterials } from "../../data/site";
+import { withBase } from "../../utils/base";
+
+export function getStaticPaths() {
+  return downloadMaterials.map((material) => ({
+    params: { slug: material.slug },
+    props: { material },
+  }));
+}
+
+const { material } = Astro.props as { material: DownloadMaterial };
+const targetHref = withBase(`/do-pobrania/${material.slug}`);
+---
+
+<BaseLayout
+  title={`${material.title} | Do pobrania`}
+  description={`Ten materiał jest teraz dostępny pod adresem /do-pobrania/${material.slug}.`}
+>
+  <meta http-equiv="refresh" content={`0; url=${targetHref}`} slot="head" />
+  <main class="k3m-container px-5 py-10 sm:px-8 lg:px-10">
+    <article class="k3m-card max-w-[var(--k3m-reading)] p-6 sm:p-8">
+      <p class="k3m-label">Przekierowanie</p>
+      <h1 class="k3m-h1 mt-4">{material.title}</h1>
+      <p class="k3m-lead mt-5">
+        Ten materiał został przeniesiony do sekcji „Do pobrania”.
+      </p>
+      <a class="k3m-button k3m-button--primary mt-7" href={targetHref}>
+        Otwórz materiał
+      </a>
+    </article>
+  </main>
+</BaseLayout>

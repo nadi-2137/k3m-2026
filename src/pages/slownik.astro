@@ -1,0 +1,72 @@
+---
+import GlossaryExplorer from "../components/GlossaryExplorer.astro";
+import GlossaryTooltip from "../components/GlossaryTooltip.astro";
+import { glossaryEntries, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="slownik"
+  title="Słownik pojęć"
+  navLabel="Słownik"
+  eyebrow="Trudne słowa prostym językiem"
+  description="Słownik najważniejszych pojęć potrzebnych do zrozumienia Konstytucji 3 Maja."
+  lead="Konstytucji nie da się dobrze zrozumieć bez kilku pojęć z epoki. Słownik wyjaśnia je krótko i bez podręcznikowego ciężaru."
+  quickQuestion="Które pojęcie najczęściej prowadzi do nieporozumień?"
+  conceptTerm="Pojęcia"
+  conceptDefinition="Krótkie definicje pomagają odróżnić fakty od uproszczeń."
+  related={related}
+  readingTopic="Jak korzystać ze słownika"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Jak korzystać ze słownika">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Słownik nie jest tylko listą definicji. Każde pojęcie ma kategorię, przykład użycia i link do podstrony, na której pojawia się w pełniejszym kontekście."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Jeśli przygotowujesz się do sprawdzianu, zacznij od haseł: liberum veto, trójpodział władzy, Straż Praw, mieszczanie, chłopi, Targowica i preambuła."
+          />
+        </p>
+      </div>
+    </ContentSection>
+  </div>
+
+  <section class="k3m-section k3m-section--bordered">
+    <p class="k3m-label">Tooltipy inline</p>
+    <h2 class="k3m-h2 mt-3">Pojęcia w zdaniu</h2>
+    <p class="k3m-body mt-4 max-w-2xl">
+      Konstytucja znosiła <GlossaryTooltip
+        term="liberum veto"
+        definition="Prawo jednego posła do zerwania obrad sejmu i unieważnienia podjętych decyzji."
+      />
+      i wprowadzała <GlossaryTooltip
+        term="trójpodział władzy"
+        definition="Podział na władzę ustawodawczą, wykonawczą i sądowniczą."
+      />, ale nie likwidowała <GlossaryTooltip
+        term="pańszczyzny"
+        definition="Obowiązkowej pracy chłopów na rzecz właściciela ziemi."
+      />.
+    </p>
+  </section>
+
+  <section class="k3m-section k3m-section--bordered">
+    <p class="k3m-label">Słownik z filtrem</p>
+    <h2 class="k3m-h2 mt-3">Hasła, przykłady i powiązane strony</h2>
+    <p class="k3m-body mt-4 max-w-2xl">
+      Filtruj po kategoriach albo wpisz fragment pojęcia. Każde hasło ma
+      definicję, przykład użycia i link do miejsca, gdzie pojęcie wraca w
+      kontekście.
+    </p>
+    <div class="mt-8">
+      <GlossaryExplorer entries={glossaryEntries} />
+    </div>
+  </section>
+</ContentPageLayout>

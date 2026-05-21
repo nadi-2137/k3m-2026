@@ -1,0 +1,97 @@
+---
+import type { LearningPathStep } from "../data/site";
+import { withBase } from "../utils/base";
+
+type Props = {
+  steps: LearningPathStep[];
+  currentSlug?: string;
+  variant?: "full" | "compact";
+};
+
+const { steps, currentSlug, variant = "full" } = Astro.props;
+const currentIndex = currentSlug
+  ? steps.findIndex((step) => step.slug === currentSlug)
+  : -1;
+const previousStep = currentIndex > 0 ? steps[currentIndex - 1] : undefined;
+const nextStep =
+  currentIndex >= 0 && currentIndex < steps.length - 1
+    ? steps[currentIndex + 1]
+    : undefined;
+---
+
+{
+  variant === "full" ? (
+    <section class="k3m-learning-path">
+      <div class="k3m-container px-5 py-12 sm:px-8 lg:px-10">
+        <div class="max-w-3xl">
+          <p class="k3m-label">Ścieżka nauki</p>
+          <h2 class="k3m-h2 mt-3">Ucz się krok po kroku</h2>
+          <p class="k3m-body mt-4">
+            Zacznij od przyczyn, potem przejdź przez dokument, postanowienia,
+            twórców, losy i znaczenie. Na końcu sprawdź wiedzę w quizie.
+          </p>
+        </div>
+
+        <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, index) => (
+            <li>
+              <a class="k3m-learning-step" href={withBase(step.href)}>
+                <span class="k3m-learning-step__number">{index + 1}</span>
+                <span class="k3m-learning-step__title">{step.shortTitle}</span>
+                <span class="k3m-learning-step__text">{step.description}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  ) : (
+    currentIndex >= 0 && (
+      <section class="k3m-learning-nav" aria-label="Następne kroki nauki">
+        <div>
+          <p class="k3m-label">Ścieżka nauki</p>
+          <h2 class="k3m-h2 mt-3">Co dalej?</h2>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          {previousStep && (
+            <a class="k3m-card p-5" href={withBase(previousStep.href)}>
+              <span class="k3m-learning-nav-card__label">
+                Powtórz poprzedni krok
+              </span>
+              <h3 class="k3m-learning-nav-card__title">{previousStep.title}</h3>
+              <p class="k3m-learning-nav-card__text">
+                {previousStep.description}
+              </p>
+            </a>
+          )}
+
+          {nextStep && (
+            <a class="k3m-card p-5" href={withBase(nextStep.href)}>
+              <span class="k3m-learning-nav-card__label k3m-learning-nav-card__label--next">
+                Następny krok
+              </span>
+              <h3 class="k3m-learning-nav-card__title">{nextStep.title}</h3>
+              <p class="k3m-learning-nav-card__text">{nextStep.description}</p>
+              <span class="k3m-link mt-4 inline-block">{nextStep.action}</span>
+            </a>
+          )}
+
+          <div class="k3m-callout k3m-callout--exam">
+            <h3 class="k3m-h3 text-[length:1.25rem]">Na sprawdzian</h3>
+            <p class="mt-2 leading-7">
+              Po tej podstronie spróbuj odpowiedzieć jednym zdaniem: co było
+              najważniejsze i dlaczego?
+            </p>
+            <a
+              class="k3m-link mt-3 inline-block"
+              href={withBase("/jak-odpowiedziec-na-sprawdzianie")}
+            >
+              Zobacz schemat odpowiedzi
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  )
+}

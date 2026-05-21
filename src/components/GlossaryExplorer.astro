@@ -1,0 +1,183 @@
+---
+import type { GlossaryEntry, GlossaryCategory } from "../data/site";
+import Card from "./Card.astro";
+import Icon from "./Icon.astro";
+
+type Props = {
+  entries: GlossaryEntry[];
+};
+
+const { entries } = Astro.props;
+
+const categoryLabels: Record<GlossaryCategory | "all", string> = {
+  all: "Wszystkie",
+  ustroj: "Ustrój",
+  spoleczenstwo: "Społeczeństwo",
+  wydarzenia: "Wydarzenia",
+  dokument: "Dokument",
+};
+
+const categories: Array<GlossaryCategory | "all"> = [
+  "all",
+  "ustroj",
+  "spoleczenstwo",
+  "wydarzenia",
+  "dokument",
+];
+
+const normalizeSearch = (value: string) =>
+  value
+    .toLocaleLowerCase("pl-PL")
+    .replace(/ł/g, "l")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
+---
+
+<section class="k3m-glossary" data-glossary>
+  <div class="k3m-glossary__tools">
+    <label>
+      <span>Szukaj pojęcia</span>
+      <input
+        type="search"
+        placeholder="np. liberum veto"
+        data-glossary-search
+      />
+    </label>
+
+    <div class="k3m-glossary__filters" aria-label="Kategorie słownika">
+      {
+        categories.map((category) => (
+          <button
+            type="button"
+            data-glossary-filter={category}
+            aria-pressed={category === "all" ? "true" : "false"}
+          >
+            {categoryLabels[category]}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <p class="k3m-glossary__count" data-glossary-count aria-live="polite">
+    Widoczne hasła: {entries.length}
+  </p>
+
+  <div class="k3m-glossary__grid">
+    {
+      entries.map((entry) => (
+        <article
+          class="k3m-glossary-entry"
+          data-glossary-entry
+          data-category={entry.category}
+          data-search={normalizeSearch(
+            `${entry.term} ${entry.definition} ${entry.example}`,
+          )}
+        >
+          <div class="k3m-glossary-entry__header">
+            <Icon
+              name={
+                entry.category === "ustroj"
+                  ? "scale"
+                  : entry.category === "spoleczenstwo"
+                    ? "users"
+                    : entry.category === "wydarzenia"
+                      ? "timeline"
+                      : "document"
+              }
+            />
+            <div>
+              <p class="k3m-glossary-entry__category">
+                {categoryLabels[entry.category]}
+              </p>
+              <h2>{entry.term}</h2>
+            </div>
+          </div>
+          <p class="k3m-glossary-entry__definition">{entry.definition}</p>
+          <div class="k3m-glossary-entry__support">
+            <div class="k3m-glossary-entry__example">
+              <h3>Przykład użycia</h3>
+              <p>{entry.example}</p>
+            </div>
+            <div class="k3m-glossary-entry__related">
+              {entry.related.map((item) => (
+                <Card {...item} variant="navigation" />
+              ))}
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="k3m-callout k3m-callout--warning mt-6 hidden" data-glossary-empty>
+    Nie znaleziono pasujących haseł. Spróbuj krótszego słowa albo wybierz inną
+    kategorię.
+  </p>
+</section>
+
+<script>
+  const roots = document.querySelectorAll<HTMLElement>("[data-glossary]");
+
+  roots.forEach((root) => {
+    const search = root.querySelector<HTMLInputElement>(
+      "[data-glossary-search]",
+    );
+    const filters = Array.from(
+      root.querySelectorAll<HTMLButtonElement>("[data-glossary-filter]"),
+    );
+    const entries = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-glossary-entry]"),
+    );
+    const count = root.querySelector<HTMLElement>("[data-glossary-count]");
+    const empty = root.querySelector<HTMLElement>("[data-glossary-empty]");
+    let activeCategory = "all";
+
+    const update = () => {
+      const normalizeSearch = (value: string) =>
+        value
+          .toLocaleLowerCase("pl-PL")
+          .replace(/ł/g, "l")
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "");
+      const query = normalizeSearch(search?.value?.trim() ?? "");
+      let visible = 0;
+
+      entries.forEach((entry) => {
+        const matchesCategory =
+          activeCategory === "all" ||
+          entry.getAttribute("data-category") === activeCategory;
+        const matchesQuery =
+          !query || entry.getAttribute("data-search")?.includes(query);
+        const isVisible = Boolean(matchesCategory && matchesQuery);
+
+        entry.hidden = !isVisible;
+        if (isVisible) visible += 1;
+      });
+
+      if (count) count.textContent = `Widoczne hasła: ${visible}`;
+      empty?.classList.toggle("hidden", visible !== 0);
+    };
+
+    search?.addEventListener("input", update);
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        activeCategory = filter.getAttribute("data-glossary-filter") ?? "all";
+        filters.forEach((item) =>
+          item.setAttribute("aria-pressed", String(item === filter)),
+        );
+        update();
+      });
+    });
+
+    const initialTerm = new URLSearchParams(window.location.search).get(
+      "haslo",
+    );
+    if (initialTerm && search instanceof HTMLInputElement) {
+      search.value = initialTerm;
+      update();
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+</script>

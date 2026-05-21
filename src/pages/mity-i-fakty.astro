@@ -1,0 +1,58 @@
+---
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="mity-i-fakty"
+  title="Mity i fakty o Konstytucji 3 Maja"
+  navLabel="Mity i fakty"
+  eyebrow="Bez szkolnych uproszczeń"
+  description="Najczęstsze mity o Konstytucji 3 Maja i spokojne wyjaśnienia faktów."
+  lead="Temat Konstytucji 3 Maja bywa upraszczany. Ta podstrona pomaga oddzielić skrót myślowy od faktu historycznego."
+  quickQuestion="Który mit o konstytucji najłatwiej powtórzyć bez zastanowienia?"
+  conceptTerm="Mit historyczny"
+  conceptDefinition="Uproszczone przekonanie, które brzmi znajomo, ale nie oddaje dokładnie faktów."
+  related={related}
+  readingTopic="Najczęstsze uproszczenia"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najczęstsze uproszczenia">
+      <ContentTable
+        columns={["Mit", "Fakt"]}
+        rows={[
+          [
+            "Konstytucja 3 Maja od razu uratowała Polskę",
+            "Była próbą ratowania państwa, ale została obalona.",
+          ],
+          [
+            "Konstytucja dała wszystkim pełną równość",
+            "Poprawiała sytuację niektórych grup, ale nie znosiła wszystkich nierówności.",
+          ],
+          [
+            "Chłopi zostali całkowicie uwolnieni",
+            "Objęto ich opieką państwa, ale nie zniesiono pańszczyzny.",
+          ],
+          [
+            "Wszyscy popierali konstytucję",
+            "Miała wielu przeciwników, zwłaszcza wśród obrońców dawnego porządku.",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Dlaczego to ważne">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Dobre rozumienie historii polega nie na zapamiętaniu najładniejszego zdania, ale na umiejętności pokazania napięcia: konstytucja była wielkim krokiem naprzód, lecz nie rozwiązywała wszystkich problemów."
+          />
+        </p>
+      </div>
+    </ContentSection>
+  </div>
+</ContentPageLayout>

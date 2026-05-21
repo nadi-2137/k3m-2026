@@ -1,0 +1,15 @@
+---
+import QuizModePage from "../../components/QuizModePage.astro";
+import { quizQuestionsByType } from "../../data/site";
+---
+
+<QuizModePage
+  title="Quiz: wybór odpowiedzi"
+  eyebrow="Wybierz jedną odpowiedź"
+  description="Quiz wyboru odpowiedzi o Konstytucji 3 Maja: daty, osoby, postanowienia i skutki reform."
+  lead="Ten tryb sprawdza konkretne fakty i rozumienie zmian. Odpowiedzi są mieszane, więc nie da się polegać na stałej literze A, B, C albo D."
+  questions={quizQuestionsByType.singleChoice}
+  currentHref="/quiz/wybor-odpowiedzi"
+  quizTitle="Pytania wyboru"
+  quizIntro="Wybierz jedną odpowiedź. Kolejność pytań i odpowiedzi zmienia się przy każdym wejściu."
+/>

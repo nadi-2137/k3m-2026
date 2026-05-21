@@ -1,0 +1,115 @@
+---
+import { todaySections, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="czym-byla-konstytucja-3-maja"
+  title="Czym była Konstytucja 3 Maja"
+  navLabel="Konstytucja"
+  eyebrow="Ustawa Rządowa prostym językiem"
+  description="Wyjaśniamy, czym była Ustawa Rządowa z 1791 roku, jak była zbudowana i dlaczego uznaje się ją za przełomowy projekt naprawy państwa."
+  lead="Konstytucja 3 Maja była Ustawą Rządową, czyli dokumentem określającym, jak ma działać państwo: kto stanowi prawo, kto je wykonuje, jak działają sądy i jakie miejsce zajmują różne grupy społeczne."
+  quickQuestion="Czym różni się zwykła ustawa od ustawy zasadniczej?"
+  conceptTerm="Ustawa Rządowa"
+  conceptDefinition="Źródłowa nazwa Konstytucji 3 Maja. Dobrze pokazuje, że dokument regulował sposób rządzenia państwem."
+  related={related}
+  readingTopic="Najważniejszy regulamin państwa"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najważniejszy regulamin państwa">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Z perspektywy ucznia konstytucję można porównać do najważniejszego regulaminu państwa. Nie opisuje jednego drobiazgu, ale porządkuje cały system: władzę, prawa, obowiązki i relacje między grupami społecznymi."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Ustawa Rządowa miała być realnym narzędziem naprawy Rzeczypospolitej. Autorzy chcieli, aby państwo działało sprawniej i było mniej podatne na wewnętrzny chaos oraz obce naciski."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Budowa dokumentu">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Dokument składał się z uroczystej preambuły oraz 11 artykułów. Pierwsza część dotyczyła spraw społecznych: religii, szlachty, miast i chłopów. Druga skupiała się na ustroju politycznym: rządzie, sejmie, królu i sądach. Trzecia obejmowała regencję, edukację dzieci królewskich i siłę zbrojną narodową."
+          />
+        </p>
+      </div>
+      <ContentTable
+        columns={["Część", "Zakres", "Liczba artykułów"]}
+        rows={[
+          ["Społeczna", "religia, szlachta, miasta, chłopi", "4"],
+          ["Polityczna", "rząd, sejm, król, sądy", "4"],
+          ["Uzupełniająca", "regencja, edukacja, siła zbrojna", "3"],
+        ]}
+      />
+      <Callout
+        className="mt-6"
+        variant="curiosity"
+        title="Konstytucja miała być poprawiana"
+        body="W dokumencie zapisano, że rewizja konstytucji powinna następować co 25 lat. To pokazuje, że twórcy myśleli o państwie jako o systemie, który można ulepszać."
+      />
+    </ContentSection>
+    <ContentSection title="Nowoczesna, ale nie idealna">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Konstytucja wprowadzała zasadę podziału władz, wzmacniała sejm, porządkowała władzę wykonawczą, ograniczała dawne mechanizmy paraliżu i odchodziła od wolnej elekcji. Była więc projektem nowocześniejszego państwa."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Jednocześnie pozostawała dokumentem swojej epoki. Nie znosiła całkowicie porządku stanowego, nie dawała pełnej równości wszystkim mieszkańcom i nie likwidowała pańszczyzny. Jej znaczenie polega na tym, że była odważnym krokiem naprzód, a nie magicznym rozwiązaniem wszystkich problemów."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="warning"
+        body="Uwaga na uproszczenie: konstytucja nie dała wszystkim pełnej równości, ale wzmacniała prawa mieszczan i obejmowała chłopów opieką państwa."
+      />
+    </ContentSection>
+    <ContentSection title="W 30 sekund">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja została uchwalona 3 maja 1791 roku przez Sejm Wielki. Była pierwszą nowoczesną konstytucją w Europie. Miała naprawić ustrój Rzeczypospolitej, znieść liberum veto, wzmocnić władzę państwową oraz poprawić sytuację mieszczan i chłopów. Choć obowiązywała krótko, stała się jednym z najważniejszych symboli polskiej historii."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title={todaySections.czymByla.title}>
+      {
+        todaySections.czymByla.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.czymByla.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.czymByla.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.czymByla.callout.variant}
+            label={todaySections.czymByla.callout.label}
+            title={todaySections.czymByla.callout.title}
+            body={todaySections.czymByla.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

@@ -1,0 +1,17 @@
+---
+import type { Card as CardData } from "../data/site";
+import Card from "./Card.astro";
+
+type Props = CardData & {
+  className?: string;
+};
+
+const props = Astro.props;
+---
+
+<Card
+  {...props}
+  variant="download"
+  actionLabel={props.actionLabel ??
+    (props.href ? "Otwórz materiał" : "Planowany plik")}
+/>

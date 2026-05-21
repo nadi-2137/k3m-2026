@@ -1,0 +1,15 @@
+---
+import QuizModePage from "../../components/QuizModePage.astro";
+import { quizQuestions } from "../../data/site";
+---
+
+<QuizModePage
+  title="Quiz: pytania mieszane"
+  eyebrow="Losowy zestaw"
+  description="Mieszany quiz o Konstytucji 3 Maja: wybór odpowiedzi, prawda/fałsz i dopasowanie pojęć."
+  lead="Ten tryb losuje pytania z całej bazy. W jednym podejściu dostajesz przekrój przez daty, postanowienia, pojęcia, twórców i skutki reform."
+  questions={quizQuestions}
+  currentHref="/quiz/pytania"
+  quizTitle="18 losowych pytań z całej bazy"
+  quizIntro="Pytania i odpowiedzi są losowane przy każdym wejściu. Po odpowiedzi zobaczysz wyjaśnienie oraz link do miejsca, w którym możesz powtórzyć temat."
+/>

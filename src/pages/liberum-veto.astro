@@ -1,0 +1,146 @@
+---
+import {
+  pogłębieniePojecRelated,
+  postanowieniaParentRelated,
+  todaySections,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+
+const related = [
+  postanowieniaParentRelated,
+  ...pogłębieniePojecRelated.filter((item) => item.href !== "/liberum-veto"),
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="liberum-veto"
+  title="Liberum veto i koniec paraliżu sejmu"
+  navLabel="Liberum veto"
+  eyebrow="Pojęcie w pogłębieniu"
+  description="Wyjaśnienie liberum veto: czym było, dlaczego osłabiało Rzeczpospolitą i jak Konstytucja 3 Maja zastąpiła je zasadą większości."
+  lead="Liberum veto było prawem jednego posła do zerwania obrad sejmu. Konstytucja 3 Maja odrzucała ten mechanizm i wprowadzała zasadę decyzji większością głosów."
+  quickQuestion="Dlaczego jedno weto mogło być groźniejsze niż długa kłótnia polityczna?"
+  conceptTerm="Liberum veto"
+  conceptDefinition="Prawo jednego posła do zerwania sejmu i unieważnienia jego decyzji."
+  related={related}
+  readingTopic="Najkrócej"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najkrócej">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Liberum veto powstało jako skrajna forma ochrony jednomyślności szlacheckiej, ale z czasem stało się symbolem paraliżu państwa. Jeśli jeden poseł mógł zatrzymać cały sejm, państwo miało problem z podatkami, wojskiem, reformami i szybkim reagowaniem na zagrożenia."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Konstytucja 3 Maja nie próbowała naprawiać veta drobną korektą. Odrzucała je jako mechanizm sprzeczny ze sprawnym państwem i stawiała na decyzje większością głosów."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        title="Do zapamiętania"
+        body="Zniesienie liberum veto było warunkiem sprawniejszego sejmu. Bez tego reforma państwa mogła zostać zablokowana przez pojedynczy sprzeciw."
+      />
+    </ContentSection>
+    <ContentSection title="Przed konstytucją i po niej">
+      <ComparisonTable
+        table={{
+          columns: ["Obszar", "Przed reformą", "Po reformie"],
+          rows: [
+            [
+              "Zasada decyzji",
+              "jednomyślność mogła blokować obrady",
+              "decyzje większością głosów",
+            ],
+            [
+              "Skutek polityczny",
+              "łatwy paraliż sejmu",
+              "większa zdolność do uchwalania prawa",
+            ],
+            [
+              "Bezpieczeństwo państwa",
+              "większa podatność na naciski i obstrukcję",
+              "silniejszy mechanizm podejmowania decyzji",
+            ],
+          ],
+        }}
+      />
+    </ContentSection>
+    <ContentSection title="Fragment źródłowy">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="W artykule VI konstytucja mówiła, że decyzje powinny zapadać większością głosów. Ten zapis był odpowiedzią na dawną praktykę zrywania obrad."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Warto zauważyć, że chodziło nie tylko o technikę głosowania. Zmiana dotyczyła całej filozofii państwa: wspólnota polityczna miała być zdolna do decyzji nawet wtedy, gdy nie wszyscy się zgadzają."
+          />
+        </p>
+      </div>
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="wszystko i wszędzie większością głosów decydowanem być powinno"
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Czego nie upraszczać">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Nie każde głosowanie większością jest automatycznie dobre, a każda jednomyślność zła. Problemem liberum veto była możliwość całkowitego zablokowania sejmu i unieważnienia pracy wielu osób przez jeden sprzeciw."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="W odpowiedzi szkolnej najlepiej połączyć liberum veto z kryzysem państwa, Sejmem Wielkim i postanowieniami konstytucji. Wtedy widać, że to nie była ciekawostka proceduralna, tylko jeden z kluczy do zrozumienia reformy."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Jak użyć w odpowiedzi">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja znosiła liberum veto, ponieważ reformatorzy chcieli zakończyć paraliż sejmu. Od tej pory decyzje miały zapadać większością głosów, co miało wzmocnić sprawność państwa."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title={todaySections.liberumVeto.title}>
+      {
+        todaySections.liberumVeto.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.liberumVeto.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.liberumVeto.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.liberumVeto.callout.variant}
+            label={todaySections.liberumVeto.callout.label}
+            title={todaySections.liberumVeto.callout.title}
+            body={todaySections.liberumVeto.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

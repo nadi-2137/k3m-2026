@@ -1,0 +1,123 @@
+---
+import { todaySections, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+
+const related = [
+  {
+    title: "Losy dokumentu",
+    text: "Co stało się po 3 maja 1791 roku i gdzie są oryginały.",
+    href: "/losy-konstytucji-3-maja",
+  },
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="znaczenie-konstytucji-3-maja"
+  title="Znaczenie Konstytucji 3 Maja"
+  navLabel="Znaczenie"
+  eyebrow="Krótko obowiązywała, długo inspirowała"
+  description="Dlaczego Konstytucja 3 Maja stała się symbolem nowoczesnego państwa, pamięci narodowej i dziedzictwa europejskiego?"
+  lead="Konstytucja 3 Maja jest ważna nie tylko dlatego, że była nowoczesnym dokumentem prawnym. Jest ważna także dlatego, że stała się symbolem troski o państwo w chwili zagrożenia."
+  quickQuestion="Jak dokument prawny może zmienić się w symbol narodowy?"
+  conceptTerm="Dziedzictwo"
+  conceptDefinition="To, co pozostaje ważne dla kolejnych pokoleń: pamięć, symbole, święta, źródła i wartości."
+  related={related}
+  readingTopic="Znaczenie historyczne"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Znaczenie historyczne">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Na poziomie ustrojowym Konstytucja 3 Maja była próbą budowy sprawniejszego państwa. Miała pomóc podejmować decyzje, lepiej organizować władzę, ograniczyć wpływ obcych mocarstw i wzmocnić suwerenność Rzeczypospolitej."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Była pierwszą nowoczesną konstytucją w Europie i drugą na świecie. Ten fakt pomaga zrozumieć, że reformatorzy nie tylko reagowali na kryzys, ale też myśleli językiem nowoczesnego państwa."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Znaczenie symboliczne">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Po upadku konstytucji i rozbiorach dokument przestał działać jako prawo, ale zaczął działać jako idea. W XIX wieku przypominał, że Polacy potrafili stworzyć nowoczesny projekt państwa i myśleć o polityce w kategoriach dobra wspólnego."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dlatego historia konstytucji nie kończy się w 1792 lub 1793 roku. Trwa dalej w pamięci zbiorowej, obchodach, literaturze, malarstwie, edukacji i świętach państwowych."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Święto i współczesne wyróżnienia">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Święto 3 maja ustanowiono w 1919 roku po odzyskaniu niepodległości. Po okresie PRL przywrócono je w 1990 roku."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Współcześnie znaczenie konstytucji potwierdzają także wyróżnienia dziedzictwa: rękopisy zostały wpisane na Polską Listę Krajową Programu UNESCO Pamięć Świata i wyróżnione Znakiem Dziedzictwa Europejskiego."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection
+      title="Czy przegrana reforma może być sukcesem historycznym?"
+    >
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Tak, jeśli zostawia po sobie trwały wzór myślenia i pamięć, która inspiruje kolejne pokolenia. Konstytucja nie uratowała Rzeczypospolitej przed rozbiorami, ale pokazała, że istniał projekt naprawy państwa i odpowiedzialnej reformy."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        body="Dlatego mówimy o niej jednocześnie jako o dokumencie prawnym, projekcie politycznym i symbolu."
+      />
+    </ContentSection>
+    <ContentSection title="Uwaga na uproszczenie">
+      <Callout
+        className="mt-6"
+        variant="warning"
+        title="Symbol nie zastępuje historii"
+        body="Konstytucja 3 Maja jest ważnym symbolem, ale warto pamiętać także o jej konkretnych zapisach, ograniczeniach, przeciwnikach i przyczynach politycznej klęski reform."
+      />
+    </ContentSection>
+    <ContentSection title={todaySections.znaczenie.title}>
+      {
+        todaySections.znaczenie.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.znaczenie.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.znaczenie.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.znaczenie.callout.variant}
+            label={todaySections.znaczenie.callout.label}
+            title={todaySections.znaczenie.callout.title}
+            body={todaySections.znaczenie.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

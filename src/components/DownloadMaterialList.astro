@@ -1,0 +1,71 @@
+---
+import Icon from "./Icon.astro";
+import type { DownloadMaterial } from "../data/site";
+import { downloadMaterials } from "../data/site";
+import { withBase } from "../utils/base";
+
+const materials = downloadMaterials satisfies DownloadMaterial[];
+---
+
+<section
+  class="k3m-section k3m-section--bordered"
+  aria-labelledby="gotowe-materialy"
+>
+  <p class="k3m-label">Gotowe materiały</p>
+  <h2 id="gotowe-materialy" class="k3m-h2 mt-3">Wybierz materiał</h2>
+  <p class="k3m-body mt-4">
+    Przy każdym materiale możesz pobrać gotowy PDF albo otworzyć wersję do
+    druku. Oba warianty mają ten sam zakres treści.
+  </p>
+
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    {
+      materials.map((material) => (
+        <article class="k3m-card k3m-content-card k3m-content-card--download">
+          <span class="k3m-content-card__top">
+            <Icon name="download" />
+            <span class="k3m-content-card__label">PDF i druk</span>
+          </span>
+          <h3 class="k3m-content-card__title">{material.title}</h3>
+          <p class="k3m-content-card__text">{material.description}</p>
+          <dl class="k3m-content-card__details">
+            <div>
+              <dt>Format</dt>
+              <dd>{material.format}</dd>
+            </div>
+            <div>
+              <dt>Objętość</dt>
+              <dd>{material.extent}</dd>
+            </div>
+            <div>
+              <dt>Poziom</dt>
+              <dd>{material.level}</dd>
+            </div>
+            <div>
+              <dt>Czas</dt>
+              <dd>{material.time}</dd>
+            </div>
+          </dl>
+          <p class="k3m-content-card__remember">
+            <strong>Gotowe:</strong>
+            <span>PDF oraz widok do druku.</span>
+          </p>
+          <div class="mt-1 flex flex-wrap gap-3">
+            <a
+              class="k3m-button k3m-button--primary"
+              href={withBase(`/pdfs/${material.pdfFileName}`)}
+            >
+              Pobierz PDF
+            </a>
+            <a
+              class="k3m-button k3m-button--secondary"
+              href={withBase(`/do-pobrania/${material.slug}`)}
+            >
+              Otwórz do druku
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

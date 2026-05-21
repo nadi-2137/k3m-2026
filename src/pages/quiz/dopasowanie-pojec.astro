@@ -1,0 +1,15 @@
+---
+import QuizModePage from "../../components/QuizModePage.astro";
+import { quizQuestionsByType } from "../../data/site";
+---
+
+<QuizModePage
+  title="Quiz: dopasowanie pojęć"
+  eyebrow="Pojęcie i wyjaśnienie"
+  description="Quiz z dopasowywaniem pojęć, osób, wydarzeń i postanowień Konstytucji 3 Maja."
+  lead="Ten tryb jest najlepszy do powtórki słownika. Dopasowujesz pojęcia do sensu, skutku albo przykładu użycia w kontekście konstytucji."
+  questions={quizQuestionsByType.matching}
+  currentHref="/quiz/dopasowanie-pojec"
+  quizTitle="Dopasuj pojęcia"
+  quizIntro="Dla każdego pojęcia wybierz właściwe wyjaśnienie. Kolejność pytań i odpowiedzi w listach jest losowa."
+/>

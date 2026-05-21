@@ -1,0 +1,148 @@
+---
+import {
+  pogłębieniePojecRelated,
+  postanowieniaParentRelated,
+  todaySections,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = [
+  postanowieniaParentRelated,
+  ...pogłębieniePojecRelated.filter((item) => item.href !== "/chlopi"),
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="chlopi"
+  title="Chłopi w Konstytucji 3 Maja"
+  navLabel="Chłopi"
+  eyebrow="Pojęcie w pogłębieniu"
+  description="Wyjaśnienie zapisów o chłopach w Konstytucji 3 Maja: opieka prawa i rządu, znaczenie symboliczne oraz brak zniesienia pańszczyzny."
+  lead="Konstytucja 3 Maja obejmowała chłopów opieką prawa i rządu krajowego. Był to ważny krok, ale nie oznaczał zniesienia pańszczyzny ani pełnej wolności chłopów."
+  quickQuestion="Dlaczego zapis o opiece prawa był ważny, choć nie rozwiązywał całej sprawy chłopskiej?"
+  conceptTerm="Chłopi"
+  conceptDefinition="Najliczniejsza grupa społeczna pracująca na roli, w konstytucji nazwana ludem rolniczym."
+  related={related}
+  readingTopic="Najkrócej"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najkrócej">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Artykuł IV konstytucji mówił o ludzie rolniczym, czyli chłopach. Autorzy uznawali ich za najliczniejszą część narodu i obejmowali opieką prawa oraz rządu."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="To był ważny zapis, bo chłopi przestawali być wyłącznie sprawą prywatnych relacji z właścicielem ziemi. Państwo zaczynało dostrzegać ich jako grupę wymagającą ochrony. Nie była to jednak pełna reforma społeczna."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="warning"
+        title="Najczęstsza pułapka"
+        body="Konstytucja 3 Maja nie zniosła pańszczyzny. Poprawniej mówić: objęła chłopów opieką prawa i rządu, ale nie dała im pełnej wolności."
+      />
+    </ContentSection>
+    <ContentSection title="Co zmieniała, a czego nie">
+      <ContentTable
+        columns={[
+          "Sprawa",
+          "Co zmieniała konstytucja?",
+          "Czego nie rozwiązywała?",
+        ]}
+        rows={[
+          [
+            "Status chłopów",
+            "uznawała ich za ważną część narodu",
+            "nie dawała pełnej równości politycznej",
+          ],
+          [
+            "Ochrona",
+            "obejmowała opieką prawa i rządu",
+            "nie tworzyła jeszcze pełnego systemu praw chłopskich",
+          ],
+          [
+            "Pańszczyzna",
+            "nieco zmieniała sposób myślenia o zależnościach",
+            "nie znosiła obowiązkowej pracy na rzecz pana",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Fragment źródłowy">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Sformułowanie o opiece prawa i rządu krajowego jest jednym z najważniejszych zdań w dyskusji o chłopach. Pokazuje zmianę języka: chłopi zostają wpisani w porządek państwowy."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Równocześnie ten fragment trzeba czytać ostrożnie. Nie ma w nim zniesienia pańszczyzny, pełnego uwłaszczenia ani równości obywatelskiej. To krok naprzód, ale krok ograniczony."
+          />
+        </p>
+      </div>
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="lud rolniczy [...] pod opiekę prawa i rządu krajowego przyjmujemy"
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Dlaczego zapis był ważny">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Chłopi stanowili najliczniejszą część społeczeństwa. Państwo, które chciało się reformować, nie mogło całkowicie pomijać ich sytuacji. Artykuł IV nie rozwiązywał całego problemu, ale zmieniał ramę myślenia o chłopach."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="To dobry przykład napięcia w Konstytucji 3 Maja: była nowoczesna i odważna, ale jednocześnie ograniczona przez realia społeczne oraz polityczne końca XVIII wieku."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Jak użyć w odpowiedzi">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja obejmowała chłopów opieką prawa i rządu krajowego, co było ważnym krokiem w stronę dostrzeżenia ich przez państwo. Nie znosiła jednak pańszczyzny ani nie dawała chłopom pełnej wolności."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title={todaySections.chlopi.title}>
+      {
+        todaySections.chlopi.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.chlopi.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.chlopi.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.chlopi.callout.variant}
+            label={todaySections.chlopi.callout.label}
+            title={todaySections.chlopi.callout.title}
+            body={todaySections.chlopi.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

@@ -1,0 +1,232 @@
+---
+import {
+  sourceArchiveLinks,
+  sourceEducationLinks,
+  sourceMediaLinks,
+  sourceStudyLinks,
+  sourceTextLinks,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import DownloadCard from "../components/DownloadCard.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="zrodla"
+  title="Źródła i bibliografia"
+  navLabel="Źródła"
+  eyebrow="Czytaj dalej"
+  description="Najważniejsze źródła do nauki o Konstytucji 3 Maja: Biblioteka Sejmowa, AGAD, Archiwa Państwowe, Zamek Królewski, ZPE i opracowania."
+  lead="Rzetelny serwis o konstytucji powinien prowadzić od prostego wyjaśnienia do źródeł. Tu zbieramy miejsca, od których warto zacząć dalsze czytanie."
+  quickQuestion="Które źródło jest najlepsze do pracy z rękopisem?"
+  conceptTerm="Bibliografia"
+  conceptDefinition="Lista źródeł i opracowań, które pozwalają sprawdzić oraz pogłębić informacje."
+  related={related}
+  readingTopic="Jak korzystać ze źródeł"
+  showSidebar={false}
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Jak korzystać ze źródeł">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Najpierw sięgnij po tekst źródłowy, potem po archiwalia i skany, a dopiero później po opracowania. Taka kolejność pomaga odróżnić dokument z epoki od komentarza historycznego."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="W opisach poniżej rozdzielamy źródła według roli: tekst, archiwalia, edukacja, opracowania oraz ilustracje. Dzięki temu uczeń wie, czy otwiera samą konstytucję, materiał do lekcji, czy naukowe pogłębienie tematu."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Tekst źródłowy">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Tu zaczyna się praca z dokumentem. Biblioteka Sejmowa jest najlepszym punktem odniesienia dla tekstu, a Wikiźródła mogą pomóc jako szybka transkrypcja pomocnicza."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          sourceTextLinks.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+    <ContentSection title="Archiwalia i skany">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Te źródła prowadzą do rękopisów, opisów archiwalnych, sygnatur i informacji o dziedzictwie dokumentu. Są najważniejsze, gdy chcemy pokazać konstytucję jako zachowany, materialny ślad historii."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          sourceArchiveLinks.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+    <ContentSection title="Materiały edukacyjne">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="To linki najbardziej praktyczne dla lekcji: scenariusze, karty pracy, zadania, filmy i syntetyczne opracowania dla uczniów."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          sourceEducationLinks.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+    <ContentSection title="Opracowania i kontekst">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Ta część jest potrzebna do pogłębienia tematu: struktury konstytucji, idei ustrojowych, znaczenia święta i późniejszej pamięci historycznej."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          sourceStudyLinks.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+    <ContentSection title="Ilustracje i multimedia">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Materiały wizualne traktujemy osobno, bo sama dostępność obrazu w internecie nie wystarcza. Potrzebny jest opis autora, źródła, statusu prawnego i lokalnej kopii użytej w serwisie."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          sourceMediaLinks.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+    <ContentSection title="Status weryfikacji">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Linki w tej sekcji zostały sprawdzone 19 maja 2026 roku. Data przy źródle mówi, kiedy ostatnio upewniliśmy się, że adres prowadzi do właściwego materiału."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Przy skanach kierujemy możliwie blisko konkretnego przekazu: do karty skanu, strony prezentacji AGAD albo PDF-u z sygnaturami, jeśli instytucja nie udostępnia stabilnego adresu dla pojedynczego rękopisu."
+          />
+        </p>
+      </div>
+      <ContentTable
+        columns={["Kategoria", "Po co ją otwierać?", "Najlepszy moment użycia"]}
+        rows={[
+          [
+            "Tekst źródłowy",
+            "żeby cytować samą Ustawę Rządową",
+            "analiza fragmentu i akordeon artykułów",
+          ],
+          [
+            "Archiwalia i skany",
+            "żeby zobaczyć rękopis, sygnaturę i los dokumentu",
+            "lekcja o źródłach i zachowanych egzemplarzach",
+          ],
+          [
+            "Materiały edukacyjne",
+            "żeby skorzystać z gotowych zadań i scenariuszy",
+            "przygotowanie lekcji lub powtórki",
+          ],
+          [
+            "Opracowania",
+            "żeby pogłębić interpretację i kontekst",
+            "starsze klasy, odpowiedź rozszerzona, prezentacja",
+          ],
+          [
+            "Ilustracje",
+            "żeby wiedzieć, skąd pochodzi obraz i jak można go podpisać",
+            "hero, portrety, plansze i materiały drukowane",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Licencje lokalnych ilustracji">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Obraz Jana Matejki jest serwowany lokalnie z katalogu projektu, a jego strona opisowa Wikimedia Commons wskazuje domenę publiczną / Public Domain Mark."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Portrety Stanisława Augusta Poniatowskiego, Ignacego Potockiego, Hugona Kołłątaja i Stanisława Małachowskiego są lokalnymi kopiami plików z Wikimedia Commons opisanych jako domena publiczna / PD-Art."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Logo i favikona używają herbu Rzeczypospolitej Obojga Narodów z Wikimedia Commons; przy dalszym wykorzystaniu trzeba zachować atrybucję autora Olek Remesz / Orem i warunki CC BY-SA wskazane na stronie pliku."
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+    <ContentSection title="Pełniejsze dane bibliograficzne">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text='Andrzej Dziadzio, "Konstytucja 3 Maja 1791 roku na tle koncepcji ustrojowych oświecenia", repozytorium UAFM - opracowanie przydatne do struktury dokumentu i koncepcji ustrojowych.'
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text='Jerzy Skowronek, "Tradycje Konstytucji 3 Maja w życiu narodu i państwa polskiego", Niepodległość i Pamięć 7/1 (16), 2000, s. 25-45 - opracowanie przydatne do sekcji o znaczeniu i pamięci.'
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+  </div>
+</ContentPageLayout>

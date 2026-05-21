@@ -1,0 +1,159 @@
+---
+import type { Card } from "../data/site";
+import { timeline } from "../data/site";
+import Icon from "./Icon.astro";
+import SidebarBlock from "./SidebarBlock.astro";
+import Timeline from "./Timeline.astro";
+import { withBase } from "../utils/base";
+
+type Props = {
+  quickQuestions: string[];
+  concept: {
+    term: string;
+    definition: string;
+  };
+  contextLinks?: Card[];
+  showTimeline?: boolean;
+};
+
+const {
+  quickQuestions,
+  concept,
+  contextLinks = [],
+  showTimeline = true,
+} = Astro.props;
+const normalizedQuestions =
+  quickQuestions.length > 0
+    ? quickQuestions
+    : ["Co warto zapamiętać z tej podstrony?"];
+---
+
+<aside class="lg:self-start" data-sidebar>
+  <SidebarBlock title="Konstytucja w skrócie" open>
+    <dl class="k3m-fact-list k3m-fact-list--responsive mt-4">
+      <div class="k3m-fact-list__item">
+        <Icon name="calendar" />
+        <dt>Data</dt>
+        <dd>3 maja 1791</dd>
+      </div>
+      <div class="k3m-fact-list__item">
+        <Icon name="landmark" />
+        <dt>Miejsce</dt>
+        <dd>Warszawa, Zamek Królewski</dd>
+      </div>
+      <div class="k3m-fact-list__item">
+        <Icon name="users" />
+        <dt>Uchwalił</dt>
+        <dd>Sejm Wielki</dd>
+      </div>
+      <div class="k3m-fact-list__item">
+        <Icon name="scale" />
+        <dt>Cel</dt>
+        <dd>naprawa i wzmocnienie państwa</dd>
+      </div>
+    </dl>
+  </SidebarBlock>
+
+  {
+    showTimeline && (
+      <SidebarBlock title="Krótka oś czasu">
+        <div class="mt-4">
+          <Timeline events={timeline.slice(1, 8)} variant="sidebar" />
+        </div>
+        <a
+          class="k3m-link mt-4 inline-block text-sm"
+          href={withBase("/os-czasu")}
+        >
+          Pełna oś czasu
+        </a>
+      </SidebarBlock>
+    )
+  }
+
+  <SidebarBlock title="Ważne pojęcie" variant="concept">
+    <p class="k3m-sidebar-concept__term">{concept.term}</p>
+    <p class="k3m-sidebar-concept__definition">{concept.definition}</p>
+  </SidebarBlock>
+
+  <SidebarBlock title="Pytanie do przemyślenia" variant="question">
+    <div
+      data-sidebar-question-rotator
+      data-questions={JSON.stringify(normalizedQuestions)}
+    >
+      <p class="k3m-sidebar-question" aria-live="polite" data-sidebar-question>
+        {normalizedQuestions[0]}
+      </p>
+      {
+        normalizedQuestions.length > 1 && (
+          <button
+            class="k3m-link mt-4 text-sm"
+            type="button"
+            data-sidebar-question-next
+          >
+            Kolejne pytanie
+          </button>
+        )
+      }
+    </div>
+    <a class="k3m-link mt-4 inline-block text-sm" href={withBase("/quiz")}>
+      Przejdź do quizu
+    </a>
+  </SidebarBlock>
+
+  {
+    contextLinks.length > 0 && (
+      <SidebarBlock title="W tym temacie">
+        <ul class="mt-4 grid gap-3">
+          {contextLinks.map((link) => (
+            <li class="k3m-sidebar-context-item">
+              <a class="k3m-link text-sm" href={withBase(link.href ?? "#")}>
+                {link.title}
+              </a>
+              <p>{link.text}</p>
+            </li>
+          ))}
+        </ul>
+      </SidebarBlock>
+    )
+  }
+</aside>
+
+<script>
+  const sidebars = document.querySelectorAll("[data-sidebar]");
+  const desktopQuery = window.matchMedia("(min-width: 1024px)");
+
+  const syncSidebarBlocks = () => {
+    sidebars.forEach((sidebar) => {
+      const blocks = Array.from(
+        sidebar.querySelectorAll<HTMLDetailsElement>("[data-sidebar-block]"),
+      );
+      blocks.forEach((block, index) => {
+        block.open = desktopQuery.matches || index === 0;
+      });
+    });
+  };
+
+  syncSidebarBlocks();
+  desktopQuery.addEventListener("change", syncSidebarBlocks);
+
+  document
+    .querySelectorAll<HTMLElement>("[data-sidebar-question-rotator]")
+    .forEach((rotator) => {
+      const question = rotator.querySelector<HTMLElement>(
+        "[data-sidebar-question]",
+      );
+      const button = rotator.querySelector<HTMLButtonElement>(
+        "[data-sidebar-question-next]",
+      );
+      const questions = JSON.parse(
+        rotator.dataset.questions ?? "[]",
+      ) as string[];
+      let index = 0;
+
+      button?.addEventListener("click", () => {
+        if (!question || questions.length < 2) return;
+        index = (index + 1) % questions.length;
+        question.textContent = questions[index];
+      });
+    });
+</script>

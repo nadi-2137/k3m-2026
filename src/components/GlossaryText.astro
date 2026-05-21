@@ -1,0 +1,146 @@
+---
+import { glossaryEntries } from "../data/site";
+import GlossaryTooltip from "./GlossaryTooltip.astro";
+
+type Props = {
+  text: string;
+  maxTooltips?: number;
+};
+
+const { text, maxTooltips = 4 } = Astro.props;
+
+const definitions = new Map(
+  glossaryEntries.map((entry) => [entry.term, entry.definition]),
+);
+
+const aliases: Array<{ phrase: string; term: string }> = [
+  { phrase: "Konstytucja 3 Maja", term: "Konstytucja" },
+  { phrase: "Konstytucji 3 Maja", term: "Konstytucja" },
+  { phrase: "konstytucję", term: "Konstytucja" },
+  { phrase: "konstytucją", term: "Konstytucja" },
+  { phrase: "konstytucji", term: "Konstytucja" },
+  { phrase: "Ustawy Rządowej", term: "Ustawa Rządowa" },
+  { phrase: "Ustawą Rządową", term: "Ustawa Rządowa" },
+  { phrase: "Sejmu Wielkiego", term: "Sejm Wielki" },
+  { phrase: "Sejm Czteroletni", term: "Sejm Wielki" },
+  { phrase: "Sejmu Czteroletniego", term: "Sejm Wielki" },
+  { phrase: "Rzeczpospolita", term: "Rzeczpospolita Obojga Narodów" },
+  { phrase: "Rzeczypospolitej", term: "Rzeczpospolita Obojga Narodów" },
+  { phrase: "Rzeczpospolitą", term: "Rzeczpospolita Obojga Narodów" },
+  { phrase: "wolnej elekcji", term: "Wolna elekcja" },
+  { phrase: "monarchii konstytucyjnej", term: "Monarchia konstytucyjna" },
+  { phrase: "trójpodziału władzy", term: "Trójpodział władzy" },
+  { phrase: "Straży Praw", term: "Straż Praw" },
+  { phrase: "mieszczan", term: "Mieszczanie" },
+  { phrase: "chłopów", term: "Chłopi" },
+  { phrase: "pańszczyzny", term: "Pańszczyzna" },
+  { phrase: "rozbioru", term: "Rozbiór" },
+  { phrase: "rozbiorów", term: "Rozbiór" },
+  { phrase: "konfederacji", term: "Konfederacja" },
+  { phrase: "Targowicy", term: "Targowica" },
+  { phrase: "stronnictwa patriotycznego", term: "Stronnictwo patriotyczne" },
+  { phrase: "preambuły", term: "Preambuła" },
+];
+
+const escapeRegex = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const candidateByPhrase = new Map<
+  string,
+  { term: string; definition: string }
+>();
+
+[
+  ...aliases,
+  ...glossaryEntries.map((entry) => ({ phrase: entry.term, term: entry.term })),
+]
+  .filter((candidate) => definitions.has(candidate.term))
+  .sort((a, b) => b.phrase.length - a.phrase.length)
+  .forEach((candidate) => {
+    const key = candidate.phrase.toLocaleLowerCase("pl-PL");
+    if (!candidateByPhrase.has(key)) {
+      candidateByPhrase.set(key, {
+        term: candidate.term,
+        definition: definitions.get(candidate.term) ?? "",
+      });
+    }
+  });
+
+const pattern = Array.from(candidateByPhrase.keys())
+  .sort((a, b) => b.length - a.length)
+  .map(escapeRegex)
+  .join("|");
+const matcher = pattern
+  ? new RegExp(`(?<![\\p{L}\\p{N}])(${pattern})(?![\\p{L}\\p{N}])`, "giu")
+  : undefined;
+
+type TextPart =
+  | { type: "text"; text: string }
+  | { type: "tooltip"; text: string; term: string; definition: string };
+
+const parts: TextPart[] = [];
+const seenTerms = new Set<string>();
+let lastIndex = 0;
+let tooltipCount = 0;
+let hash = 0;
+
+for (const character of text) {
+  hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+}
+
+const textHash = hash.toString(36);
+
+if (matcher) {
+  for (const match of text.matchAll(matcher)) {
+    const matchedText = match[0];
+    const index = match.index ?? 0;
+    const candidate = candidateByPhrase.get(
+      matchedText.toLocaleLowerCase("pl-PL"),
+    );
+
+    if (
+      !candidate ||
+      tooltipCount >= maxTooltips ||
+      seenTerms.has(candidate.term)
+    ) {
+      continue;
+    }
+
+    if (index > lastIndex) {
+      parts.push({ type: "text", text: text.slice(lastIndex, index) });
+    }
+
+    parts.push({
+      type: "tooltip",
+      text: matchedText,
+      term: candidate.term,
+      definition: candidate.definition,
+    });
+    seenTerms.add(candidate.term);
+    tooltipCount += 1;
+    lastIndex = index + matchedText.length;
+  }
+}
+
+if (lastIndex < text.length) {
+  parts.push({ type: "text", text: text.slice(lastIndex) });
+}
+
+if (parts.length === 0) {
+  parts.push({ type: "text", text });
+}
+---
+
+{
+  parts.map((part, index) =>
+    part.type === "tooltip" ? (
+      <GlossaryTooltip
+        term={part.text}
+        definition={part.definition}
+        idSuffix={`${textHash}-${index}`}
+      />
+    ) : (
+      part.text
+    ),
+  )
+}

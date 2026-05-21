@@ -1,0 +1,386 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+import type { DownloadMaterial } from "../../data/site";
+import {
+  beforeAfter,
+  downloadMaterials,
+  glossaryEntries,
+  quizQuestions,
+  timeline,
+} from "../../data/site";
+import { withBase } from "../../utils/base";
+
+export function getStaticPaths() {
+  return downloadMaterials.map((material) => ({
+    params: { slug: material.slug },
+    props: { material },
+  }));
+}
+
+const { material } = Astro.props as { material: DownloadMaterial };
+const printableTimeline = timeline.filter((event) =>
+  ["1772", "1788", "1791-05-03", "1792", "1793", "1795"].includes(
+    event.datetime,
+  ),
+);
+const printableQuestions = quizQuestions;
+const printableGlossary = glossaryEntries.slice(0, 14);
+const workbookTasks = [
+  [
+    "1. Źródło",
+    "Przeczytaj fragment preambuły i wypisz dwa cele konstytucji.",
+    "........................................................................................",
+  ],
+  [
+    "2. Przed i po",
+    "Wybierz trzy obszary z tabeli przed/po i zapisz, co się zmieniło.",
+    "........................................................................................",
+  ],
+  [
+    "3. Pojęcie",
+    "Wyjaśnij jednym zdaniem liberum veto.",
+    "........................................................................................",
+  ],
+  [
+    "4. Uproszczenie",
+    "Dokończ: Konstytucja objęła chłopów opieką prawa, ale...",
+    "........................................................................................",
+  ],
+  [
+    "5. Wniosek",
+    "Napisz 3 zdania: dlaczego konstytucja była ważna mimo krótkiego obowiązywania?",
+    "........................................................................................",
+  ],
+];
+const presentationPlan = [
+  [
+    "1",
+    "Problem państwa",
+    "Rzeczpospolita była osłabiona, a I rozbiór pokazał potrzebę reform.",
+  ],
+  [
+    "2",
+    "Czym była Ustawa Rządowa",
+    "Konstytucja porządkowała ustrój i miała wzmocnić państwo.",
+  ],
+  [
+    "3",
+    "Najważniejsze zmiany",
+    "Liberum veto, trójpodział władzy, tron, miasta i chłopi.",
+  ],
+  [
+    "4",
+    "Twórcy",
+    "Król, Potocki, Kołłątaj, Małachowski oraz szersze zaplecze reform.",
+  ],
+  [
+    "5",
+    "Upadek reform",
+    "Targowica, wojna z Rosją i II rozbiór zatrzymały reformy.",
+  ],
+  [
+    "6",
+    "Znaczenie",
+    "Dokument stał się symbolem reform, odpowiedzialności i pamięci narodowej.",
+  ],
+];
+---
+
+<BaseLayout
+  title={`${material.title} | Do pobrania`}
+  description={material.description}
+>
+  <main class="k3m-container px-5 py-10 sm:px-8 lg:px-10">
+    <article class="k3m-print-material mx-auto max-w-[var(--k3m-reading)]">
+      <nav aria-label="Ścieżka" class="k3m-breadcrumb">
+        <a class="k3m-link" href={withBase("/")}>Start</a>
+        <span class="mx-2">/</span>
+        <a class="k3m-link" href={withBase("/do-pobrania")}>Do pobrania</a>
+        <span class="mx-2">/</span>
+        <span>{material.title}</span>
+      </nav>
+
+      <header class="k3m-card p-6 sm:p-8">
+        <p class="k3m-label">Do pobrania</p>
+        <h1 class="k3m-h1 mt-4">{material.title}</h1>
+        <p class="k3m-lead mt-5">{material.description}</p>
+        <dl class="k3m-content-card__details mt-6">
+          <div>
+            <dt>Format</dt>
+            <dd>{material.format}</dd>
+          </div>
+          <div>
+            <dt>Objętość</dt>
+            <dd>{material.extent}</dd>
+          </div>
+          <div>
+            <dt>Poziom</dt>
+            <dd>{material.level}</dd>
+          </div>
+          <div>
+            <dt>Czas</dt>
+            <dd>{material.time}</dd>
+          </div>
+        </dl>
+        <div class="k3m-print-actions mt-7 flex flex-wrap gap-3">
+          <a
+            class="k3m-button k3m-button--primary"
+            href={withBase(`/pdfs/${material.pdfFileName}`)}
+          >
+            Pobierz PDF
+          </a>
+          <button
+            class="k3m-button k3m-button--secondary"
+            type="button"
+            onclick="window.print()">Drukuj</button
+          >
+          <Button href="/do-pobrania" variant="secondary"
+            >Wróć do materiałów</Button
+          >
+        </div>
+      </header>
+
+      {
+        material.slug === "notatka" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">10 punktów do zapamiętania</h2>
+            <ol class="mt-6 grid gap-3">
+              {[
+                "Konstytucję 3 Maja uchwalono 3 maja 1791 roku.",
+                "Uchwalił ją Sejm Wielki, zwany też Sejmem Czteroletnim.",
+                "Była pierwszą nowoczesną konstytucją w Europie.",
+                "Miała naprawić ustrój i wzmocnić Rzeczpospolitą.",
+                "Znosiła liberum veto i wprowadzała decyzje większością głosów.",
+                "Wprowadzała trójpodział władzy.",
+                "Wzmacniała władzę wykonawczą króla i Straży Praw.",
+                "Włączała prawo o miastach i wzmacniała mieszczan.",
+                "Obejmowała chłopów opieką prawa, ale nie znosiła pańszczyzny.",
+                "Obowiązywała krótko, lecz stała się symbolem reform i troski o państwo.",
+              ].map((item) => (
+                <li>{item}</li>
+              ))}
+            </ol>
+            <div class="k3m-callout k3m-callout--exam mt-8">
+              <h2>Zdanie podsumowujące</h2>
+              <p>
+                Konstytucja 3 Maja była próbą naprawy państwa przez usprawnienie
+                sejmu, uporządkowanie władzy i ograniczone reformy społeczne.
+              </p>
+            </div>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "os-czasu" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">Najważniejsze daty</h2>
+            <table class="k3m-table mt-6 text-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Data</th>
+                  <th scope="col">Wydarzenie</th>
+                  <th scope="col">Znaczenie</th>
+                </tr>
+              </thead>
+              <tbody>
+                {printableTimeline.map((event) => (
+                  <tr>
+                    <th scope="row">
+                      <time datetime={event.datetime}>{event.date}</time>
+                    </th>
+                    <td>{event.title}</td>
+                    <td>{event.event}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "karta-pracy" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">Zadania</h2>
+            <table class="k3m-table mt-6 text-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Zadanie</th>
+                  <th scope="col">Polecenie</th>
+                  <th scope="col">Miejsce na odpowiedź</th>
+                </tr>
+              </thead>
+              <tbody>
+                {workbookTasks.map((row) => (
+                  <tr>
+                    <th scope="row">{row[0]}</th>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <section class="k3m-section k3m-section--bordered mt-10 pb-0">
+              <h2 class="k3m-h2">Podpowiedzi do sprawdzenia</h2>
+              <ul class="mt-5 grid gap-3">
+                <li>preambuła: dobro wspólne, wolność, ocalenie ojczyzny</li>
+                <li>liberum veto: prawo jednego posła do zerwania sejmu</li>
+                <li>chłopi: opieka prawa bez zniesienia pańszczyzny</li>
+                <li>znaczenie: reforma ustroju i symbol odpowiedzialności</li>
+              </ul>
+            </section>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "quiz" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">Pytania</h2>
+            <ol class="mt-6 grid gap-6">
+              {printableQuestions.map((question) => (
+                <li>
+                  <h2 class="k3m-print-item-title">{question.question}</h2>
+                  {"options" in question && (
+                    <ol class="mt-3 grid gap-2" type="A">
+                      {question.options.map((option) => (
+                        <li>{option}</li>
+                      ))}
+                    </ol>
+                  )}
+                  {"pairs" in question && (
+                    <ul class="mt-3 grid gap-2">
+                      {question.pairs.map((pair) => (
+                        <li>
+                          {pair.term}:
+                          ................................................
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ol>
+            <section class="k3m-section k3m-section--bordered mt-10 pb-0">
+              <h2 class="k3m-h2">Klucz odpowiedzi</h2>
+              <ol class="mt-5 grid gap-2">
+                {printableQuestions.map((question) => (
+                  <li>{question.answer}</li>
+                ))}
+              </ol>
+            </section>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "slownik" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">Pojęcia</h2>
+            <dl class="mt-6 grid gap-5">
+              {printableGlossary.map((entry) => (
+                <div class="k3m-card p-5">
+                  <dt class="k3m-print-item-title">{entry.term}</dt>
+                  <dd class="k3m-print-definition">{entry.definition}</dd>
+                  <dd class="k3m-print-example">Przykład: {entry.example}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "mini-plakat" && (
+          <section class="k3m-section k3m-section--bordered">
+            <div class="k3m-print-poster">
+              <p class="k3m-label">3 maja 1791</p>
+              <h2>Konstytucja 3 Maja</h2>
+              <p>
+                Pierwsza nowoczesna konstytucja w Europie i próba naprawy
+                Rzeczypospolitej.
+              </p>
+              <div>
+                {[
+                  "Zniesienie liberum veto",
+                  "Trójpodział władzy",
+                  "Wzmocnienie praw mieszczan",
+                ].map((item) => (
+                  <strong>{item}</strong>
+                ))}
+              </div>
+              <p>
+                Chłopi zostali objęci opieką prawa, ale pańszczyzna nie została
+                zniesiona. Reformy upadły po Targowicy i wojnie z Rosją, lecz
+                konstytucja stała się symbolem odpowiedzialności za państwo.
+              </p>
+            </div>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "przed-i-po" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">Porównanie ustroju</h2>
+            <table class="k3m-table mt-6 text-sm">
+              <thead>
+                <tr>
+                  {beforeAfter.columns.map((column) => (
+                    <th scope="col">{column}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {beforeAfter.rows.map((row) => (
+                  <tr>
+                    <th scope="row">{row[0]}</th>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        )
+      }
+
+      {
+        material.slug === "plan-prezentacji" && (
+          <section class="k3m-section k3m-section--bordered">
+            <h2 class="k3m-h2">Układ prezentacji</h2>
+            <table class="k3m-table mt-6 text-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Slajd</th>
+                  <th scope="col">Tytuł</th>
+                  <th scope="col">Co powiedzieć</th>
+                </tr>
+              </thead>
+              <tbody>
+                {presentationPlan.map((row) => (
+                  <tr>
+                    <th scope="row">{row[0]}</th>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <section class="k3m-section k3m-section--bordered mt-10 pb-0">
+              <h2 class="k3m-h2">Na koniec sprawdź</h2>
+              <ul class="mt-5 grid gap-3">
+                <li>Czy w prezentacji pada data 3 maja 1791 roku?</li>
+                <li>Czy wyjaśniasz przynajmniej trzy konkretne zmiany?</li>
+                <li>Czy mówisz także o ograniczeniach reformy?</li>
+                <li>Czy kończysz znaczeniem konstytucji po jej upadku?</li>
+              </ul>
+            </section>
+          </section>
+        )
+      }
+    </article>
+  </main>
+</BaseLayout>

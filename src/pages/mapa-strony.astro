@@ -1,0 +1,76 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { seoByHref, sitemapGroups, sitemapItems } from "../data/site";
+import { withBase } from "../utils/base";
+
+const pageSeo = seoByHref["/mapa-strony"];
+---
+
+<BaseLayout title={pageSeo.metaTitle} description={pageSeo.metaDescription}>
+  <main class="k3m-container px-5 py-10 sm:px-8 lg:px-10">
+    <article>
+      <nav aria-label="Ścieżka" class="k3m-breadcrumb">
+        <a class="k3m-link" href={withBase("/")}>Start</a>
+        <span class="mx-2">/</span>
+        <span>Mapa strony</span>
+      </nav>
+
+      <header class="k3m-card p-6 sm:p-8">
+        <p class="k3m-label">Nawigacja po serwisie</p>
+        <h1 class="k3m-h1 mt-4">Mapa strony</h1>
+        <p class="k3m-lead mt-6">
+          Wszystkie główne ścieżki, materiały, źródła i narzędzia w jednym
+          miejscu. Jeśli nie wiesz, od czego zacząć, wybierz najpierw główną
+          ścieżkę nauki.
+        </p>
+      </header>
+
+      <section class="k3m-section k3m-section--bordered">
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="k3m-card p-5">
+            <p class="k3m-label">Podstrony</p>
+            <p class="k3m-stat-card__value mt-3">{sitemapItems.length}</p>
+          </div>
+          <div class="k3m-card p-5">
+            <p class="k3m-label">Działy</p>
+            <p class="k3m-stat-card__value mt-3">{sitemapGroups.length}</p>
+          </div>
+          <div class="k3m-card p-5">
+            <p class="k3m-label">XML</p>
+            <a
+              class="k3m-link mt-4 inline-block"
+              href={withBase("/sitemap.xml")}
+            >
+              Otwórz sitemap.xml
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="space-y-2">
+        {
+          sitemapGroups.map((group) => (
+            <section class="k3m-section k3m-section--bordered">
+              <p class="k3m-label">Dział</p>
+              <h2 class="k3m-h2 mt-3">{group.title}</h2>
+              <p class="k3m-body mt-4">{group.description}</p>
+
+              <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {group.items.map((item) => (
+                  <a
+                    class="k3m-card k3m-sitemap-card p-5"
+                    href={withBase(item.href)}
+                  >
+                    <h3>{item.label}</h3>
+                    <p>{item.description}</p>
+                    <span>Przejdź do strony</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </article>
+  </main>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import ChronologyQuiz from "../../components/ChronologyQuiz.astro";
+import { timeline } from "../../data/site";
+import ContentPageLayout from "../../layouts/ContentPageLayout.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import GlossaryText from "../../components/GlossaryText.astro";
+
+const related = [
+  {
+    title: "Pytania interaktywne",
+    text: "Przejdź do głównego zestawu pytań z wyjaśnieniami.",
+    href: "/quiz/pytania",
+  },
+  {
+    title: "Oś czasu",
+    text: "Zobacz pełną oś wydarzeń od kryzysu do pamięci o konstytucji.",
+    href: "/os-czasu",
+  },
+  {
+    title: "Historia",
+    text: "Przypomnij sobie tło historyczne i Sejm Wielki.",
+    href: "/historia",
+  },
+];
+---
+
+<ContentPageLayout
+  slug="quiz/chronologia"
+  title="Quiz: zadanie chronologiczne"
+  navLabel="Chronologia"
+  eyebrow="Przyczyny i skutki"
+  description="Zadanie chronologiczne o Konstytucji 3 Maja: ułóż najważniejsze wydarzenia od I rozbioru do III rozbioru."
+  lead="Chronologia pomaga zobaczyć, że konstytucja nie była oderwaną datą. Była częścią ciągu wydarzeń: kryzysu państwa, reform, konfliktu i rozbiorów."
+  quickQuestion="Które wydarzenie było początkiem ciągu prowadzącego do reform?"
+  conceptTerm="Ciąg przyczyn i skutków"
+  conceptDefinition="Sposób myślenia o historii, w którym wydarzenia układają się w proces, a nie w przypadkową listę dat."
+  related={related}
+  readingTopic="Jak rozwiązywać zadanie"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Jak rozwiązywać zadanie">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Najpierw znajdź wydarzenie najwcześniejsze, potem moment reformy, a na końcu wydarzenia pokazujące jej załamanie. Nie chodzi tylko o daty, ale o zrozumienie, dlaczego kolejne wydarzenia następowały po sobie."
+          />
+        </p>
+      </div>
+    </ContentSection>
+  </div>
+
+  <ChronologyQuiz events={timeline} />
+</ContentPageLayout>

@@ -1,0 +1,33 @@
+---
+import { withBase } from "../utils/base";
+
+type Props = {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary";
+  className?: string;
+};
+
+const {
+  href,
+  type = "button",
+  variant = "primary",
+  className = "",
+} = Astro.props;
+const classes = ["k3m-button", `k3m-button--${variant}`, className]
+  .filter(Boolean)
+  .join(" ");
+const resolvedHref = href ? withBase(href) : undefined;
+---
+
+{
+  href ? (
+    <a class={classes} href={resolvedHref}>
+      <slot />
+    </a>
+  ) : (
+    <button class={classes} type={type}>
+      <slot />
+    </button>
+  )
+}

@@ -1,0 +1,65 @@
+{
+  "name": "k3m-2026",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Educational Astro website about the Polish Constitution of 3 May 1791.",
+  "license": "MIT",
+  "homepage": "https://nadia.luczak.org/k3m-2026/",
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": "24.15.0",
+    "pnpm": "10.33.4"
+  },
+  "volta": {
+    "node": "24.15.0",
+    "pnpm": "10.33.4"
+  },
+  "scripts": {
+    "dev": "cross-env SITE_URL=http://localhost:4321/ BASE_PATH=/ astro dev --port 4321",
+    "dev:root": "cross-env SITE_URL=http://localhost:4321/ BASE_PATH=/ astro dev --port 4321",
+    "dev:k3m": "cross-env SITE_URL=http://localhost:4321/ BASE_PATH=/k3m-2026 astro dev --port 4321",
+    "build": "cross-env SITE_URL=http://localhost/ BASE_PATH=/ astro build",
+    "build:local": "cross-env SITE_URL=http://localhost/ BASE_PATH=/ astro build",
+    "build:prod": "cross-env SITE_URL=https://nadia.luczak.org BASE_PATH=/k3m-2026 astro build",
+    "build:prod:zip": "pnpm build:prod && powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (Test-Path 'k3m-2026-prod.zip') { Remove-Item 'k3m-2026-prod.zip' -Force }; Compress-Archive -Path 'dist/*' -DestinationPath 'k3m-2026-prod.zip' -Force\"",
+    "preview": "cross-env SITE_URL=http://localhost/ BASE_PATH=/ astro preview",
+    "preview:k3m": "cross-env SITE_URL=https://nadia.luczak.org BASE_PATH=/k3m-2026 astro preview",
+    "check": "astro check",
+    "check:data": "node --experimental-strip-types scripts/validate-site.mjs",
+    "check:links": "node --experimental-strip-types scripts/validate-site.mjs",
+    "check:external-links": "node --experimental-strip-types scripts/validate-site.mjs --external",
+    "check:all": "pnpm check && pnpm check:data",
+    "pdf:generate": "cross-env BASE_PATH=/k3m-2026 node --experimental-strip-types scripts/generate-pdfs.mjs",
+    "pdf:build": "pnpm build:prod && pnpm pdf:generate && pnpm build:prod",
+    "lint": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:e2e": "playwright test tests/e2e",
+    "test:e2e:k3m": "playwright test -c playwright.k3m.config.ts",
+    "test:a11y": "playwright test tests/a11y",
+    "test:visual": "playwright test tests/visual",
+    "test:visual:update": "playwright test tests/visual --update-snapshots",
+    "audit:lighthouse": "pnpm build && node scripts/run-lighthouse.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/source-serif-4": "^5.2.9",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.3.3",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@axe-core/playwright": "^4.11.3",
+    "@playwright/test": "^1.60.0",
+    "chrome-launcher": "^1.2.1",
+    "cross-env": "^10.1.0",
+    "lighthouse": "^13.3.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6.0.3",
+    "zod": "^4.4.3"
+  }
+}

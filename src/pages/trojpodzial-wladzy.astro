@@ -1,0 +1,142 @@
+---
+import {
+  pogłębieniePojecRelated,
+  postanowieniaParentRelated,
+  todaySections,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = [
+  postanowieniaParentRelated,
+  ...pogłębieniePojecRelated.filter(
+    (item) => item.href !== "/trojpodzial-wladzy",
+  ),
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="trojpodzial-wladzy"
+  title="Trójpodział władzy w Konstytucji 3 Maja"
+  navLabel="Trójpodział"
+  eyebrow="Pojęcie w pogłębieniu"
+  description="Wyjaśnienie trójpodziału władzy w Konstytucji 3 Maja: sejm, król ze Strażą Praw i sądy jako trzy części ustroju."
+  lead="Trójpodział władzy oznaczał rozdzielenie zadań między władzę ustawodawczą, wykonawczą i sądowniczą. Dla Konstytucji 3 Maja był to jeden z najważniejszych znaków nowoczesnego ustroju."
+  quickQuestion="Po co dzielić władzę, skoro państwo ma działać szybko i sprawnie?"
+  conceptTerm="Trójpodział władzy"
+  conceptDefinition="Podział zadań państwa na tworzenie prawa, wykonywanie prawa i rozstrzyganie sporów."
+  related={related}
+  readingTopic="Najkrócej"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najkrócej">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Konstytucja 3 Maja porządkowała władzę przez wskazanie trzech części: ustawodawczej, wykonawczej i sądowniczej. Władza ustawodawcza należała do sejmu, wykonawcza do króla działającego w Straży Praw, a sądownicza do sądów."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Sens tej zmiany był prosty: państwo miało mieć jasny podział zadań. Nikt nie powinien skupiać całej władzy w jednym ręku, a instytucje powinny działać według określonych reguł."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        title="Do zapamiętania"
+        body="Trójpodział władzy nie oznaczał osłabienia państwa, ale uporządkowanie jego działania."
+      />
+    </ContentSection>
+    <ContentSection title="Trzy części ustroju">
+      <ContentTable
+        columns={["Władza", "Kto ją wykonywał?", "Po co?"]}
+        rows={[
+          [
+            "Ustawodawcza",
+            "sejm złożony z izby poselskiej i senatu",
+            "tworzenie prawa",
+          ],
+          [
+            "Wykonawcza",
+            "król działający w Straży Praw",
+            "wykonywanie ustaw i zarządzanie państwem",
+          ],
+          ["Sądownicza", "sądy", "rozstrzyganie sporów i stosowanie prawa"],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Fragment źródłowy">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Artykuł V konstytucji mówił wprost, że rząd narodu polskiego powinien składać się z trzech władz. To bardzo ważny fragment, bo pokazuje, że autorzy nie myśleli wyłącznie o jednej instytucji, ale o całej architekturze państwa."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dla ucznia najważniejsze jest rozróżnienie: sejm nie miał wykonywać wszystkiego, król nie miał rządzić absolutnie, a sądy miały być osobną częścią porządku prawnego."
+          />
+        </p>
+      </div>
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="trzy władze rząd narodu polskiego składać powinny"
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Dlaczego to było nowoczesne">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="W XVIII wieku idea podziału władz była kojarzona z nowoczesnym myśleniem o państwie i ograniczaniem samowoli. Konstytucja 3 Maja przejmowała ten język, ale dostosowywała go do realiów Rzeczypospolitej."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dlatego trójpodział władzy warto łączyć nie tylko z teorią, ale też z praktycznym problemem: jak sprawić, żeby państwo było sprawne, a jednocześnie nie stało się samowolne."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Jak użyć w odpowiedzi">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja wprowadzała trójpodział władzy: sejm miał stanowić prawo, król ze Strażą Praw miał je wykonywać, a sądy rozstrzygać spory. Dzięki temu państwo miało działać bardziej przejrzyście i nowocześnie."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title={todaySections.trojpodzial.title}>
+      {
+        todaySections.trojpodzial.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.trojpodzial.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.trojpodzial.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.trojpodzial.callout.variant}
+            label={todaySections.trojpodzial.callout.label}
+            title={todaySections.trojpodzial.callout.title}
+            body={todaySections.trojpodzial.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

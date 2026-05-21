@@ -1,0 +1,12 @@
+---
+import GlossaryTooltip from "./GlossaryTooltip.astro";
+
+type Props = {
+  term: string;
+  definition: string;
+};
+
+const { term, definition } = Astro.props;
+---
+
+<GlossaryTooltip term={term} definition={definition} />

@@ -1,0 +1,190 @@
+---
+import {
+  beforeAfter,
+  pogłębieniePojecRelated,
+  todaySections,
+  uproszczenieCalloutSection,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import DownloadCard from "../components/DownloadCard.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="postanowienia-konstytucji-3-maja"
+  title="Najważniejsze postanowienia Konstytucji 3 Maja"
+  navLabel="Postanowienia"
+  eyebrow="Co zmieniała Ustawa Rządowa"
+  description="Zobacz, jakie zmiany wprowadziła Konstytucja 3 Maja: trójpodział władzy, sejm, król, miasta, chłopi, religia i liberum veto."
+  lead="Konstytucja 3 Maja miała usprawnić działanie państwa, ograniczyć chaos polityczny i wzmocnić Rzeczpospolitą. Robiła to zarówno przez reformę władz, jak i przez zmiany społeczne."
+  quickQuestion="Która zmiana była ważniejsza: zniesienie liberum veto czy prawa dla mieszczan?"
+  conceptTerm="Trójpodział władzy"
+  conceptDefinition="Podział na władzę ustawodawczą, wykonawczą i sądowniczą. Artykuł V konstytucji wyraźnie porządkował ten układ."
+  related={related}
+  readingTopic="Władza i sejm"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Władza i sejm">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Konstytucja wyraźnie mówiła o podziale władz publicznych. Sejm był władzą prawodawczą i miał dwuizbową budowę: izbę poselską oraz senat pod prezydencją króla."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Najważniejszą zmianą parlamentarną było odejście od paraliżu. Decyzje miały zapadać większością głosów, a liberum veto, konfederacje i sejmy konfederackie zostały uznane za sprzeczne z duchem nowego prawa."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Król i Straż Praw">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Władza wykonawcza została powierzona królowi działającemu w radzie zwanej Strażą Praw. Nie oznaczało to absolutnej władzy monarchy. Król działał w systemie konstytucyjnym, a ministrowie ponosili odpowiedzialność polityczną przed sejmem."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Konstytucja odchodziła także od wolnej elekcji i wprowadzała następstwo dynastyczne, co miało zmniejszyć wpływ obcych mocarstw na wybór króla."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Miasta, chłopi i religia">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Prawo o miastach zostało włączone do konstytucji. Mieszczanie zyskali szersze prawa cywilne, możliwość nabywania ziemi i ograniczony wpływ na prace sejmu."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Chłopi zostali nazwani najliczniejszą częścią narodu i przyjęci pod opiekę prawa oraz rządu krajowego. To nie znosiło pańszczyzny, ale było ważną zmianą w sposobie myślenia o ich miejscu w państwie."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Konstytucja utrzymywała katolicyzm jako religię panującą, ale gwarantowała pokój w wierze i wolność innych wyznań zgodnie z ustawami kraju."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Pogłęb najważniejsze pojęcia">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Te cztery tematy najczęściej wracają w pytaniach uczniów, quizie i odpowiedziach na sprawdzianie. Każdy z nich ma teraz osobną krótką podstronę: najpierw sens, potem źródło, ograniczenia i przykład odpowiedzi."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          pogłębieniePojecRelated.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+    <ContentSection title="Przed i po">
+      <ComparisonTable table={beforeAfter} />
+    </ContentSection>
+    <ContentSection title="Co zmieniała, a czego nie rozwiązywała">
+      <ContentTable
+        columns={[
+          "Obszar",
+          "Co zmieniała?",
+          "Czego nie rozwiązywała całkowicie?",
+        ]}
+        rows={[
+          [
+            "Sejm",
+            "Ograniczała paraliż decyzyjny",
+            "Nie usuwała wszystkich konfliktów politycznych",
+          ],
+          [
+            "Król",
+            "Wprowadzała monarchię konstytucyjną",
+            "Król nadal był ważną częścią systemu",
+          ],
+          [
+            "Mieszczanie",
+            "Wzmacniała ich prawa",
+            "Nie dawała pełnej równości wszystkim mieszkańcom",
+          ],
+          [
+            "Chłopi",
+            "Obejmowała ich opieką państwa",
+            "Nie znosiła pańszczyzny",
+          ],
+          [
+            "Państwo",
+            "Wzmacniała władzę centralną",
+            "Nie gwarantowała obrony przed sąsiadami",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title={uproszczenieCalloutSection.title}>
+      {
+        uproszczenieCalloutSection.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {uproszczenieCalloutSection.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        uproszczenieCalloutSection.callout && (
+          <Callout
+            className="mt-6"
+            variant={uproszczenieCalloutSection.callout.variant}
+            label={uproszczenieCalloutSection.callout.label}
+            title={uproszczenieCalloutSection.callout.title}
+            body={uproszczenieCalloutSection.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+    <ContentSection title={todaySections.postanowienia.title}>
+      {
+        todaySections.postanowienia.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.postanowienia.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.postanowienia.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.postanowienia.callout.variant}
+            label={todaySections.postanowienia.callout.label}
+            title={todaySections.postanowienia.callout.title}
+            body={todaySections.postanowienia.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

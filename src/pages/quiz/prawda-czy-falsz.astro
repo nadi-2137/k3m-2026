@@ -1,0 +1,15 @@
+---
+import QuizModePage from "../../components/QuizModePage.astro";
+import { quizQuestionsByType } from "../../data/site";
+---
+
+<QuizModePage
+  title="Quiz: prawda czy fałsz"
+  eyebrow="Szybka weryfikacja"
+  description="Quiz prawda/fałsz o Konstytucji 3 Maja i najczęstszych uproszczeniach."
+  lead="Ten tryb pomaga wychwycić pomyłki, które często pojawiają się w odpowiedziach uczniów: pańszczyzna, Targowica, monarchia, rola miast i czas obowiązywania konstytucji."
+  questions={quizQuestionsByType.trueFalse}
+  currentHref="/quiz/prawda-czy-falsz"
+  quizTitle="Prawda czy fałsz"
+  quizIntro="Zdecyduj, czy zdanie jest prawdziwe. Odpowiedzi są mieszane, więc najpierw czytaj treść, dopiero potem klikaj."
+/>

@@ -1,0 +1,71 @@
+---
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="pytania-i-odpowiedzi"
+  title="Konstytucja 3 Maja w pytaniach i odpowiedziach"
+  navLabel="Pytania i odpowiedzi"
+  eyebrow="Szybka powtórka"
+  description="Najczęstsze pytania uczniów o Konstytucję 3 Maja z prostymi odpowiedziami."
+  lead="Ten dział pomaga szybko sprawdzić sens najważniejszych faktów. Dobre pytanie jest często najlepszą drogą do zrozumienia całego tematu."
+  quickQuestion="Która odpowiedź wymaga największego doprecyzowania?"
+  conceptTerm="Odpowiedź syntetyczna"
+  conceptDefinition="Krótka odpowiedź, która nie gubi najważniejszej przyczyny, skutku i znaczenia."
+  related={related}
+  readingTopic="Najczęstsze pytania"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najczęstsze pytania">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Kiedy uchwalono Konstytucję 3 Maja?"
+          text="3 maja 1791 roku, podczas obrad Sejmu Wielkiego w Warszawie."
+        />
+        <Card
+          title="Dlaczego była pierwsza w Europie?"
+          text="Była pierwszą nowoczesną ustawą zasadniczą uchwaloną w Europie i drugą taką konstytucją na świecie."
+        />
+        <Card
+          title="Czy Konstytucja 3 Maja zniosła pańszczyznę?"
+          text="Nie. Objęła chłopów opieką prawa i rządu, ale nie likwidowała pańszczyzny."
+        />
+        <Card
+          title="Czy chłopi dostali pełną wolność?"
+          text="Nie. Zapis o opiece państwa był ważnym krokiem naprzód, ale nie oznaczał pełnej równości ani wolności osobistej wszystkich chłopów."
+        />
+        <Card
+          title="Dlaczego obowiązywała krótko?"
+          text="Jej przeciwnicy związali się z konfederacją targowicką, a Rosja wystąpiła przeciw reformom zbrojnie."
+        />
+        <Card
+          title="Kim byli targowiczanie?"
+          text="Byli przeciwnikami reform, którzy wystąpili przeciw konstytucji i szukali wsparcia Rosji."
+        />
+        <Card
+          title="Czy król popierał konstytucję?"
+          text="Tak, Stanisław August Poniatowski uczestniczył w pracach nad projektem. Późniejsze przystąpienie króla do Targowicy było jednak ciosem dla reform."
+        />
+        <Card
+          title="Dlaczego 3 maja jest świętem narodowym?"
+          text="Bo konstytucja stała się symbolem reform, odpowiedzialności za państwo i dążenia do nowoczesnej Rzeczypospolitej."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Jak odpowiadać pełniej">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Dobra odpowiedź nie kończy się na dacie. Warto dopowiedzieć, jaki problem konstytucja próbowała rozwiązać, co konkretnie zmieniała i dlaczego mimo upadku pozostała ważna."
+          />
+        </p>
+      </div>
+    </ContentSection>
+  </div>
+</ContentPageLayout>

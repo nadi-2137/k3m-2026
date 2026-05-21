@@ -1,0 +1,232 @@
+---
+import {
+  authorsTable,
+  personImages,
+  todaySections,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="tworcy-konstytucji-3-maja"
+  title="Twórcy Konstytucji 3 Maja"
+  navLabel="Twórcy"
+  eyebrow="Nie tylko cztery nazwiska"
+  description="Kim byli Stanisław August Poniatowski, Ignacy Potocki, Hugo Kołłątaj i Stanisław Małachowski? Poznaj autorów i szerszy zespół reform."
+  lead="Konstytucja 3 Maja nie była dziełem jednego autora. Powstała dzięki współpracy polityków, reformatorów, organizatorów sejmowych i osób pomagających redakcyjnie."
+  quickQuestion="Czy konstytucję stworzył jeden autor, czy zespół?"
+  conceptTerm="Stronnictwo patriotyczne"
+  conceptDefinition="Obóz polityczny popierający reformy, wzmocnienie państwa i ograniczenie chaosu ustrojowego."
+  related={related}
+  readingTopic="Główna czwórka i szerszy zespół"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Główna czwórka i szerszy zespół">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Najczęściej wymienia się cztery postacie: króla Stanisława Augusta Poniatowskiego, Ignacego Potockiego, Hugona Kołłątaja i Stanisława Małachowskiego. Każdy wnosił coś innego: autorytet monarchy, zaplecze polityczne, myśl reformatorską albo sprawność organizacyjną sejmu."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Warto jednak dodać do tego Aleksandra Linowskiego i Scipione Piattolego. Materiały źródłowe pokazują, że projekt był efektem pracy wąskiego, ale zróżnicowanego zespołu."
+          />
+        </p>
+      </div>
+      <ComparisonTable table={authorsTable} />
+    </ContentSection>
+    <ContentSection title="Główne postacie i ich role">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Zamiast zapamiętywać tylko listę nazwisk, lepiej połączyć każdą osobę z rolą, którą pełniła w obozie reform. Dzięki temu łatwiej wyjaśnić, że konstytucja była wspólną pracą polityczną, organizacyjną i ideową."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Stanisław August Poniatowski"
+          text="Ostatni król Rzeczypospolitej, patron polityczny reform i uczestnik tajnych prac nad projektem. Jego rola jest niejednoznaczna: wspierał konstytucję, ale później przystąpił do Targowicy."
+          variant="person"
+          icon="users"
+          label="Król"
+          remember="w odpowiedzi warto pokazać zarówno jego udział w reformie, jak i późniejszy dramat polityczny."
+          image={personImages.stanislawAugust}
+        />
+        <Card
+          title="Ignacy Potocki"
+          text="Jeden z najważniejszych polityków obozu reform. Łączył pracę ideową z organizacją zaplecza parlamentarnego i pomagał przekuć program reform w konkretny projekt."
+          variant="person"
+          icon="users"
+          label="Reformator"
+          remember="symbol politycznej pracy nad konstytucją, a nie tylko nazwisko z listy twórców."
+          image={personImages.ignacyPotocki}
+        />
+        <Card
+          title="Hugo Kołłątaj"
+          text="Duchowny, publicysta i reformator, kojarzony z energicznym zapleczem intelektualnym zmian. Pomagał opisywać reformy językiem publicznej debaty i łączył ustrój z kwestiami społecznymi."
+          variant="person"
+          icon="users"
+          label="Publicysta"
+          remember="pokazuje, że konstytucja była także projektem ideowym i społecznym."
+          image={personImages.hugoKollataj}
+        />
+        <Card
+          title="Stanisław Małachowski"
+          text="Marszałek Sejmu Czteroletniego, ważny dla parlamentarnego przeprowadzenia reform. Jego pozycja dawała obozowi konstytucji porządek organizacyjny i symboliczny autorytet."
+          variant="person"
+          icon="users"
+          label="Marszałek sejmu"
+          remember="bez sprawnego procesu sejmowego nawet najlepszy projekt mógł pozostać na papierze."
+          image={personImages.stanislawMalachowski}
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Nie tylko cztery nazwiska">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Szkolne skróty często zatrzymują się na czterech postaciach, ale projekt konstytucji był efektem pracy szerszego środowiska. Warto wymieniać Aleksandra Linowskiego i Scipione Piattolego, bo przypominają, że za wielkim dokumentem stoją także redaktorzy, doradcy i organizatorzy zaplecza."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Takie ujęcie pomaga uniknąć mitu samotnego autora. Konstytucja była politycznym kompromisem i wspólną pracą ludzi, którzy mieli różne role, ale podobny cel: naprawę państwa."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Aleksander Linowski"
+          text="Uczestnik wąskiego grona prac nad projektem, mniej znany niż główni liderzy, ale ważny jako część zaplecza przygotowującego reformę."
+          variant="person"
+          icon="users"
+          label="Szerszy zespół"
+        />
+        <Card
+          title="Scipione Piattoli"
+          text="Włoski duchowny i sekretarz królewski, łączony z pomocą redakcyjną i pracą nad kształtem projektu konstytucji."
+          variant="person"
+          icon="users"
+          label="Szerszy zespół"
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Zwolennicy i przeciwnicy reform">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Reformatorzy chcieli wzmocnienia państwa, ograniczenia chaosu politycznego i zmian ustrojowych. Przeciwnicy bali się utraty wpływów, bronili dawnego porządku i korzystali z mechanizmów, które dawały im dużą siłę polityczną."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Najważniejszym politycznym symbolem oporu stała się konfederacja targowicka. Jej uczestnicy wystąpili przeciw reformom, a wsparcie rosyjskie doprowadziło do wojny w 1792 roku i załamania konstytucyjnego porządku."
+          />
+        </p>
+      </div>
+      <ContentTable
+        columns={["Zwolennicy reform", "Przeciwnicy reform"]}
+        rows={[
+          ["Chcieli wzmocnienia państwa", "Bali się utraty wpływów"],
+          ["Popierali zmiany ustrojowe", "Bronili dawnego porządku"],
+          [
+            "Chcieli ograniczyć chaos polityczny",
+            "Korzystali z dawnych przywilejów",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Mapa relacji">
+      <ContentTable
+        columns={[
+          "Osoba albo środowisko",
+          "Relacja z konstytucją",
+          "Jak to zapamiętać",
+        ]}
+        rows={[
+          [
+            "Król Stanisław August",
+            "Patron i współtwórca projektu",
+            "centrum polityczne tajnych prac",
+          ],
+          [
+            "Ignacy Potocki",
+            "Lider obozu reform",
+            "zaplecze sejmowe i polityczne",
+          ],
+          [
+            "Hugo Kołłątaj",
+            "Reformator i publicysta",
+            "język idei i zmian społecznych",
+          ],
+          [
+            "Stanisław Małachowski",
+            "Marszałek Sejmu Wielkiego",
+            "organizacja prac parlamentu",
+          ],
+          [
+            "Linowski i Piattoli",
+            "Współpracownicy zaplecza",
+            "mniej widoczna praca nad projektem",
+          ],
+          [
+            "Przeciwnicy reform",
+            "Obrona dawnego porządku",
+            "opór, Targowica i konflikt zbrojny",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Zapamiętaj">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja była wspólnym dziełem ludzi, którzy chcieli naprawić państwo i ograniczyć jego największe słabości."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Uwaga na uproszczenie">
+      <Callout
+        className="mt-6"
+        variant="warning"
+        title="Nie szukaj jednego autora konstytucji"
+        body="W szkolnym skrócie łatwo zapamiętać kilka nazwisk, ale dokument powstał dzięki współpracy polityków, publicystów, marszałka sejmu, króla i zaplecza redakcyjnego."
+      />
+    </ContentSection>
+    <ContentSection title={todaySections.tworcy.title}>
+      {
+        todaySections.tworcy.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.tworcy.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.tworcy.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.tworcy.callout.variant}
+            label={todaySections.tworcy.callout.label}
+            title={todaySections.tworcy.callout.title}
+            body={todaySections.tworcy.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

@@ -1,0 +1,434 @@
+---
+import "../styles/global.css";
+import { navLinks } from "../data/site";
+import {
+  absoluteWithBase,
+  basePath,
+  withBase,
+  withoutBase,
+} from "../utils/base";
+
+const {
+  title = "Konstytucja 3 Maja",
+  description = "Strona poświęcona historii i znaczeniu Konstytucji 3 Maja.",
+  schema,
+} = Astro.props;
+
+const currentPath = withoutBase(Astro.url.pathname).replace(/\/$/, "") || "/";
+const siteName = "Konstytucja 3 Maja dla uczniów";
+const authorName = "Nadia Zofia Łuczak";
+const authorHref = "https://nadia.luczak.org/";
+const authorSchool = "klasa VIII A, SP 83 w Łodzi";
+const currentYear = new Date().getFullYear();
+const canonicalPath = withoutBase(Astro.url.pathname);
+const canonicalUrl = absoluteWithBase(canonicalPath, Astro.site ?? Astro.url);
+const defaultOgImage = absoluteWithBase(
+  "/og-image.png",
+  Astro.site ?? Astro.url,
+);
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const schemas = [schema].flat().filter(Boolean);
+const schemaJson =
+  schemas.length > 0
+    ? JSON.stringify(schemas.length === 1 ? schemas[0] : schemas).replace(
+        /</g,
+        "\\u003c",
+      )
+    : undefined;
+---
+
+<!doctype html>
+<html lang="pl" data-base-path={basePath}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="icon" href={withBase("/favicon.ico")} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={defaultOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={defaultOgImage} />
+    <slot name="head" />
+    {
+      schemaJson && (
+        <script is:inline type="application/ld+json" set:html={schemaJson} />
+      )
+    }
+    <title>{fullTitle}</title>
+  </head>
+  <body class="min-h-screen antialiased">
+    <header
+      class="sticky top-0 z-50 border-b backdrop-blur"
+      style="border-color: var(--k3m-border-subtle); background: rgba(255, 253, 247, 0.92);"
+    >
+      <div
+        class="k3m-container flex h-[var(--k3m-header-height)] items-center justify-between px-5 sm:px-8 lg:px-10"
+      >
+        <a class="k3m-brand" href={withBase("/")}>
+          <img
+            class="k3m-brand__mark"
+            src={withBase("/logo.svg")}
+            alt=""
+            width="500"
+            height="825"
+            decoding="async"
+            aria-hidden="true"
+          />
+          <span class="k3m-brand__text">Konstytucja 3 Maja</span>
+        </a>
+
+        <nav
+          aria-label="Główna nawigacja"
+          class="hidden h-full items-center gap-5 text-sm font-semibold lg:flex"
+        >
+          {
+            navLinks.map((link, index) => {
+              const isActive =
+                currentPath === link.href ||
+                Boolean(
+                  link.children?.some((child) => currentPath === child.href),
+                );
+              return (
+                <div
+                  class:list={[
+                    "k3m-nav-item",
+                    link.children &&
+                      index >= navLinks.length - 4 &&
+                      "k3m-nav-item--align-end",
+                  ]}
+                  data-nav-item={link.label}
+                >
+                  <a
+                    aria-current={
+                      currentPath === link.href ? "page" : undefined
+                    }
+                    class:list={[
+                      "k3m-nav-link",
+                      isActive && "k3m-nav-link--active",
+                    ]}
+                    href={withBase(link.href)}
+                  >
+                    {link.label}
+                  </a>
+                  {link.children && (
+                    <div class="k3m-nav-dropdown" data-nav-dropdown>
+                      {link.children.map((child) => {
+                        const isChildActive = currentPath === child.href;
+                        return (
+                          <a
+                            aria-current={isChildActive ? "page" : undefined}
+                            class:list={[
+                              "k3m-nav-dropdown__link",
+                              isChildActive && "k3m-nav-dropdown__link--active",
+                            ]}
+                            href={withBase(child.href)}
+                          >
+                            {child.label}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          }
+        </nav>
+
+        <div class="relative lg:hidden" data-mobile-menu>
+          <button
+            class="k3m-button k3m-button--secondary min-h-0 px-4 py-2 text-sm"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-navigation"
+            data-mobile-menu-button
+          >
+            Menu
+          </button>
+          <nav
+            id="mobile-navigation"
+            class="absolute right-0 mt-2 hidden w-56 rounded-[var(--k3m-radius-lg)] border bg-[var(--k3m-bg-surface)] p-2 shadow-[var(--k3m-shadow-md)]"
+            style="border-color: var(--k3m-border-subtle);"
+            aria-label="Nawigacja mobilna"
+            data-mobile-menu-panel
+          >
+            {
+              navLinks.map((link) => {
+                const isActive =
+                  currentPath === link.href ||
+                  Boolean(
+                    link.children?.some((child) => currentPath === child.href),
+                  );
+                return (
+                  <div
+                    class:list={[
+                      link.children && "k3m-mobile-menu-group",
+                      isActive && "k3m-mobile-menu-group--active",
+                    ]}
+                    data-mobile-menu-group={link.label}
+                  >
+                    <a
+                      aria-current={
+                        currentPath === link.href ? "page" : undefined
+                      }
+                      class:list={[
+                        "block rounded-[var(--k3m-radius-md)] px-3 py-2 text-sm font-semibold hover:bg-[var(--k3m-navy-soft)] hover:text-[var(--k3m-brand-secondary)]",
+                        isActive
+                          ? "bg-[var(--k3m-gold-soft)] text-[var(--k3m-brand-primary)]"
+                          : "text-[var(--k3m-text-secondary)]",
+                      ]}
+                      href={withBase(link.href)}
+                      data-mobile-menu-link
+                    >
+                      {link.shortLabel ?? link.label}
+                    </a>
+                    {link.children && (
+                      <div class="k3m-mobile-menu-children">
+                        {link.children.map((child) => {
+                          const isChildActive = currentPath === child.href;
+                          return (
+                            <a
+                              aria-current={isChildActive ? "page" : undefined}
+                              class:list={[
+                                "block rounded-[var(--k3m-radius-md)] px-3 py-2 text-sm font-semibold hover:bg-[var(--k3m-navy-soft)] hover:text-[var(--k3m-brand-secondary)]",
+                                isChildActive
+                                  ? "bg-[var(--k3m-navy-soft)] text-[var(--k3m-brand-primary)]"
+                                  : "text-[var(--k3m-text-secondary)]",
+                              ]}
+                              href={withBase(child.href)}
+                              data-mobile-menu-link
+                            >
+                              {child.shortLabel ?? child.label}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            }
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer
+      class="border-t bg-[var(--k3m-bg-inverse)] text-[var(--k3m-text-inverse)]"
+      style="border-color: var(--k3m-border-subtle);"
+    >
+      <div
+        class="k3m-container grid gap-8 px-5 py-10 sm:px-8 md:grid-cols-[1.2fr_1fr] lg:px-10"
+      >
+        <div>
+          <div class="k3m-footer-brand">
+            <img
+              src={withBase("/logo.svg")}
+              alt=""
+              width="500"
+              height="825"
+              decoding="async"
+              aria-hidden="true"
+            />
+            <h2 class="font-[var(--font-heading)] text-xl font-bold">
+              Konstytucja 3 Maja dla uczniów
+            </h2>
+          </div>
+          <p class="mt-3 max-w-2xl leading-7 text-[#D6DBE4]">
+            Edukacyjny serwis poświęcony jednej z najważniejszych ustaw w
+            historii Polski: proste wyjaśnienia, oś czasu, twórcy,
+            postanowienia, quiz i materiały do nauki.
+          </p>
+          <p class="mt-4 text-sm text-[#A8B0BF]">
+            Strona konkursowa przygotowana na konkurs "Konstytucja 3 Maja".
+            Treści mają charakter edukacyjny i mimo staranności mogą zawierać
+            uproszczenia lub nieścisłości.
+          </p>
+          <p class="mt-4 text-sm text-[#D6DBE4]">
+            © {currentYear}{" "}
+            <a class="text-[#E8CA75] hover:text-white" href={authorHref}>
+              {authorName}
+            </a>
+            , {authorSchool}.
+          </p>
+        </div>
+        <nav aria-label="Linki w stopce" class="grid grid-cols-2 gap-3 text-sm">
+          {
+            [
+              ...navLinks,
+              { label: "Źródła", href: "/zrodla" },
+              { label: "Mapa strony", href: "/mapa-strony" },
+              { label: "O projekcie", href: "/o-projekcie" },
+            ].map((link) => (
+              <a
+                class="text-[#E8CA75] hover:text-white"
+                href={withBase(link.href)}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </footer>
+
+    <aside
+      class="k3m-competition-notice"
+      aria-labelledby="competition-notice-title"
+      data-competition-notice
+    >
+      <p class="k3m-competition-notice__label">Komunikat</p>
+      <h2 id="competition-notice-title">Strona konkursowa</h2>
+      <p>
+        Ta strona została przygotowana na konkurs "Konstytucja 3 Maja".
+        Prezentowane treści mają charakter edukacyjny i mimo dołożenia
+        najwyższej staranności mogą być nieaktualne, uproszczone lub zawierać
+        błędy. Autorka nie ponosi odpowiedzialności za decyzje podjęte na
+        podstawie informacji zawartych w serwisie.
+      </p>
+      <button
+        class="k3m-button k3m-button--primary k3m-competition-notice__button"
+        type="button"
+        data-competition-notice-close
+      >
+        Rozumiem
+      </button>
+    </aside>
+
+    <script>
+      const competitionNotice = document.querySelector<HTMLElement>(
+        "[data-competition-notice]",
+      );
+      const competitionNoticeClose = document.querySelector<HTMLButtonElement>(
+        "[data-competition-notice-close]",
+      );
+      const competitionNoticeStorageKey = "k3m-competition-notice-dismissed";
+
+      try {
+        if (
+          competitionNotice &&
+          localStorage.getItem(competitionNoticeStorageKey) === "true"
+        ) {
+          competitionNotice.hidden = true;
+        }
+      } catch {
+        // Brak dostępu do localStorage nie powinien blokować strony.
+      }
+
+      competitionNoticeClose?.addEventListener("click", () => {
+        if (competitionNotice) {
+          competitionNotice.hidden = true;
+        }
+
+        try {
+          localStorage.setItem(competitionNoticeStorageKey, "true");
+        } catch {
+          // Użytkownik nadal może zamknąć komunikat w bieżącej sesji.
+        }
+      });
+
+      const mobileMenu =
+        document.querySelector<HTMLElement>("[data-mobile-menu]");
+      const mobileMenuButton = document.querySelector<HTMLButtonElement>(
+        "[data-mobile-menu-button]",
+      );
+      const mobileMenuPanel = document.querySelector<HTMLElement>(
+        "[data-mobile-menu-panel]",
+      );
+
+      const getMobileMenuFocusables = (): HTMLElement[] => {
+        if (!mobileMenu) return [];
+        return Array.from(
+          mobileMenu.querySelectorAll("button, a[href]"),
+        ).filter((element): element is HTMLElement => {
+          return (
+            element instanceof HTMLElement &&
+            !element.hasAttribute("disabled") &&
+            !element.hidden
+          );
+        });
+      };
+
+      const setMobileMenuOpen = (isOpen: boolean) => {
+        mobileMenuButton?.setAttribute("aria-expanded", String(isOpen));
+        mobileMenuPanel?.classList.toggle("hidden", !isOpen);
+      };
+
+      mobileMenuButton?.addEventListener("click", () => {
+        const isOpen =
+          mobileMenuButton.getAttribute("aria-expanded") === "true";
+        setMobileMenuOpen(!isOpen);
+
+        if (!isOpen) {
+          requestAnimationFrame(() => {
+            mobileMenuPanel
+              ?.querySelector<HTMLElement>("[data-mobile-menu-link]")
+              ?.focus();
+          });
+        }
+      });
+
+      mobileMenuPanel
+        ?.querySelectorAll("[data-mobile-menu-link]")
+        .forEach((link) => {
+          link.addEventListener("click", () => setMobileMenuOpen(false));
+        });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          setMobileMenuOpen(false);
+          mobileMenuButton?.focus();
+        }
+
+        if (
+          event.key !== "Tab" ||
+          mobileMenuButton?.getAttribute("aria-expanded") !== "true"
+        ) {
+          return;
+        }
+
+        const focusables = getMobileMenuFocusables();
+        const firstFocusable = focusables[0];
+        const lastFocusable = focusables[focusables.length - 1];
+
+        if (!firstFocusable || !lastFocusable) {
+          return;
+        }
+
+        if (event.shiftKey && document.activeElement === firstFocusable) {
+          event.preventDefault();
+          lastFocusable.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === lastFocusable
+        ) {
+          event.preventDefault();
+          firstFocusable.focus();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (
+          mobileMenu &&
+          event.target instanceof Node &&
+          !mobileMenu.contains(event.target)
+        ) {
+          setMobileMenuOpen(false);
+        }
+      });
+    </script>
+  </body>
+</html>

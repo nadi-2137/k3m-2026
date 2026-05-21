@@ -1,0 +1,32 @@
+---
+import { constitutionExcerpts } from "../data/site";
+import SourceExcerpt from "./SourceExcerpt.astro";
+
+type Props = {
+  ids: string[];
+};
+
+const { ids } = Astro.props;
+const items = ids
+  .map((id) => constitutionExcerpts.find((item) => item.id === id))
+  .filter((item) => item !== undefined);
+---
+
+{
+  items.length > 0 && (
+    <section class="k3m-section k3m-section--bordered">
+      <p class="k3m-label">Źródło plus wyjaśnienie</p>
+      <h2 class="k3m-h2 mt-3">Zobacz pojęcie w tekście konstytucji</h2>
+      <p class="k3m-body mt-4 max-w-2xl">
+        Krótki fragment źródłowy pomaga sprawdzić, czy pojęcie z podstrony
+        rzeczywiście wynika z dokumentu, a nie tylko z późniejszego
+        streszczenia.
+      </p>
+      <div class="mt-8">
+        {items.map((item) => (
+          <SourceExcerpt item={item} />
+        ))}
+      </div>
+    </section>
+  )
+}

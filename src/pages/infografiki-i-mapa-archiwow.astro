@@ -1,0 +1,128 @@
+---
+import InfographicsShowcase from "../components/InfographicsShowcase.astro";
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import Card from "../components/Card.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="infografiki-i-mapa-archiwow"
+  title="Infografiki i mapa archiwów"
+  navLabel="Infografiki"
+  eyebrow="Pomysły wizualne i dane"
+  description="Infografiki, mapa archiwów, miejsca pamięci, wykresy i opisy alternatywne do serwisu o Konstytucji 3 Maja."
+  lead="Część materiału najlepiej działa wizualnie: jako tabela, mapa miejsc, wykres lub plansza porównawcza. Ten dział zbiera gotowe plansze, dane do wykresów i opisy alternatywne."
+  quickQuestion="Która informacja najbardziej zyskuje, gdy pokaże się ją graficznie?"
+  conceptTerm="Infografika"
+  conceptDefinition="Graficzne uporządkowanie informacji: dat, porównań, zależności albo danych liczbowych."
+  related={related}
+  readingTopic="Propozycje infografik"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Propozycje infografik">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Co zmieniła Konstytucja 3 Maja?"
+          text="Sześć klocków: sejm, król, miasta, chłopi, religia, tron. Pod każdym krótkie przed/po."
+        />
+        <Card
+          title="Jak powstał dokument?"
+          text="Grudzień 1790 - tajne prace; 2 maja 1791 - poparcie posłów i senatorów; 3 maja - siedmiogodzinna sesja i aklamacja."
+        />
+        <Card
+          title="Jak zbudowana jest konstytucja?"
+          text="Pasek segmentowy: 4 artykuły społeczne, 4 polityczne i 3 uzupełniające."
+        />
+        <Card
+          title="Mapa relacji twórców"
+          text="Król, Potocki, Kołłątaj, Małachowski, Linowski i Piattoli jako zespół prowadzący do projektu Ustawy Rządowej."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Mapa archiwów i miejsc pamięci">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Zamek Królewski w Warszawie"
+          text="Sala Senatorska jako miejsce uchwalenia konstytucji."
+        />
+        <Card
+          title="AGAD, ul. Długa 7, Warszawa"
+          text="Trzy oryginalne rękopiśmienne egzemplarze i urzędowy druk."
+        />
+        <Card
+          title="Szukaj w Archiwach"
+          text="Cyfrowy punkt dostępu do skanów i archiwaliów."
+        />
+        <Card
+          title="Biblioteka Sejmowa"
+          text="Punkt odniesienia dla tekstu, wydań i tłumaczeń Ustawy Rządowej."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Dane do wykresów">
+      <ContentTable
+        columns={["Wykres", "Dane", "Sens edukacyjny"]}
+        rows={[
+          [
+            "Jak zbudowana jest konstytucja?",
+            "4 artykuły społeczne, 4 polityczne, 3 uzupełniające",
+            "Pokazuje strukturę dokumentu.",
+          ],
+          [
+            "Jakie przekazy tekstu zachowały się do dziś?",
+            "3 oryginalne rękopisy, 1 urzędowy druk",
+            "Wzmacnia wymiar źródłowy strony.",
+          ],
+          [
+            "Materiały Zamku według etapu nauczania",
+            "klasy I-III: 2 lekcje, IV-VIII: 4 lekcje, szkoły ponadpodstawowe: 4 lekcje",
+            "Pomaga nauczycielowi dobrać zasoby.",
+          ],
+          [
+            "Od reform do pamięci",
+            "1772, 1788, 1790, 1791, 1792, 1793, 1919, 1990",
+            "Łączy historię polityczną z pamięcią narodową.",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Ilustracje i opisy alternatywne">
+      <ContentTable
+        columns={["Miejsce", "Ilustracja", "Alt"]}
+        rows={[
+          [
+            "Start",
+            "pierwsza strona rękopisu Ustawy Rządowej",
+            "Pierwsza strona rękopiśmiennego egzemplarza Konstytucji 3 Maja z 1791 roku",
+          ],
+          [
+            "Tło historyczne",
+            "Sala Senatorska Zamku Królewskiego",
+            "Sala Senatorska Zamku Królewskiego w Warszawie, miejsce uchwalenia Konstytucji 3 Maja",
+          ],
+          [
+            "Twórcy",
+            "portrety głównych reformatorów",
+            "Portrety głównych twórców Konstytucji 3 Maja",
+          ],
+          [
+            "Znaczenie",
+            "obraz Jana Matejki",
+            "Fragment obrazu Jana Matejki przedstawiającego pochód po uchwaleniu Konstytucji 3 Maja",
+          ],
+          [
+            "Losy",
+            "trzy księgi z zachowanymi egzemplarzami",
+            "Trzy zachowane egzemplarze Konstytucji 3 Maja przechowywane w AGAD",
+          ],
+        ]}
+      />
+    </ContentSection>
+  </div>
+
+  <InfographicsShowcase />
+</ContentPageLayout>

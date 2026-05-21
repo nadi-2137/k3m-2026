@@ -1,0 +1,50 @@
+---
+import type { TimelineEvent } from "../data/site";
+import { withBase } from "../utils/base";
+
+type Props = {
+  events: TimelineEvent[];
+  variant?: "compact" | "sidebar" | "detailed";
+  maxItems?: number;
+};
+
+const { events, variant = "detailed", maxItems } = Astro.props;
+const visibleEvents =
+  typeof maxItems === "number" ? events.slice(0, maxItems) : events;
+const isDetailed = variant === "detailed";
+const categoryLabels: Record<TimelineEvent["category"], string> = {
+  kryzys: "Kryzys państwa",
+  reforma: "Reforma",
+  konflikt: "Konflikt",
+  rozbior: "Rozbiór",
+  pamiec: "Pamięć",
+};
+---
+
+<ol
+  class:list={["k3m-timeline", `k3m-timeline--${variant}`]}
+  aria-label="Oś czasu Konstytucji 3 Maja"
+>
+  {
+    visibleEvents.map((item) => (
+      <li class="k3m-timeline__event" data-category={item.category}>
+        <div class="k3m-timeline__marker" aria-hidden="true" />
+        <article class="k3m-timeline__content">
+          <time class="k3m-timeline__date" datetime={item.datetime}>
+            {item.date}
+          </time>
+          <span class="k3m-timeline__category">
+            {categoryLabels[item.category]}
+          </span>
+          <h3 class="k3m-timeline__title">{item.title}</h3>
+          <p class="k3m-timeline__text">{item.event}</p>
+          {isDetailed && item.href && (
+            <a class="k3m-timeline__link" href={withBase(item.href)}>
+              Czytaj więcej
+            </a>
+          )}
+        </article>
+      </li>
+    ))
+  }
+</ol>

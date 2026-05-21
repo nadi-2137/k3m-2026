@@ -1,0 +1,255 @@
+---
+import type { Card as CardData, CardVariant, IconName } from "../data/site";
+import Icon from "./Icon.astro";
+import GlossaryText from "./GlossaryText.astro";
+import { withBase } from "../utils/base";
+
+type Props = CardData & {
+  variant?: CardVariant;
+  className?: string;
+};
+
+const {
+  title,
+  text,
+  href,
+  variant = href ? "navigation" : "fact",
+  icon,
+  label,
+  actionLabel,
+  remember,
+  details,
+  sourceType,
+  license,
+  checked,
+  image,
+  className = "",
+} = Astro.props;
+
+const variantLabels: Record<CardVariant, string> = {
+  navigation: "Czytaj dalej",
+  fact: "Fakt",
+  person: "Postać",
+  concept: "Pojęcie",
+  download: "Materiał",
+  quiz: "Quiz",
+  source: "Źródło",
+};
+
+const computedLabel = label ?? variantLabels[variant];
+const computedAction =
+  actionLabel ??
+  (href
+    ? variant === "source"
+      ? "Otwórz źródło"
+      : "Przejdź dalej"
+    : undefined);
+const classes = [
+  "k3m-card",
+  "k3m-content-card",
+  `k3m-content-card--${variant}`,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+const resolvedHref = href ? withBase(href) : undefined;
+const resolvedImageSrc = image ? withBase(image.src) : undefined;
+
+const inferIcon = (title: string, variant: CardVariant): IconName => {
+  const normalizedTitle = title.toLocaleLowerCase("pl-PL");
+
+  if (variant === "source") return "source";
+  if (variant === "download") return "download";
+  if (variant === "quiz") return "quiz";
+  if (variant === "person") return "users";
+  if (variant === "concept") return "book";
+  if (normalizedTitle.includes("historia") || normalizedTitle.includes("data"))
+    return "calendar";
+  if (
+    normalizedTitle.includes("konstytuc") ||
+    normalizedTitle.includes("tekst")
+  )
+    return "document";
+  if (normalizedTitle.includes("twórc") || normalizedTitle.includes("postać"))
+    return "users";
+  if (
+    normalizedTitle.includes("postanow") ||
+    normalizedTitle.includes("zmienia")
+  )
+    return "scale";
+  if (normalizedTitle.includes("czas")) return "timeline";
+  if (normalizedTitle.includes("quiz")) return "quiz";
+  if (
+    normalizedTitle.includes("materiał") ||
+    normalizedTitle.includes("pobrania")
+  )
+    return "download";
+  if (normalizedTitle.includes("słownik")) return "book";
+  if (normalizedTitle.includes("źród")) return "source";
+  if (normalizedTitle.includes("map")) return "map";
+
+  return "landmark";
+};
+
+const iconName = icon ?? inferIcon(title, variant);
+const initials = title
+  .split(" ")
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((word) => word[0])
+  .join("");
+---
+
+{
+  href ? (
+    <a class={classes} href={resolvedHref}>
+      {image ? (
+        <figure class="k3m-content-card__image">
+          <img
+            src={resolvedImageSrc}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+          />
+          {image.credit && <figcaption>{image.credit}</figcaption>}
+        </figure>
+      ) : (
+        variant === "person" && (
+          <span class="k3m-content-card__avatar" aria-hidden="true">
+            {initials}
+          </span>
+        )
+      )}
+      <span class="k3m-content-card__top">
+        <Icon name={iconName} />
+        <span class="k3m-content-card__label">{computedLabel}</span>
+      </span>
+      <h3 class="k3m-content-card__title">{title}</h3>
+      <p class="k3m-content-card__text">{text}</p>
+      {remember && (
+        <p class="k3m-content-card__remember">
+          <strong>Warto zapamiętać:</strong>
+          <span>{remember}</span>
+        </p>
+      )}
+
+      {details && (
+        <dl class="k3m-content-card__details">
+          {details.map((detail) => (
+            <div>
+              <dt>{detail.label}</dt>
+              <dd>{detail.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      {(sourceType || license || checked) && (
+        <dl class="k3m-content-card__meta">
+          {sourceType && (
+            <div>
+              <dt>Typ</dt>
+              <dd>{sourceType}</dd>
+            </div>
+          )}
+          {license && (
+            <div>
+              <dt>Licencja</dt>
+              <dd>{license}</dd>
+            </div>
+          )}
+          {checked && (
+            <div>
+              <dt>Status</dt>
+              <dd>{checked}</dd>
+            </div>
+          )}
+        </dl>
+      )}
+
+      {computedAction && (
+        <span class="k3m-content-card__action">{computedAction}</span>
+      )}
+    </a>
+  ) : (
+    <article class={classes}>
+      {image ? (
+        <figure class="k3m-content-card__image">
+          <img
+            src={resolvedImageSrc}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+          />
+          {image.credit && <figcaption>{image.credit}</figcaption>}
+        </figure>
+      ) : (
+        variant === "person" && (
+          <span class="k3m-content-card__avatar" aria-hidden="true">
+            {initials}
+          </span>
+        )
+      )}
+      <span class="k3m-content-card__top">
+        <Icon name={iconName} />
+        <span class="k3m-content-card__label">{computedLabel}</span>
+      </span>
+      <h3 class="k3m-content-card__title">{title}</h3>
+      <p class="k3m-content-card__text">
+        <GlossaryText text={text} maxTooltips={2} />
+      </p>
+      {remember && (
+        <p class="k3m-content-card__remember">
+          <strong>Warto zapamiętać:</strong>
+          <span>
+            <GlossaryText text={remember} maxTooltips={2} />
+          </span>
+        </p>
+      )}
+
+      {details && (
+        <dl class="k3m-content-card__details">
+          {details.map((detail) => (
+            <div>
+              <dt>{detail.label}</dt>
+              <dd>{detail.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      {(sourceType || license || checked) && (
+        <dl class="k3m-content-card__meta">
+          {sourceType && (
+            <div>
+              <dt>Typ</dt>
+              <dd>{sourceType}</dd>
+            </div>
+          )}
+          {license && (
+            <div>
+              <dt>Licencja</dt>
+              <dd>{license}</dd>
+            </div>
+          )}
+          {checked && (
+            <div>
+              <dt>Status</dt>
+              <dd>{checked}</dd>
+            </div>
+          )}
+        </dl>
+      )}
+
+      {variant === "download" && !href && (
+        <p class="k3m-content-card__unavailable">
+          Plik jest planowany i nie jest jeszcze dostępny do pobrania.
+        </p>
+      )}
+    </article>
+  )
+}

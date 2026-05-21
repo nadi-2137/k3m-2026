@@ -1,0 +1,22 @@
+---
+type Props = {
+  title: string;
+  className?: string;
+};
+
+const { title, className = "" } = Astro.props;
+const classes = [
+  "k3m-section",
+  "k3m-section--bordered",
+  "first:border-t-0",
+  "first:pt-0",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<section class={classes}>
+  <h2 class="k3m-h2">{title}</h2>
+  <slot />
+</section>

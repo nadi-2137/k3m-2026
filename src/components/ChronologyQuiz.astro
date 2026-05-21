@@ -1,0 +1,216 @@
+---
+import type { TimelineEvent } from "../data/site";
+
+type Props = {
+  events: TimelineEvent[];
+};
+
+const { events } = Astro.props;
+const quizEvents = events
+  .filter((event) =>
+    ["1772", "1788", "1791-05-03", "1792", "1793", "1795"].includes(
+      event.datetime,
+    ),
+  )
+  .map((event, index) => ({ ...event, correctOrder: index + 1 }));
+
+const shuffledEvents = [
+  quizEvents[2],
+  quizEvents[0],
+  quizEvents[4],
+  quizEvents[1],
+  quizEvents[5],
+  quizEvents[3],
+].filter(Boolean);
+---
+
+<section class="k3m-section k3m-section--bordered" data-chronology-quiz>
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="k3m-label">Zadanie chronologiczne</p>
+      <h2 class="k3m-h2 mt-3">Ułóż wydarzenia w kolejności</h2>
+      <p class="k3m-body mt-4 max-w-2xl">
+        Przesuwaj wydarzenia przyciskami góra/dół. Potem sprawdź, czy ciąg
+        przyczyn i skutków jest poprawny.
+      </p>
+    </div>
+    <div
+      class="k3m-card k3m-status-card"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      data-chronology-status
+    >
+      Do ułożenia: {quizEvents.length} wydarzeń
+    </div>
+  </div>
+
+  <ol
+    class="k3m-ordering-list mt-8"
+    data-chronology-list
+    aria-label="Wydarzenia do ułożenia"
+  >
+    {
+      shuffledEvents.map((event) => (
+        <li
+          class="k3m-ordering-item"
+          data-chronology-item
+          data-correct-order={event.correctOrder}
+          tabindex="-1"
+        >
+          <div class="k3m-ordering-item__content">
+            <span class="k3m-ordering-item__date">{event.date}</span>
+            <h3>{event.title}</h3>
+            <p>{event.event}</p>
+          </div>
+          <div
+            class="k3m-ordering-item__controls"
+            aria-label={`Zmień pozycję: ${event.title}`}
+          >
+            <button type="button" data-move-up>
+              Wyżej
+            </button>
+            <button type="button" data-move-down>
+              Niżej
+            </button>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <button
+      class="k3m-button k3m-button--primary"
+      type="button"
+      data-chronology-check
+    >
+      Sprawdź kolejność
+    </button>
+    <button
+      class="k3m-button k3m-button--secondary"
+      type="button"
+      data-chronology-reset
+    >
+      Zacznij od nowa
+    </button>
+  </div>
+
+  <div
+    class="k3m-quiz-feedback mt-5 hidden"
+    data-chronology-feedback
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+  </div>
+</section>
+
+<script>
+  const chronologyRoots = document.querySelectorAll<HTMLElement>(
+    "[data-chronology-quiz]",
+  );
+
+  chronologyRoots.forEach((root) => {
+    const list = root.querySelector<HTMLOListElement>("[data-chronology-list]");
+    const status = root.querySelector<HTMLElement>("[data-chronology-status]");
+    const feedback = root.querySelector<HTMLElement>(
+      "[data-chronology-feedback]",
+    );
+    const checkButton = root.querySelector<HTMLButtonElement>(
+      "[data-chronology-check]",
+    );
+    const resetButton = root.querySelector<HTMLButtonElement>(
+      "[data-chronology-reset]",
+    );
+    const initialItems = list ? Array.from(list.children) : [];
+
+    const getItems = () =>
+      Array.from(root.querySelectorAll<HTMLElement>("[data-chronology-item]"));
+
+    const updatePositions = () => {
+      const items = getItems();
+      items.forEach((item, index) => {
+        item.style.setProperty("--order-position", String(index + 1));
+        item
+          .querySelector<HTMLButtonElement>("[data-move-up]")
+          ?.toggleAttribute("disabled", index === 0);
+        item
+          .querySelector<HTMLButtonElement>("[data-move-down]")
+          ?.toggleAttribute("disabled", index === items.length - 1);
+      });
+    };
+
+    const moveItem = (item: HTMLElement, direction: "up" | "down") => {
+      if (!list) return;
+
+      const sibling =
+        direction === "up"
+          ? item.previousElementSibling
+          : item.nextElementSibling;
+
+      if (!sibling) return;
+
+      if (direction === "up") {
+        list.insertBefore(item, sibling);
+      } else {
+        list.insertBefore(sibling, item);
+      }
+
+      updatePositions();
+      status &&
+        (status.textContent =
+          "Zmieniono kolejność. Możesz sprawdzić odpowiedź.");
+      item.focus({ preventScroll: true });
+    };
+
+    getItems().forEach((item) => {
+      item
+        .querySelector("[data-move-up]")
+        ?.addEventListener("click", () => moveItem(item, "up"));
+      item
+        .querySelector("[data-move-down]")
+        ?.addEventListener("click", () => moveItem(item, "down"));
+    });
+
+    checkButton?.addEventListener("click", () => {
+      const items = getItems();
+      const correct = items.every(
+        (item, index) => Number(item.dataset.correctOrder) === index + 1,
+      );
+
+      items.forEach((item, index) => {
+        item.setAttribute(
+          "data-state",
+          Number(item.dataset.correctOrder) === index + 1
+            ? "correct"
+            : "incorrect",
+        );
+      });
+
+      if (feedback) {
+        feedback.innerHTML = correct
+          ? '<strong>Poprawna kolejność.</strong><p class="mt-2">Widzisz ciąg: rozbiór, Sejm Wielki, konstytucja, konflikt, kolejne rozbiory.</p>'
+          : '<strong>To jeszcze nie jest właściwa kolejność.</strong><p class="mt-2">Podpowiedź: zacznij od I rozbioru, a zakończ III rozbiorem.</p>';
+        feedback.classList.remove("hidden");
+      }
+
+      status &&
+        (status.textContent = correct
+          ? "Ułożono poprawnie."
+          : "Kolejność wymaga poprawy.");
+    });
+
+    resetButton?.addEventListener("click", () => {
+      if (!list) return;
+      list.replaceChildren(...initialItems);
+      getItems().forEach((item) => item.removeAttribute("data-state"));
+      feedback?.classList.add("hidden");
+      status &&
+        (status.textContent = `Do ułożenia: ${getItems().length} wydarzeń`);
+      updatePositions();
+    });
+
+    updatePositions();
+  });
+</script>

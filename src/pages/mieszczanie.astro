@@ -1,0 +1,144 @@
+---
+import {
+  pogłębieniePojecRelated,
+  postanowieniaParentRelated,
+  todaySections,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = [
+  postanowieniaParentRelated,
+  ...pogłębieniePojecRelated.filter((item) => item.href !== "/mieszczanie"),
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="mieszczanie"
+  title="Mieszczanie w Konstytucji 3 Maja"
+  navLabel="Mieszczanie"
+  eyebrow="Pojęcie w pogłębieniu"
+  description="Wyjaśnienie praw mieszczan w Konstytucji 3 Maja: prawo o miastach, miasta królewskie, prawa cywilne i granice reformy."
+  lead="Konstytucja 3 Maja włączała prawo o miastach do swojego tekstu. Dzięki temu mieszczanie, zwłaszcza w miastach królewskich, zyskiwali silniejszą pozycję prawną i publiczną."
+  quickQuestion="Dlaczego reforma miast była ważna dla państwa, a nie tylko dla mieszkańców miast?"
+  conceptTerm="Mieszczanie"
+  conceptDefinition="Mieszkańcy miast, którym prawo o miastach dawało szersze prawa cywilne i ograniczony wpływ polityczny."
+  related={related}
+  readingTopic="Najkrócej"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Najkrócej">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Mieszczanie byli ważni dla nowoczesnego państwa, bo miasta oznaczały handel, rzemiosło, administrację, edukację i życie publiczne. Konstytucja nie dawała im pełnej równości ze szlachtą, ale wzmacniała ich pozycję."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Najważniejsze było włączenie prawa o miastach do konstytucji. Dzięki temu reforma miejska nie była dodatkiem na marginesie, lecz częścią głównego projektu naprawy Rzeczypospolitej."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        title="Do zapamiętania"
+        body="Konstytucja wzmacniała mieszczan, ale nie tworzyła jeszcze pełnej demokracji ani równości wszystkich stanów."
+      />
+    </ContentSection>
+    <ContentSection title="Co zyskiwali mieszczanie">
+      <ContentTable
+        columns={["Obszar", "Znaczenie", "Jak zapamiętać"]}
+        rows={[
+          [
+            "Prawa cywilne",
+            "większa ochrona osobista i majątkowa",
+            "bezpieczniejsze życie prawne",
+          ],
+          [
+            "Nabywanie ziemi",
+            "możliwość posiadania dóbr ziemskich",
+            "zbliżenie do świata szlacheckiego",
+          ],
+          [
+            "Wpływ publiczny",
+            "ograniczony udział w sprawach sejmu",
+            "krok w stronę szerszej reprezentacji",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Fragment źródłowy">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Artykuł III konstytucji odwoływał się do miast królewskich wolnych. To ważne, bo reforma dotyczyła przede wszystkim tej kategorii miast i była związana z wcześniejszym prawem o miastach."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="W odpowiedzi warto unikać stwierdzenia, że mieszczanie dostali pełną władzę polityczną. Trafniejsze jest: ich prawa zostały poszerzone, a reforma miast została podniesiona do rangi konstytucyjnej."
+          />
+        </p>
+      </div>
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Miasta nasze królewskie wolne w państwach Rzeczypospolitej"
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Granice reformy">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Konstytucja wzmacniała mieszczan, ale nadal funkcjonowała w świecie społeczeństwa stanowego. Szlachta zachowywała bardzo silną pozycję, a prawa mieszczan nie oznaczały pełnej równości wszystkich mieszkańców."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Właśnie dlatego sprawa mieszczan jest dobrym przykładem umiarkowanego, ale ważnego kroku naprzód: reforma była realna, lecz ograniczona warunkami epoki."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Jak użyć w odpowiedzi">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja włączała prawo o miastach, dzięki czemu mieszczanie zyskiwali szersze prawa cywilne, możliwość nabywania ziemi i ograniczony wpływ na życie publiczne. Nie oznaczało to jednak pełnej równości ze szlachtą."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title={todaySections.mieszczanie.title}>
+      {
+        todaySections.mieszczanie.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.mieszczanie.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.mieszczanie.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.mieszczanie.callout.variant}
+            label={todaySections.mieszczanie.callout.label}
+            title={todaySections.mieszczanie.callout.title}
+            body={todaySections.mieszczanie.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

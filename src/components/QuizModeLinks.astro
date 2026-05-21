@@ -1,0 +1,53 @@
+---
+import { quizQuestions, quizTypeRoutes } from "../data/site";
+import Card from "./Card.astro";
+import DownloadCard from "./DownloadCard.astro";
+
+const quizModeCards = quizTypeRoutes.map((mode) => ({
+  title: mode.title.replace("Quiz: ", ""),
+  text: mode.description,
+  href: mode.href,
+  variant: "quiz" as const,
+  icon: mode.type === "matching" ? ("book" as const) : ("quiz" as const),
+  label: "Typ zadań",
+  actionLabel: "Rozpocznij",
+}));
+---
+
+<div class="k3m-body mt-5 space-y-4">
+  <p>
+    Baza ma {quizQuestions.length} pytań. W trybie mieszanym losujemy 18 z nich, a
+    w trybach tematycznych losujemy pytania danego typu.
+  </p>
+</div>
+
+<div class="mt-6 grid gap-4 sm:grid-cols-2">
+  <Card
+    title="Quiz mieszany"
+    text="18 losowych pytań z całej bazy: wybór odpowiedzi, prawda/fałsz i dopasowanie pojęć."
+    href="/quiz/pytania"
+    variant="quiz"
+    icon="quiz"
+    label="Tryb quizu"
+    actionLabel="Losuj zestaw"
+  />
+  {quizModeCards.map((card) => <Card {...card} />)}
+  <Card
+    title="Zadanie chronologiczne"
+    text="Ułóż: I rozbiór, Sejm Wielki, konstytucja, wojna, III rozbiór."
+    href="/quiz/chronologia"
+    variant="quiz"
+    icon="timeline"
+    label="Dodatkowy tryb"
+    actionLabel="Ułóż wydarzenia"
+  />
+  <DownloadCard
+    title="Quiz do druku"
+    text="Pytania i klucz odpowiedzi w wersji do wydrukowania albo pracy offline."
+    href="/do-pobrania/quiz"
+    variant="download"
+    icon="download"
+    label="Materiał"
+    actionLabel="Otwórz wersję do druku"
+  />
+</div>

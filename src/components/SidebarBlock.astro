@@ -1,0 +1,20 @@
+---
+type Props = {
+  title: string;
+  variant?: "default" | "concept" | "question";
+  open?: boolean;
+};
+
+const { title, variant = "default", open = false } = Astro.props;
+const classes = [
+  "k3m-sidebar-block",
+  variant !== "default" ? `k3m-sidebar-block--${variant}` : undefined,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<details class={classes} data-sidebar-block open={open}>
+  <summary>{title}</summary>
+  <slot />
+</details>

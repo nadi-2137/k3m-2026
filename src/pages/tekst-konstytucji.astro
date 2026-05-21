@@ -1,0 +1,98 @@
+---
+import ConstitutionAccordion from "../components/ConstitutionAccordion.astro";
+import SourceExcerpt from "../components/SourceExcerpt.astro";
+import {
+  constitutionArticles,
+  constitutionExcerpts,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="tekst-konstytucji"
+  title="Tekst Konstytucji z komentarzem"
+  navLabel="Tekst"
+  eyebrow="Preambuła i artykuły I-XI"
+  description="Opracowany skrót tekstu Konstytucji 3 Maja z komentarzem dla uczniów."
+  lead="Najlepszy model pracy ze źródłem to czytanie fragmentu razem z krótkim objaśnieniem. Tutaj każdy element dokumentu ma pytanie: co to znaczyło w praktyce?"
+  quickQuestion="Po co autorzy zaczynali dokument uroczystą preambułą?"
+  conceptTerm="Preambuła"
+  conceptDefinition="Uroczysty wstęp do dokumentu, który wyjaśnia jego cele i wartości."
+  related={related}
+  readingTopic="Jak pracować z tekstem źródłowym"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Jak pracować z tekstem źródłowym">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Nie trzeba od razu czytać całego dokumentu. Najlepiej zacząć od krótkiego fragmentu, prostego wyjaśnienia i pytania: co ten zapis zmieniał w praktyce?"
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Poniższe karty pokazują najważniejsze fragmenty i pojęcia. Cytaty są krótkie, bo celem jest praca ze źródłem, a nie zastąpienie pełnego tekstu konstytucji."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Pytania do tekstu">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Który artykuł najbardziej zmieniał sposób działania państwa?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Dlaczego zniesienie liberum veto było tak ważne?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Co oznaczała opieka prawa i rządu nad chłopami?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Dlaczego przewidziano rewizję konstytucji co 25 lat?"
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+  </div>
+
+  <section class="k3m-section k3m-section--bordered">
+    <p class="k3m-label">Akordeon preambuła + artykuły I-XI</p>
+    <h2 class="k3m-h2 mt-3">Mapa całej Ustawy Rządowej</h2>
+    <p class="k3m-body mt-4 max-w-2xl">
+      Rozwijaj kolejne części dokumentu. Każdy panel zawiera krótki fragment,
+      proste objaśnienie, najważniejszą myśl, pytanie do tekstu i link do
+      źródła.
+    </p>
+    <div class="mt-8">
+      <ConstitutionAccordion articles={constitutionArticles} />
+    </div>
+  </section>
+
+  <section class="k3m-section k3m-section--bordered">
+    <p class="k3m-label">Źródło plus wyjaśnienie</p>
+    <h2 class="k3m-h2 mt-3">Najważniejsze fragmenty w pogłębieniu</h2>
+    <p class="k3m-body mt-4 max-w-2xl">
+      Te karty rozwijają najważniejsze zapisy: dodają trudne słowa, komentarz
+      dla ucznia oraz odpowiedź na pytanie, co konkretny fragment zmieniał.
+    </p>
+    <div class="mt-8">
+      {constitutionExcerpts.map((item) => <SourceExcerpt item={item} />)}
+    </div>
+  </section>
+</ContentPageLayout>

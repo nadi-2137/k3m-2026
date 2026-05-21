@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-05-19T16:44:35.359Z",
+  "files": [
+    {
+      "slug": "notatka",
+      "title": "Notatka do zeszytu",
+      "fileName": "konstytucja-3-maja-notatka.pdf",
+      "bytes": 118845
+    },
+    {
+      "slug": "os-czasu",
+      "title": "Oś czasu 1772-1795",
+      "fileName": "konstytucja-3-maja-os-czasu.pdf",
+      "bytes": 123913
+    },
+    {
+      "slug": "karta-pracy",
+      "title": "Karta pracy",
+      "fileName": "konstytucja-3-maja-karta-pracy.pdf",
+      "bytes": 144075
+    },
+    {
+      "slug": "quiz",
+      "title": "Quiz do druku",
+      "fileName": "konstytucja-3-maja-quiz.pdf",
+      "bytes": 169059
+    },
+    {
+      "slug": "slownik",
+      "title": "Słownik pojęć",
+      "fileName": "konstytucja-3-maja-slownik.pdf",
+      "bytes": 203444
+    },
+    {
+      "slug": "mini-plakat",
+      "title": "Mini-plakat A4",
+      "fileName": "konstytucja-3-maja-mini-plakat.pdf",
+      "bytes": 130905
+    },
+    {
+      "slug": "przed-i-po",
+      "title": "Tabela przed/po",
+      "fileName": "konstytucja-3-maja-przed-i-po.pdf",
+      "bytes": 125252
+    },
+    {
+      "slug": "plan-prezentacji",
+      "title": "Plan prezentacji",
+      "fileName": "konstytucja-3-maja-plan-prezentacji.pdf",
+      "bytes": 154335
+    }
+  ]
+}

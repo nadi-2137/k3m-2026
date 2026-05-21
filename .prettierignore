@@ -1,0 +1,15 @@
+dist/
+.astro/
+node_modules/
+playwright-report/
+test-results/
+reports/
+pnpm-lock.yaml
+README.md
+data/k3m.md
+data/k3m-es.md
+data/konstytucja-3-maja-design-system.md
+data/konstytucja-3-maja-design-system.json
+public/*.svg
+public/sitemap.xsl
+.prettierignore

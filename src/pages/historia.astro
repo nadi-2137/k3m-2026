@@ -1,0 +1,166 @@
+---
+import {
+  todaySections,
+  uproszczenieCalloutSection,
+  wspolneRelated,
+} from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import Callout from "../components/Callout.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="historia"
+  title="Tło historyczne Konstytucji 3 Maja"
+  navLabel="Historia"
+  eyebrow="Dlaczego potrzebowano reform"
+  description="Poznaj wydarzenia, które doprowadziły do uchwalenia Konstytucji 3 Maja: I rozbiór, Sejm Wielki, obóz reform i tajne prace nad projektem."
+  lead="Konstytucja 3 Maja nie powstała przypadkiem. Była odpowiedzią na kryzys państwa, presję sąsiadów i przekonanie, że bez poważnych reform Rzeczpospolita może nie przetrwać."
+  quickQuestion="Dlaczego po I rozbiorze reformy stały się pilne?"
+  conceptTerm="Liberum veto"
+  conceptDefinition="Zasada pozwalająca jednemu posłowi zerwać obrady sejmu. Była jedną z przyczyn słabości państwa."
+  related={related}
+  readingTopic="Rzeczpospolita w kryzysie"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Rzeczpospolita w kryzysie">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="W drugiej połowie XVIII wieku Rzeczpospolita była osłabiona politycznie i coraz bardziej zależna od sąsiadów, zwłaszcza od Rosji. I rozbiór z 1772 roku pokazał, że państwo, które nie potrafi sprawnie podejmować decyzji i bronić swojej niezależności, może tracić terytorium oraz podmiotowość."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Reformatorzy widzieli, że problemem nie była tylko jedna zła decyzja. Chodziło o cały mechanizm państwa: słabe centrum, konflikty polityczne, wpływy magnaterii, presję mocarstw i dawne rozwiązania ustrojowe blokujące działanie sejmu."
+          />
+        </p>
+      </div>
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="słaba władza centralna" maxTooltips={2} />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText text="naciski Rosji, Prus i Austrii" maxTooltips={2} />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="paraliż decyzji przez liberum veto"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="spór między obrońcami dawnego porządku a reformatorami"
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+    <ContentSection title="Sejm Wielki">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="W 1788 roku rozpoczął obrady Sejm Wielki, zwany też Sejmem Czteroletnim. Zawiązanie go pod laską konfederacji oznaczało, że decyzje mogły zapadać większością głosów. To otworzyło drogę do reform, które wcześniej łatwo było zablokować."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="W czasie obrad ścierały się różne obozy polityczne. Ostatecznie wzrosła pozycja zwolenników reform, a sejm obradował w podwójnym składzie po wyborach z 1790 roku."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Jak powstał projekt">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Prace nad konstytucją prowadzono w tajemnicy, bo obawiano się zorganizowanego oporu przeciwników reform. Na początku grudnia 1790 roku ustalono, że projekt będzie przygotowywany w wąskim gronie pod kierunkiem króla."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="2 maja 1791 roku ponad 100 posłów i senatorów zadeklarowało poparcie dla projektu. Dzień później, po siedmiogodzinnej sesji, Ustawę Rządową przyjęto przez aklamację."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        body="To była nie tylko debata prawna, ale też bardzo napięta gra polityczna."
+      />
+    </ContentSection>
+    <ContentSection title="Co osłabiało Rzeczpospolitą">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Paraliż sejmu"
+          text="Liberum veto pozwalało jednej osobie zatrzymać prace całego sejmu."
+        />
+        <Card
+          title="Presja mocarstw"
+          text="Rosja, Prusy i Austria ingerowały w sprawy osłabionego państwa."
+        />
+        <Card
+          title="Konflikt elit"
+          text="Część magnaterii broniła dawnych wpływów i nie chciała głębokich zmian."
+        />
+        <Card
+          title="Słaba obrona"
+          text="Państwo miało za małą siłę polityczną i militarną, by skutecznie bronić reform."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title={uproszczenieCalloutSection.title}>
+      {
+        uproszczenieCalloutSection.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {uproszczenieCalloutSection.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        uproszczenieCalloutSection.callout && (
+          <Callout
+            className="mt-6"
+            variant={uproszczenieCalloutSection.callout.variant}
+            label={uproszczenieCalloutSection.callout.label}
+            title={uproszczenieCalloutSection.callout.title}
+            body={uproszczenieCalloutSection.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+    <ContentSection title={todaySections.historia.title}>
+      {
+        todaySections.historia.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.historia.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.historia.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.historia.callout.variant}
+            label={todaySections.historia.callout.label}
+            title={todaySections.historia.callout.title}
+            body={todaySections.historia.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

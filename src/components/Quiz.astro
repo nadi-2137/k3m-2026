@@ -1,0 +1,515 @@
+---
+import type { QuizQuestion } from "../data/site";
+import { withBase } from "../utils/base";
+
+type Props = {
+  questions: QuizQuestion[];
+  title?: string;
+  intro?: string;
+  questionLimit?: number;
+};
+
+const {
+  questions,
+  title = "Sprawdź swoją wiedzę",
+  intro = "Wybierz odpowiedź. Po każdym pytaniu dostaniesz krótkie wyjaśnienie i link do miejsca, w którym możesz powtórzyć temat.",
+  questionLimit = 18,
+} = Astro.props;
+const initialQuestionCount = Math.min(questionLimit, questions.length);
+---
+
+<section
+  class="k3m-section k3m-section--bordered"
+  data-quiz-root
+  data-quiz-limit={initialQuestionCount}
+>
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="k3m-label">Interaktywny quiz</p>
+      <h2 class="k3m-h2 mt-3">{title}</h2>
+      <p class="k3m-body mt-4 max-w-2xl">{intro}</p>
+    </div>
+    <div
+      class="k3m-card px-5 py-4"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      data-quiz-score
+    >
+      Odpowiedziano: <strong>0</strong> / {initialQuestionCount}
+    </div>
+  </div>
+
+  <div class="mt-8 space-y-4" data-quiz-list>
+    {
+      questions.map((item, questionIndex) => (
+        <article
+          class="k3m-quiz-question k3m-card p-5"
+          data-question
+          data-question-index={questionIndex}
+          data-question-type={item.type}
+          data-read-more-href={withBase(item.readMoreHref)}
+          data-read-more-label={item.readMoreLabel}
+          data-glossary-terms={item.glossaryTerms?.join("|") ?? ""}
+        >
+          <p class="k3m-quiz-question__type">
+            {item.type === "trueFalse"
+              ? "Prawda czy fałsz"
+              : item.type === "matching"
+                ? "Dopasowanie pojęć"
+                : "Wybór odpowiedzi"}{" "}
+            · pytanie <span data-question-number>{questionIndex + 1}</span>
+          </p>
+          <h3 class="k3m-h3 mt-2 text-[length:1.25rem]">{item.question}</h3>
+
+          {(item.type === "singleChoice" || item.type === "trueFalse") && (
+            <div
+              class="mt-5 grid gap-3"
+              role="group"
+              aria-label={`Odpowiedzi do pytania ${questionIndex + 1}`}
+            >
+              {item.options.map((option, optionIndex) => (
+                <button
+                  class="k3m-quiz-option"
+                  type="button"
+                  data-option-index={optionIndex}
+                  data-option-correct={String(
+                    optionIndex === item.correctIndex,
+                  )}
+                  aria-pressed="false"
+                >
+                  <span class="k3m-quiz-option__mark" aria-hidden="true">
+                    {String.fromCharCode(65 + optionIndex)}
+                  </span>
+                  <span>{option}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {item.type === "matching" && (
+            <div
+              class="k3m-quiz-matching mt-5"
+              role="group"
+              aria-label={`Dopasowanie do pytania ${questionIndex + 1}`}
+            >
+              {item.pairs.map((pair, pairIndex) => (
+                <label class="k3m-quiz-match" data-match-row>
+                  <span class="k3m-quiz-match__term">{pair.term}</span>
+                  <select data-match-select data-match-index={pairIndex}>
+                    <option value="">Wybierz wyjaśnienie</option>
+                    {item.pairs.map((optionPair, optionIndex) => (
+                      <option value={optionIndex}>{optionPair.match}</option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+              <button
+                class="k3m-button k3m-button--primary mt-2"
+                type="button"
+                data-match-check
+              >
+                Sprawdź dopasowanie
+              </button>
+            </div>
+          )}
+
+          <div
+            class="k3m-quiz-feedback mt-5 hidden"
+            data-feedback
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <p data-feedback-status />
+            <p class="mt-2">
+              <strong>Odpowiedź:</strong> {item.answer}
+            </p>
+            <p class="mt-2">
+              <strong>Wyjaśnienie:</strong> {item.explanation}
+            </p>
+            <a
+              class="k3m-link mt-3 inline-block"
+              href={withBase(item.readMoreHref)}
+            >
+              {item.readMoreLabel}
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div
+    class="k3m-callout k3m-callout--exam mt-8 hidden"
+    data-quiz-result
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <h3 class="k3m-h3">Wynik</h3>
+    <p class="mt-3 leading-7" data-result-text></p>
+    <div class="k3m-quiz-result-grid mt-5">
+      <div class="k3m-quiz-result-panel" data-result-review>
+        <h4>Co warto teraz powtórzyć</h4>
+        <ul data-result-review-list></ul>
+      </div>
+      <div class="k3m-quiz-result-panel" data-result-glossary>
+        <h4>Pojęcia ze słownika</h4>
+        <div class="k3m-quiz-result-tags" data-result-glossary-list></div>
+      </div>
+    </div>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button
+        class="k3m-button k3m-button--primary"
+        type="button"
+        data-quiz-reset
+      >
+        Rozwiąż ponownie
+      </button>
+      <a class="k3m-button k3m-button--secondary" href={withBase("/materialy")}>
+        Przejdź do materiałów
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  type ReviewItem = {
+    label: string;
+    href: string;
+  };
+
+  const quizRoots = document.querySelectorAll<HTMLElement>("[data-quiz-root]");
+
+  quizRoots.forEach((root) => {
+    const quizList = root.querySelector<HTMLElement>("[data-quiz-list]");
+    const limit = Number(root.getAttribute("data-quiz-limit") ?? "18");
+    const scoreBox = root.querySelector<HTMLElement>("[data-quiz-score]");
+    const resultBox = root.querySelector<HTMLElement>("[data-quiz-result]");
+    const resultText = root.querySelector<HTMLElement>("[data-result-text]");
+    const resultReview = root.querySelector<HTMLElement>(
+      "[data-result-review]",
+    );
+    const resultReviewList = root.querySelector<HTMLUListElement>(
+      "[data-result-review-list]",
+    );
+    const resultGlossary = root.querySelector<HTMLElement>(
+      "[data-result-glossary]",
+    );
+    const resultGlossaryList = root.querySelector<HTMLElement>(
+      "[data-result-glossary-list]",
+    );
+    const resetButton =
+      root.querySelector<HTMLButtonElement>("[data-quiz-reset]");
+    const answered = new Map<number, boolean>();
+    const basePath = document.documentElement.dataset.basePath ?? "";
+    const shuffle = <T,>(items: T[]): T[] => {
+      const nextItems = [...items];
+
+      for (let index = nextItems.length - 1; index > 0; index -= 1) {
+        const nextIndex = Math.floor(Math.random() * (index + 1));
+        [nextItems[index], nextItems[nextIndex]] = [
+          nextItems[nextIndex],
+          nextItems[index],
+        ];
+      }
+
+      return nextItems;
+    };
+    const allQuestions = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-question]"),
+    );
+    let questions = shuffle(allQuestions).slice(0, limit);
+
+    allQuestions.forEach((question) => {
+      if (!questions.includes(question)) {
+        question.remove();
+      }
+    });
+
+    questions.forEach((question, index) => {
+      question.setAttribute("data-question-index", String(index));
+      question
+        .querySelector("[data-question-number]")
+        ?.replaceChildren(document.createTextNode(String(index + 1)));
+      quizList?.append(question);
+
+      const optionGroup = question
+        .querySelector("[data-option-index]")
+        ?.closest<HTMLElement>("[role='group']");
+
+      if (optionGroup) {
+        shuffle(
+          Array.from(
+            optionGroup.querySelectorAll<HTMLButtonElement>(
+              "[data-option-index]",
+            ),
+          ),
+        ).forEach((option, optionIndex) => {
+          option.setAttribute("data-option-index", String(optionIndex));
+          option
+            .querySelector(".k3m-quiz-option__mark")
+            ?.replaceChildren(
+              document.createTextNode(String.fromCharCode(65 + optionIndex)),
+            );
+          optionGroup.append(option);
+        });
+      }
+
+      question
+        .querySelectorAll<HTMLSelectElement>("[data-match-select]")
+        .forEach((select) => {
+          const placeholder = select.querySelector("option[value='']");
+          const options = Array.from(select.querySelectorAll("option")).filter(
+            (option) => option.value !== "",
+          );
+
+          select.replaceChildren(
+            ...(placeholder ? [placeholder] : []),
+            ...shuffle(options),
+          );
+        });
+    });
+
+    const fallbackReview: ReviewItem[] = [
+      {
+        label: "Przeczytaj opracowany tekst konstytucji",
+        href: `${basePath}/tekst-konstytucji`,
+      },
+      {
+        label: "Przejdź do pytań problemowych",
+        href: `${basePath}/jak-odpowiedziec-na-sprawdzianie`,
+      },
+      { label: "Zobacz źródła i archiwalia", href: `${basePath}/zrodla` },
+    ];
+
+    const fallbackGlossary = ["Preambuła", "Trójpodział władzy", "Targowica"];
+
+    const renderResultLinks = (percent: number) => {
+      if (!resultReviewList || !resultGlossaryList) return;
+
+      const missedQuestions = questions.filter((question) => {
+        const questionIndex = Number(
+          question.getAttribute("data-question-index"),
+        );
+        return answered.get(questionIndex) === false;
+      });
+
+      const reviewItems =
+        missedQuestions.length > 0
+          ? missedQuestions.map((question) => ({
+              label:
+                question.getAttribute("data-read-more-label") ??
+                "Powtórz temat",
+              href:
+                question.getAttribute("data-read-more-href") ??
+                `${basePath}/materialy`,
+            }))
+          : fallbackReview;
+
+      const uniqueReview = new Map<string, ReviewItem>();
+      reviewItems.forEach((item) => {
+        uniqueReview.set(item.href, item);
+      });
+
+      const reviewNodes = Array.from(uniqueReview.values())
+        .slice(0, 4)
+        .map((item) => {
+          const listItem = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = item.href;
+          link.textContent =
+            percent >= 80 && missedQuestions.length === 0
+              ? item.label
+              : item.label.replace(/^Powtórz /, "");
+          listItem.append(link);
+          return listItem;
+        });
+
+      resultReviewList.replaceChildren(...reviewNodes);
+      resultReview?.classList.toggle("hidden", reviewNodes.length === 0);
+
+      const terms = new Set<string>();
+      missedQuestions.forEach((question) => {
+        const rawTerms = question.getAttribute("data-glossary-terms") ?? "";
+        rawTerms
+          .split("|")
+          .filter(Boolean)
+          .forEach((term) => terms.add(term));
+      });
+
+      if (terms.size === 0) {
+        fallbackGlossary.forEach((term) => terms.add(term));
+      }
+
+      const termNodes = Array.from(terms)
+        .slice(0, 6)
+        .map((term) => {
+          const link = document.createElement("a");
+          link.href = `${basePath}/slownik?haslo=${encodeURIComponent(term)}`;
+          link.textContent = term;
+          return link;
+        });
+
+      resultGlossaryList.replaceChildren(...termNodes);
+      resultGlossary?.classList.toggle("hidden", termNodes.length === 0);
+    };
+
+    const updateScore = () => {
+      const correct = Array.from(answered.values()).filter(Boolean).length;
+      const totalAnswered = answered.size;
+
+      if (scoreBox) {
+        scoreBox.innerHTML = `Odpowiedziano: <strong>${totalAnswered}</strong> / ${questions.length}<br />Poprawne: <strong>${correct}</strong>`;
+      }
+
+      if (totalAnswered === questions.length && resultBox && resultText) {
+        const percent = Math.round((correct / questions.length) * 100);
+        const message =
+          percent >= 80
+            ? "Bardzo dobrze. Masz solidne podstawy, możesz przejść do źródeł albo trudniejszych pytań problemowych."
+            : percent >= 50
+              ? "Jest nieźle. Warto powtórzyć pytania, przy których pojawiła się błędna odpowiedź."
+              : "To dobry moment na spokojną powtórkę. Zacznij od osi czasu, postanowień i słownika pojęć.";
+
+        resultText.textContent = `Twój wynik: ${correct} / ${questions.length} (${percent}%). ${message}`;
+        renderResultLinks(percent);
+        resultBox.classList.remove("hidden");
+      }
+    };
+
+    questions.forEach((question) => {
+      const questionIndex = Number(
+        question.getAttribute("data-question-index"),
+      );
+      const options = Array.from(
+        question.querySelectorAll<HTMLButtonElement>("[data-option-index]"),
+      );
+      const feedback = question.querySelector<HTMLElement>("[data-feedback]");
+      const feedbackStatus = question.querySelector<HTMLElement>(
+        "[data-feedback-status]",
+      );
+      const matchButton =
+        question.querySelector<HTMLButtonElement>("[data-match-check]");
+
+      const showFeedback = (isCorrect: boolean, customStatus?: string) => {
+        if (feedback && feedbackStatus) {
+          feedbackStatus.innerHTML =
+            customStatus ??
+            (isCorrect
+              ? "<strong>Poprawna odpowiedź.</strong>"
+              : "<strong>To nie jest poprawna odpowiedź.</strong>");
+          feedback.classList.remove("hidden");
+        }
+      };
+
+      const finishQuestion = (isCorrect: boolean, customStatus?: string) => {
+        answered.set(questionIndex, isCorrect);
+        question.setAttribute("data-answered", "true");
+        showFeedback(isCorrect, customStatus);
+        updateScore();
+      };
+
+      options.forEach((option) => {
+        option.addEventListener("click", () => {
+          if (answered.has(questionIndex)) {
+            return;
+          }
+
+          const isCorrect =
+            option.getAttribute("data-option-correct") === "true";
+
+          options.forEach((item) => {
+            item.setAttribute(
+              "aria-pressed",
+              item === option ? "true" : "false",
+            );
+            item.disabled = true;
+
+            if (item.getAttribute("data-option-correct") === "true") {
+              item.setAttribute("data-state", "correct");
+            } else if (item === option) {
+              item.setAttribute("data-state", "incorrect");
+            }
+          });
+
+          finishQuestion(isCorrect);
+        });
+      });
+
+      matchButton?.addEventListener("click", () => {
+        if (answered.has(questionIndex)) {
+          return;
+        }
+
+        const selects = Array.from(
+          question.querySelectorAll<HTMLSelectElement>("[data-match-select]"),
+        );
+        const allAnswered = selects.every((select) => select.value !== "");
+
+        if (!allAnswered) {
+          showFeedback(
+            false,
+            "<strong>Uzupełnij wszystkie dopasowania.</strong>",
+          );
+          return;
+        }
+
+        const isCorrect = selects.every(
+          (select) => select.value === select.getAttribute("data-match-index"),
+        );
+
+        selects.forEach((select) => {
+          const row = select.closest<HTMLElement>("[data-match-row]");
+          const isRowCorrect =
+            select.value === select.getAttribute("data-match-index");
+          row?.setAttribute(
+            "data-state",
+            isRowCorrect ? "correct" : "incorrect",
+          );
+          select.disabled = true;
+        });
+
+        matchButton.disabled = true;
+        finishQuestion(isCorrect);
+      });
+    });
+
+    resetButton?.addEventListener("click", () => {
+      answered.clear();
+      resultBox?.classList.add("hidden");
+
+      questions.forEach((question) => {
+        question.removeAttribute("data-answered");
+        question.querySelector("[data-feedback]")?.classList.add("hidden");
+        question.querySelector("[data-feedback-status]")?.replaceChildren();
+        question
+          .querySelectorAll("[data-match-row]")
+          .forEach((row) => row.removeAttribute("data-state"));
+
+        question
+          .querySelectorAll<HTMLButtonElement>("[data-option-index]")
+          .forEach((option) => {
+            option.removeAttribute("data-state");
+            option.disabled = false;
+            option.setAttribute("aria-pressed", "false");
+          });
+
+        question
+          .querySelectorAll<HTMLSelectElement>("[data-match-select]")
+          .forEach((select) => {
+            select.value = "";
+            select.disabled = false;
+          });
+
+        const matchButton =
+          question.querySelector<HTMLButtonElement>("[data-match-check]");
+        if (matchButton) matchButton.disabled = false;
+      });
+
+      updateScore();
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+</script>

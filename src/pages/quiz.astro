@@ -1,0 +1,50 @@
+---
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import QuizModeLinks from "../components/QuizModeLinks.astro";
+
+const related = [
+  {
+    title: "Quiz mieszany",
+    text: "Rozwiąż główny zestaw pytań z odpowiedziami i wyjaśnieniami.",
+    href: "/quiz/pytania",
+  },
+  {
+    title: "Chronologia",
+    text: "Ułóż wydarzenia od I rozbioru do III rozbioru.",
+    href: "/quiz/chronologia",
+  },
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="quiz"
+  title="Quiz o Konstytucji 3 Maja"
+  navLabel="Quiz"
+  eyebrow="Sprawdź wiedzę"
+  description="Quiz o Konstytucji 3 Maja z pytaniami dla uczniów, odpowiedziami i krótkimi wyjaśnieniami."
+  lead="Quiz ma pomagać w nauce, a nie tylko odpytywać z dat. Wybierz typ zadań: pytania wyboru, prawda/fałsz, dopasowanie pojęć albo mieszany zestaw 18 losowych pytań."
+  quickQuestion="Które pytanie z quizu było najtrudniejsze i dlaczego?"
+  conceptTerm="Mini-lekcja"
+  conceptDefinition="Dobrze ułożony quiz nie tylko sprawdza, ale też utrwala i porządkuje wiedzę."
+  related={related}
+  readingTopic="Wybierz tryb pracy"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Wybierz tryb pracy">
+      <QuizModeLinks />
+    </ContentSection>
+    <ContentSection title="Jak działa dobry quiz">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Pytania wyboru sprawdzają fakty i związki przyczynowo-skutkowe. Prawda/fałsz pomaga wychwycić uproszczenia. Dopasowanie pojęć utrwala słownik, który przydaje się w odpowiedziach na sprawdzianie."
+          />
+        </p>
+      </div>
+    </ContentSection>
+  </div>
+</ContentPageLayout>

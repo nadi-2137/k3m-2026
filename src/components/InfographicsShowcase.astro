@@ -1,0 +1,197 @@
+---
+const changes = [
+  {
+    area: "Sejm",
+    before: "Liberum veto paraliżowało decyzje.",
+    after: "Decyzje miały zapadać większością głosów.",
+  },
+  {
+    area: "Władza",
+    before: "Ustrój sprzyjał bezsilności państwa.",
+    after: "Wprowadzono trójpodział władzy.",
+  },
+  {
+    area: "Król",
+    before: "Wolna elekcja zwiększała ryzyko ingerencji obcych państw.",
+    after: "Tron miał być dziedziczny w dynastii saskiej.",
+  },
+  {
+    area: "Mieszczanie",
+    before: "Mieli ograniczony wpływ polityczny.",
+    after: "Zyskali ważniejsze prawa i możliwość udziału w sejmie.",
+  },
+  {
+    area: "Chłopi",
+    before: "Pozostawali pod dominacją właścicieli ziemskich.",
+    after: "Zostali uznani za część narodu pod opieką prawa.",
+  },
+  {
+    area: "Religia",
+    before: "Religia katolicka miała uprzywilejowaną pozycję.",
+    after: "Zachowano ją, ale potwierdzono tolerancję wyznań.",
+  },
+];
+
+const process = [
+  { date: "XII 1790", label: "Tajne prace nad projektem" },
+  { date: "2 V 1791", label: "Deklaracja poparcia u Radziwiłłów" },
+  { date: "3 V 1791", label: "Sesja sejmowa i aklamacja" },
+  { date: "5 V 1791", label: "Deklaracja Stanów Zgromadzonych" },
+];
+
+const structure = [
+  {
+    label: "Społeczeństwo",
+    value: 4,
+    description: "religia, szlachta, miasta, chłopi",
+  },
+  { label: "Ustrój", value: 4, description: "sejm, król, sądy, regencja" },
+  {
+    label: "Ciągłość",
+    value: 3,
+    description: "edukacja królewska, wojsko, przysięga",
+  },
+];
+
+const archives = [
+  { name: "AGAD", detail: "rękopisy i druk", x: 49, y: 43 },
+  { name: "Zamek Królewski", detail: "miejsce uchwalenia", x: 56, y: 35 },
+  { name: "Biblioteka Sejmowa", detail: "teksty i wydania", x: 45, y: 55 },
+  { name: "Szukaj w Archiwach", detail: "skany online", x: 65, y: 60 },
+];
+---
+
+<section class="k3m-section k3m-section--bordered">
+  <p class="k3m-label">Gotowe wizualizacje</p>
+  <h2 class="k3m-h2 mt-3">Infografiki do nauki i druku</h2>
+  <p class="k3m-body mt-4 max-w-2xl">
+    Te plansze pokazują te same informacje, które pojawiają się w treści strony,
+    ale w formie łatwej do powtórki: porównanie, proces, struktura dokumentu,
+    zachowane przekazy i mapa miejsc.
+  </p>
+
+  <div class="k3m-infographics mt-8">
+    <article class="k3m-infographic k3m-infographic--wide">
+      <div class="k3m-infographic__header">
+        <p class="k3m-label">Przed i po</p>
+        <h3>Co zmieniła Konstytucja 3 Maja?</h3>
+      </div>
+      <div class="k3m-change-grid">
+        {
+          changes.map((item) => (
+            <section class="k3m-change-card">
+              <h4>{item.area}</h4>
+              <dl>
+                <div>
+                  <dt>Przed</dt>
+                  <dd>{item.before}</dd>
+                </div>
+                <div>
+                  <dt>Po</dt>
+                  <dd>{item.after}</dd>
+                </div>
+              </dl>
+            </section>
+          ))
+        }
+      </div>
+    </article>
+
+    <article class="k3m-infographic">
+      <div class="k3m-infographic__header">
+        <p class="k3m-label">Proces</p>
+        <h3>Jak powstał dokument?</h3>
+      </div>
+      <ol class="k3m-process" aria-label="Etapy powstawania Konstytucji 3 Maja">
+        {
+          process.map((item) => (
+            <li>
+              <time>{item.date}</time>
+              <span>{item.label}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </article>
+
+    <article class="k3m-infographic">
+      <div class="k3m-infographic__header">
+        <p class="k3m-label">Struktura</p>
+        <h3>Układ artykułów: 4 + 4 + 3</h3>
+      </div>
+      <div
+        class="k3m-segment-chart"
+        aria-label="Struktura konstytucji: 4 artykuły społeczne, 4 ustrojowe i 3 uzupełniające"
+      >
+        {
+          structure.map((item) => (
+            <div
+              class="k3m-segment-chart__bar"
+              style={`--size: ${item.value};`}
+            >
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))
+        }
+      </div>
+      <dl class="k3m-structure-list">
+        {
+          structure.map((item) => (
+            <div>
+              <dt>{item.label}</dt>
+              <dd>{item.description}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </article>
+
+    <article class="k3m-infographic">
+      <div class="k3m-infographic__header">
+        <p class="k3m-label">Przekazy</p>
+        <h3>Co zachowało się do dziś?</h3>
+      </div>
+      <div
+        class="k3m-transmission-chart"
+        aria-label="Zachowały się trzy rękopisy i jeden urzędowy druk"
+      >
+        <div
+          class="k3m-transmission-chart__item k3m-transmission-chart__item--large"
+        >
+          <strong>3</strong>
+          <span>oryginalne rękopisy</span>
+        </div>
+        <div class="k3m-transmission-chart__plus" aria-hidden="true">+</div>
+        <div class="k3m-transmission-chart__item">
+          <strong>1</strong>
+          <span>urzędowy druk</span>
+        </div>
+      </div>
+      <p class="k3m-infographic__note">
+        Najważniejsza lekcja: konstytucja to tekst prawny, ale także materialne
+        źródło historyczne.
+      </p>
+    </article>
+
+    <article class="k3m-infographic">
+      <div class="k3m-infographic__header">
+        <p class="k3m-label">Mapa miejsc</p>
+        <h3>Gdzie prowadzić ucznia dalej?</h3>
+      </div>
+      <div class="k3m-archive-map" aria-label="Mapa archiwów i miejsc pamięci">
+        {
+          archives.map((item) => (
+            <div
+              class="k3m-archive-map__pin"
+              style={`--x: ${item.x}%; --y: ${item.y}%;`}
+            >
+              <strong>{item.name}</strong>
+              <span>{item.detail}</span>
+            </div>
+          ))
+        }
+      </div>
+    </article>
+  </div>
+</section>

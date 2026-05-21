@@ -1,0 +1,64 @@
+---
+import type { TableData } from "../data/site";
+
+type Props = {
+  table: TableData;
+};
+
+const { table } = Astro.props;
+const [subjectLabel, beforeLabel, afterLabel] = table.columns;
+---
+
+<div class="k3m-comparison-table">
+  <div class="k3m-comparison-table__wrap">
+    <table class="k3m-table k3m-table--comparison text-sm">
+      <caption>
+        Porównanie: {beforeLabel} i {afterLabel}
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">{subjectLabel}</th>
+          <th class="k3m-table__before" scope="col">
+            <span>Przed</span>
+            {beforeLabel}
+          </th>
+          <th class="k3m-table__after" scope="col">
+            <span>Po</span>
+            {afterLabel}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          table.rows.map((row) => (
+            <tr>
+              <th scope="row">{row[0]}</th>
+              <td class="k3m-table__before">{row[1]}</td>
+              <td class="k3m-table__after">{row[2]}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="k3m-comparison-cards">
+    {
+      table.rows.map((row) => (
+        <article class="k3m-comparison-card">
+          <h3>{row[0]}</h3>
+          <div class="k3m-comparison-card__pair">
+            <section class="k3m-comparison-card__state k3m-comparison-card__state--before">
+              <p>{beforeLabel}</p>
+              <strong>{row[1]}</strong>
+            </section>
+            <section class="k3m-comparison-card__state k3m-comparison-card__state--after">
+              <p>{afterLabel}</p>
+              <strong>{row[2]}</strong>
+            </section>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>

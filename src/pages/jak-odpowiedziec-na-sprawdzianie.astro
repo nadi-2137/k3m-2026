@@ -1,0 +1,75 @@
+---
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="jak-odpowiedziec-na-sprawdzianie"
+  title="Jak odpowiedzieć na sprawdzianie"
+  navLabel="Na sprawdzian"
+  eyebrow="Gotowy schemat odpowiedzi"
+  description="Krótka i dłuższa odpowiedź na pytanie, dlaczego Konstytucja 3 Maja była ważna."
+  lead="Najczęstsze pytanie brzmi: dlaczego Konstytucja 3 Maja była ważna? Poniżej są dwie wersje odpowiedzi: krótka i rozwinięta."
+  quickQuestion="Co musi się znaleźć w odpowiedzi, żeby nie była tylko listą haseł?"
+  conceptTerm="Uzasadnienie"
+  conceptDefinition="Wyjaśnienie, dlaczego dany fakt miał znaczenie, a nie tylko jego wymienienie."
+  related={related}
+  readingTopic="Krótka odpowiedź"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Krótka odpowiedź">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja była ważna, ponieważ była pierwszą nowoczesną konstytucją w Europie i próbą naprawy Rzeczypospolitej. Miała wzmocnić państwo, ograniczyć liberum veto i uporządkować władzę."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Dłuższa odpowiedź">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Konstytucja 3 Maja była ważna, ponieważ powstała w czasie, gdy Rzeczpospolita była osłabiona i zagrożona przez sąsiednie państwa. Jej twórcy chcieli naprawić ustrój, wzmocnić władzę centralną, usprawnić sejm i ograniczyć wpływ magnaterii."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dokument znosił liberum veto, wprowadzał trójpodział władzy, odchodził od wolnej elekcji oraz poprawiał sytuację mieszczan i chłopów. Choć obowiązywał krótko, stał się symbolem odpowiedzialności za państwo i dążenia do reform."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Pytania problemowe do dyskusji">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Czy jedna ustawa mogła uratować państwo?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Czy przegrana reforma może być sukcesem historycznym?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Która zmiana była najważniejsza: zniesienie liberum veto, trójpodział władzy czy prawa mieszczan?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Czy Konstytucja 3 Maja była bardziej dokumentem prawnym, czy symbolem?"
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+  </div>
+</ContentPageLayout>

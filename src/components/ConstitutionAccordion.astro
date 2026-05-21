@@ -1,0 +1,62 @@
+---
+import type { ConstitutionArticle } from "../data/site";
+import Icon from "./Icon.astro";
+
+type Props = {
+  articles: ConstitutionArticle[];
+};
+
+const { articles } = Astro.props;
+const verifiedScanHref = "https://agad.gov.pl/230K3M/3M.html";
+---
+
+<div class="k3m-constitution-accordion">
+  {
+    articles.map((article, index) => (
+      <details class="k3m-constitution-article" open={index === 0}>
+        <summary>
+          <span class="k3m-constitution-article__marker">
+            <Icon name={article.id === "preambula" ? "document" : "book"} />
+            <span>{article.label}</span>
+          </span>
+          <span class="k3m-constitution-article__title">{article.title}</span>
+        </summary>
+
+        <div class="k3m-constitution-article__body">
+          <blockquote>{article.excerpt}</blockquote>
+
+          <div class="k3m-constitution-article__grid">
+            <div>
+              <h3>Co reguluje?</h3>
+              <p>{article.summary}</p>
+            </div>
+            <div>
+              <h3>Najważniejsza myśl</h3>
+              <p>{article.keyPoint}</p>
+            </div>
+          </div>
+
+          <div class="k3m-constitution-article__question">
+            <h3>Pytanie do tekstu</h3>
+            <p>{article.question}</p>
+          </div>
+
+          <div class="k3m-constitution-article__actions">
+            <a
+              class="k3m-constitution-article__source"
+              href={article.sourceHref}
+            >
+              Zobacz tekst źródłowy
+            </a>
+            <a
+              class="k3m-constitution-article__source"
+              href={article.scanHref ?? verifiedScanHref}
+            >
+              {article.scanLabel ?? "Zobacz skan w AGAD"}
+            </a>
+          </div>
+        </div>
+      </details>
+    ))
+  }
+</div>

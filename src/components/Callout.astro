@@ -1,0 +1,48 @@
+---
+import type { IconName } from "../data/site";
+import GlossaryText from "./GlossaryText.astro";
+import Icon from "./Icon.astro";
+
+type Props = {
+  variant?: "remember" | "exam" | "warning" | "question" | "curiosity";
+  label?: string;
+  title?: string;
+  body: string;
+  className?: string;
+};
+
+const {
+  variant = "remember",
+  label,
+  title,
+  body,
+  className = "",
+} = Astro.props;
+
+const defaults: Record<
+  NonNullable<Props["variant"]>,
+  { label: string; icon: IconName }
+> = {
+  remember: { label: "Zapamiętaj", icon: "book" },
+  exam: { label: "Na sprawdzian", icon: "document" },
+  warning: { label: "Uwaga na uproszczenie", icon: "scale" },
+  question: { label: "Pytanie", icon: "quiz" },
+  curiosity: { label: "Czy wiesz, że?", icon: "source" },
+};
+
+const calloutLabel = label ?? defaults[variant].label;
+const classes = ["k3m-callout", `k3m-callout--${variant}`, className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<aside class={classes}>
+  <div class="k3m-callout__header">
+    <Icon name={defaults[variant].icon} />
+    <p class="k3m-callout__label">{calloutLabel}</p>
+  </div>
+  {title && <h3 class="k3m-callout__title">{title}</h3>}
+  <p class="k3m-callout__body">
+    <GlossaryText text={body} maxTooltips={3} />
+  </p>
+</aside>

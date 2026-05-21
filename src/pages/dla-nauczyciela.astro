@@ -1,0 +1,354 @@
+---
+import { wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="dla-nauczyciela"
+  title="Materiały dla nauczyciela"
+  navLabel="Dla nauczyciela"
+  eyebrow="Scenariusze lekcji"
+  description="Scenariusze lekcji o Konstytucji 3 Maja na 45 i 90 minut, zadania, pytania do dyskusji i praca domowa."
+  lead="Ta część przekłada treści serwisu na gotową pracę w klasie: cele, materiały, przebieg lekcji, zadania i pytania problemowe."
+  quickQuestion="Jak przejść od daty do rozmowy o odpowiedzialności za państwo?"
+  conceptTerm="Praca ze źródłem"
+  conceptDefinition="Analiza fragmentu dokumentu, obrazu, skanu albo opracowania z pytaniami pomocniczymi."
+  related={related}
+  readingTopic="Lekcja 45 minut"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Lekcja 45 minut">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Szybka lekcja dla klasy, która potrzebuje najpierw uporządkować podstawy: datę, pojęcie Ustawy Rządowej, najważniejsze postanowienia i sens reformy."
+          />
+        </p>
+      </div>
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Temat: Konstytucja 3 Maja - dlaczego była przełomem?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Cele: uczeń zna datę i miejsce uchwalenia, wyjaśnia Ustawę Rządową, wymienia trzy postanowienia i rozumie znaczenie dokumentu."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Materiały: wprowadzenie ze strony Start, tabela przed/po, cytat z preambuły, 6 pytań z quizu."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Zadanie domowe: czy większą zmianą było zniesienie liberum veto, czy rozszerzenie praw mieszczan? Uzasadnij."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Wariant dla młodszych klas: ogranicz tekst źródłowy do jednego cytatu i pracuj głównie na tabeli przed/po."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Wariant dla starszych klas: dodaj pytanie o to, czy reforma mogła przetrwać bez silniejszej armii i stabilnego sojuszu."
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+      <ContentTable
+        columns={["Etap", "Czas", "Działanie"]}
+        rows={[
+          [
+            "Wejście w temat",
+            "5 min",
+            "Nauczyciel pokazuje datę 3 maja 1791 i pyta: dlaczego państwo zmienia swoje zasady?",
+          ],
+          [
+            "Miniwykład",
+            "10 min",
+            "Krótka praca ze stronami Start oraz Czym była. Uczniowie zapisują trzy słowa klucze.",
+          ],
+          [
+            "Praca w parach",
+            "12 min",
+            "Uczniowie uzupełniają tabelę przed/po: sejm, tron, mieszczanie, chłopi, władza wykonawcza.",
+          ],
+          [
+            "Źródło",
+            "8 min",
+            "Klasa analizuje cytat z preambuły albo artykułu VI i odpowiada na jedno pytanie do tekstu.",
+          ],
+          [
+            "Quiz",
+            "7 min",
+            "Uczniowie rozwiązują wybrane pytania z quizu albo zadanie chronologiczne.",
+          ],
+          [
+            "Domknięcie",
+            "3 min",
+            "Każdy zapisuje zdanie: Najważniejsza zmiana to... bo...",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Lekcja 90 minut">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Dłuższy wariant pozwala połączyć tekst źródłowy, twórców, oś czasu i pamięć historyczną. Najlepiej działa jako lekcja problemowa z pracą w grupach."
+          />
+        </p>
+      </div>
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Temat: Konstytucja 3 Maja - tekst źródłowy, twórcy i pamięć historyczna."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Cele: uczeń pracuje ze źródłem, analizuje rolę twórców, łączy kryzys państwa z reformą i rozumie symboliczne znaczenie dokumentu."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Materiały: preambuła, artykuł VI lub VII, tabela twórców, oś czasu, skan rękopisu z AGAD, materiał o obrazie Jana Matejki."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Zadanie projektowe: infografika lub 60-sekundowe wyjaśnienie jednego artykułu konstytucji."
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+      <ContentTable
+        columns={["Etap", "Czas", "Działanie"]}
+        rows={[
+          [
+            "Rozgrzewka",
+            "5 min",
+            "Uczniowie zapisują skojarzenia z hasłem konstytucja i dzielą je na prawo, państwo, pamięć.",
+          ],
+          [
+            "Tło historyczne",
+            "15 min",
+            "Praca z osią czasu: od I rozbioru do Targowicy. Klasa wskazuje przyczyny reform.",
+          ],
+          [
+            "Praca źródłowa",
+            "20 min",
+            "Grupa A analizuje preambułę, grupa B artykuł VI o sejmie, grupa C artykuł IV o chłopach.",
+          ],
+          [
+            "Twórcy",
+            "15 min",
+            "Uczniowie przypisują role do postaci i dopisują, dlaczego praca zespołowa była konieczna.",
+          ],
+          [
+            "Pamięć i dziedzictwo",
+            "15 min",
+            "Dyskusja: jak dokument może żyć dłużej niż państwo, które go uchwaliło?",
+          ],
+          [
+            "Quiz podsumowujący",
+            "10 min",
+            "Pytania wyboru, prawda/fałsz i zadanie chronologiczne.",
+          ],
+          [
+            "Refleksja końcowa",
+            "10 min",
+            "Uczniowie odpowiadają: co z Konstytucji 3 Maja jest aktualne także dziś?",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Kryteria sukcesu">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Uczeń wyjaśnia, czym była Ustawa Rządowa."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Uczeń umie podać trzy najważniejsze postanowienia."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Uczeń odróżnia znaczenie prawne od symbolicznego."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Uczeń potrafi wskazać jedno ograniczenie konstytucji."
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+    <ContentSection title="Mini-sprawdzian">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Krótki sprawdzian można przeprowadzić na koniec lekcji albo jako wejściówkę na kolejnych zajęciach. Najlepiej mieszać daty, pojęcia i krótkie uzasadnienia."
+          />
+        </p>
+      </div>
+      <ContentTable
+        columns={["Typ pytania", "Pytanie", "Oczekiwana odpowiedź"]}
+        rows={[
+          ["Fakt", "Kiedy uchwalono Konstytucję 3 Maja?", "3 maja 1791 roku."],
+          [
+            "Pojęcie",
+            "Wyjaśnij, czym była Ustawa Rządowa.",
+            "Źródłowa nazwa konstytucji i dokument regulujący ustrój państwa.",
+          ],
+          [
+            "Postanowienie",
+            "Jaką zasadę znosiła konstytucja, aby usprawnić sejm?",
+            "Liberum veto.",
+          ],
+          [
+            "Prawda/fałsz",
+            "Konstytucja całkowicie zniosła pańszczyznę.",
+            "Fałsz. Objęła chłopów opieką prawa i rządu, ale nie zniosła pańszczyzny.",
+          ],
+          [
+            "Uzasadnienie",
+            "Dlaczego konstytucja jest ważna, choć obowiązywała krótko?",
+            "Była nowoczesnym projektem reform i stała się symbolem odpowiedzialności za państwo.",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Praca w grupach">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Grupa A: preambuła"
+          text="Wypisz trzy cele konstytucji widoczne w uroczystym wstępie i wyjaśnij je własnymi słowami."
+          variant="quiz"
+          icon="document"
+          label="Źródło"
+        />
+        <Card
+          title="Grupa B: sejm"
+          text="Wyjaśnij, dlaczego zasada większości głosów była odpowiedzią na problem liberum veto."
+          variant="quiz"
+          icon="scale"
+          label="Źródło"
+        />
+        <Card
+          title="Grupa C: chłopi"
+          text="Oddziel to, co konstytucja rzeczywiście zmieniała, od tego, czego jeszcze nie rozwiązywała."
+          variant="quiz"
+          icon="users"
+          label="Źródło"
+        />
+        <Card
+          title="Grupa D: pamięć"
+          text="Przygotuj argument, dlaczego dokument prawny może stać się symbolem narodowym."
+          variant="quiz"
+          icon="landmark"
+          label="Dyskusja"
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Pytania do dyskusji">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Czy jedna ustawa mogła uratować państwo po latach kryzysu?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Która zmiana była ważniejsza: zniesienie liberum veto czy wzmocnienie władzy wykonawczej?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Czy reforma, która przegrywa politycznie, może odnieść sukces symboliczny?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Dlaczego przeciwnicy reform mogli uważać konstytucję za zagrożenie?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Co jest ważniejsze w pamięci o Konstytucji 3 Maja: jej treść prawna czy znaczenie symboliczne?"
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+    </ContentSection>
+    <ContentSection title="Gotowe polecenia do pracy ze źródłem">
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Przeczytaj cytat z preambuły i podkreśl słowa, które pokazują cel uchwalenia konstytucji."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Na podstawie artykułu VI wyjaśnij, co zmieniała zasada większości głosów."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Porównaj artykuł IV z mitem, że konstytucja zniosła pańszczyznę. Co jest faktem, a co uproszczeniem?"
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Wybierz jeden artykuł z akordeonu tekstu konstytucji i napisz jednozdaniowe wyjaśnienie dla młodszego ucznia."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Na podstawie osi czasu wskaż, które wydarzenia pomogły reformie, a które doprowadziły do jej upadku."
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+      <Callout
+        className="mt-6"
+        variant="exam"
+        title="Jak oceniać odpowiedzi"
+        body="Dobra odpowiedź łączy fakt, pojęcie i wyjaśnienie. Nie wystarczy napisać, że konstytucja była ważna; trzeba pokazać, co zmieniała i dlaczego mimo upadku pozostała symbolem."
+      />
+    </ContentSection>
+  </div>
+</ContentPageLayout>

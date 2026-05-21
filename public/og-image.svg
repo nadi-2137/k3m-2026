@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Konstytucja 3 Maja dla uczniów</title>
+  <desc id="desc">Obraz społecznościowy serwisu z herbem Rzeczypospolitej Obojga Narodów i tytułem Konstytucja 3 Maja.</desc>
+  <rect width="1200" height="630" fill="#FBF7EC" />
+  <circle cx="112" cy="92" r="300" fill="#FBF1D3" />
+  <rect x="80" y="80" width="1040" height="470" rx="36" fill="#FFFDF7" stroke="#E4D1A8" stroke-width="3" />
+
+  <image href="logo.svg" x="140" y="118" width="185" height="305" preserveAspectRatio="xMidYMid meet" />
+
+  <text x="370" y="220" fill="#941F32" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" letter-spacing="1.5">
+    3 MAJA 1791
+  </text>
+  <text x="370" y="305" fill="#151922" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="700">
+    Konstytucja 3 Maja
+  </text>
+  <text x="370" y="370" fill="#17345C" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">
+    dla uczniów
+  </text>
+  <text x="370" y="440" fill="#4B5568" font-family="Arial, Helvetica, sans-serif" font-size="27">
+    Historia, tekst źródłowy, quiz, oś czasu i materiały do nauki.
+  </text>
+</svg>

@@ -1,0 +1,37 @@
+---
+import { beforeAfter, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import ComparisonTable from "../components/ComparisonTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="przed-i-po"
+  title="Przed i po Konstytucji 3 Maja"
+  navLabel="Przed i po"
+  eyebrow="Co dokładnie zmieniła reforma"
+  description="Porównanie najważniejszych obszarów państwa przed reformą i po uchwaleniu Konstytucji 3 Maja."
+  lead="Porównanie przed i po pomaga zobaczyć konstytucję jako praktyczny projekt zmiany państwa, a nie tylko wydarzenie z datą do zapamiętania."
+  quickQuestion="Która zmiana miała największy wpływ na sprawność państwa?"
+  conceptTerm="Reforma"
+  conceptDefinition="Planowana zmiana, która ma usprawnić działanie instytucji albo całego państwa."
+  related={related}
+  readingTopic="Tabela porównawcza"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Tabela porównawcza">
+      <ComparisonTable table={beforeAfter} />
+    </ContentSection>
+    <ContentSection title="Najkrócej">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Konstytucja 3 Maja porządkowała władzę, ograniczała dawny chaos i wzmacniała państwo, ale nie była pełną rewolucją społeczną."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+  </div>
+</ContentPageLayout>

@@ -1,0 +1,99 @@
+---
+import type { Card } from "../data/site";
+import { glossaryEntries } from "../data/site";
+import GlossaryTooltip from "./GlossaryTooltip.astro";
+
+type Concept = {
+  term: string;
+  definition: string;
+};
+
+type Props = {
+  slug: string;
+  title: string;
+  description: string;
+  lead: string;
+  quickQuestion: string;
+  concept: Concept;
+  firstTopic?: string;
+  related?: Card[];
+};
+
+const {
+  slug,
+  title,
+  description,
+  lead,
+  quickQuestion,
+  concept,
+  firstTopic,
+  related = [],
+} = Astro.props;
+const quickSummary = firstTopic
+  ? `Zacznij od tematu: ${firstTopic}. Potem wróć do pytania i pojęcia, które porządkują całą stronę.`
+  : "Zacznij od pytania i pojęcia, które porządkują całą stronę.";
+const normalizedPageText = [
+  title,
+  description,
+  lead,
+  quickQuestion,
+  concept.term,
+  concept.definition,
+  ...related.flatMap((card) => [card.title, card.text]),
+]
+  .filter(Boolean)
+  .join(" ")
+  .toLocaleLowerCase("pl-PL");
+const fallbackTerms = [
+  "Konstytucja",
+  "Sejm Wielki",
+  "Liberum veto",
+  "Trójpodział władzy",
+];
+const matchedTerms = glossaryEntries.filter((entry) =>
+  normalizedPageText.includes(entry.term.toLocaleLowerCase("pl-PL")),
+);
+const glossaryTerms = [
+  ...matchedTerms,
+  ...fallbackTerms
+    .map((term) => glossaryEntries.find((entry) => entry.term === term))
+    .filter(
+      (entry): entry is (typeof glossaryEntries)[number] => entry !== undefined,
+    ),
+]
+  .filter(
+    (entry, index, entries) =>
+      entries.findIndex((item) => item.term === entry.term) === index,
+  )
+  .slice(0, 4);
+---
+
+<section class="k3m-card k3m-reading-mode mt-6 p-5 sm:p-6">
+  <div class="k3m-reading-mode__pill">W skrócie</div>
+  <div class="k3m-reading-mode__panel">
+    <p class="k3m-label">Szybka orientacja</p>
+    <p class="k3m-body mt-3">{quickSummary}</p>
+    <dl class="mt-5 grid gap-3 sm:grid-cols-2">
+      <div>
+        <dt>Pytanie</dt>
+        <dd>{quickQuestion}</dd>
+      </div>
+      <div>
+        <dt>Pojęcie</dt>
+        <dd><strong>{concept.term}</strong>: {concept.definition}</dd>
+      </div>
+    </dl>
+    <p class="k3m-reading-mode__terms">
+      <span class="k3m-reading-mode__terms-label">Pojęcia na stronie:</span>
+      {
+        glossaryTerms.map((entry, index) => (
+          <GlossaryTooltip
+            term={entry.term}
+            definition={entry.definition}
+            idSuffix={`reading-${slug.replace(/[^a-z0-9-]+/gi, "-")}-${index}`}
+          />
+        ))
+      }
+    </p>
+  </div>
+</section>

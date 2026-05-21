@@ -1,0 +1,200 @@
+---
+import type { Card as CardData } from "../data/site";
+import {
+  breadcrumbParents,
+  learningPath,
+  pageSourceExcerpts,
+  seoByHref,
+  sidebarContextLinks,
+  sidebarQuestionSets,
+} from "../data/site";
+import BaseLayout from "./BaseLayout.astro";
+import Card from "../components/Card.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import LearningPath from "../components/LearningPath.astro";
+import ReadingMode from "../components/ReadingMode.astro";
+import Sidebar from "../components/Sidebar.astro";
+import SourceHighlights from "../components/SourceHighlights.astro";
+import { absoluteWithBase, withBase } from "../utils/base";
+
+type Concept = {
+  term: string;
+  definition: string;
+};
+
+type Props = {
+  slug: string;
+  title: string;
+  navLabel?: string;
+  eyebrow: string;
+  description: string;
+  lead: string;
+  quickQuestion: string;
+  concept?: Concept;
+  conceptTerm?: string;
+  conceptDefinition?: string;
+  related?: CardData[];
+  readingTopic?: string;
+  showSidebar?: boolean;
+};
+
+const {
+  slug,
+  title,
+  navLabel,
+  eyebrow,
+  description,
+  lead,
+  quickQuestion,
+  concept: conceptProp,
+  conceptTerm,
+  conceptDefinition,
+  related = [],
+  readingTopic,
+  showSidebar = true,
+} = Astro.props;
+const concept = conceptProp ?? {
+  term: conceptTerm ?? "",
+  definition: conceptDefinition ?? "",
+};
+
+const sidebarQuestions = sidebarQuestionSets[slug] ?? [quickQuestion];
+const contextLinks = sidebarContextLinks[slug] ?? [];
+const relatedItems = related.filter((item) => item.href !== `/${slug}`);
+const seo = seoByHref[`/${slug}`];
+const parentBreadcrumb = breadcrumbParents[slug];
+const canonicalUrl = absoluteWithBase(`/${slug}`, Astro.site ?? Astro.url);
+const pageSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": ["Article", "LearningResource"],
+    headline: title,
+    name: title,
+    description: seo?.metaDescription ?? description,
+    inLanguage: "pl",
+    url: canonicalUrl,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Konstytucja 3 Maja dla uczniów",
+      url: absoluteWithBase("/", Astro.site ?? Astro.url),
+    },
+    about: ["Konstytucja 3 Maja", concept.term],
+    educationalLevel: ["szkoła podstawowa", "szkoła ponadpodstawowa"],
+    learningResourceType: slug === "quiz" ? "quiz" : "article",
+  },
+  slug === "quiz"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        name: title,
+        description: seo?.metaDescription ?? description,
+        inLanguage: "pl",
+        url: canonicalUrl,
+      }
+    : undefined,
+].filter(Boolean);
+---
+
+<BaseLayout
+  title={seo?.metaTitle ?? title}
+  description={seo?.metaDescription ?? description}
+  schema={pageSchema}
+>
+  <main class="k3m-container px-5 py-10 sm:px-8 lg:px-10">
+    <div
+      class:list={[
+        "grid gap-6 xl:gap-8",
+        showSidebar
+          ? "lg:grid-cols-[minmax(0,1fr)_minmax(17rem,var(--k3m-sidebar))]"
+          : "mx-auto max-w-[var(--k3m-reading)]",
+      ]}
+    >
+      <article>
+        <nav aria-label="Ścieżka" class="k3m-breadcrumb">
+          <a class="k3m-link" href={withBase("/")}>Start</a>
+          <span class="mx-2">/</span>
+          {
+            parentBreadcrumb && (
+              <>
+                <a class="k3m-link" href={withBase(parentBreadcrumb.href)}>
+                  {parentBreadcrumb.label}
+                </a>
+                <span class="mx-2">/</span>
+              </>
+            )
+          }
+          <span>{navLabel ?? title}</span>
+        </nav>
+
+        <header class="k3m-card p-6 sm:p-8">
+          <p class="k3m-label">{eyebrow}</p>
+          <h1 class="k3m-h1 mt-4">{title}</h1>
+          <p class="k3m-lead mt-6">
+            <GlossaryText text={lead} maxTooltips={4} />
+          </p>
+          {
+            seo && (
+              <div class="mt-7 flex flex-wrap gap-3">
+                <a
+                  class="k3m-button k3m-button--primary"
+                  href={withBase(seo.primaryCtaHref)}
+                >
+                  {seo.primaryCta}
+                </a>
+              </div>
+            )
+          }
+        </header>
+
+        <ReadingMode
+          slug={slug}
+          title={title}
+          description={description}
+          lead={lead}
+          quickQuestion={quickQuestion}
+          concept={concept}
+          firstTopic={readingTopic}
+          related={related}
+        />
+
+        <slot />
+
+        {
+          pageSourceExcerpts[slug] && (
+            <SourceHighlights ids={pageSourceExcerpts[slug]} />
+          )
+        }
+
+        <LearningPath
+          steps={learningPath}
+          currentSlug={slug}
+          variant="compact"
+        />
+      </article>
+
+      {
+        showSidebar && (
+          <Sidebar
+            quickQuestions={sidebarQuestions}
+            concept={concept}
+            contextLinks={contextLinks}
+            showTimeline={slug !== "os-czasu"}
+          />
+        )
+      }
+    </div>
+
+    {
+      relatedItems.length > 0 && (
+        <section class="k3m-section k3m-section--bordered">
+          <h2 class="k3m-h2">Czytaj dalej</h2>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {relatedItems.map((item) => (
+              <Card {...item} variant="navigation" />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+</BaseLayout>

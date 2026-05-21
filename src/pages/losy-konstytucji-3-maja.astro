@@ -1,0 +1,275 @@
+---
+import { todaySections, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import Callout from "../components/Callout.astro";
+import ContentTable from "../components/ContentTable.astro";
+
+const related = wspolneRelated;
+---
+
+<ContentPageLayout
+  slug="losy-konstytucji-3-maja"
+  title="Losy Konstytucji 3 Maja"
+  navLabel="Losy"
+  eyebrow="Od nadziei do archiwum"
+  description="Co stało się z Konstytucją 3 Maja po 1791 roku: Targowica, wojna z Rosją, rozbiory i zachowane egzemplarze w AGAD."
+  lead="Historia Konstytucji 3 Maja jest opowieścią o wielkiej nadziei i szybkim załamaniu tej nadziei. Dokument działał krótko, ale jego rękopisy i pamięć o nim przetrwały."
+  quickQuestion="Dlaczego oryginały konstytucji są dziś tak cenne?"
+  conceptTerm="Targowica"
+  conceptDefinition="Konfederacja przeciwników Konstytucji 3 Maja, przygotowana w Petersburgu i skierowana przeciw reformom."
+  related={related}
+  readingTopic="Co wydarzyło się po uchwaleniu"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Co wydarzyło się po uchwaleniu">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Już w 1792 roku przeciwnicy reform związali się z konfederacją targowicką, a Rosja wystąpiła przeciwko nowemu porządkowi zbrojnie. Wojna i brak wystarczającej siły politycznej oraz militarnej doprowadziły do załamania reform."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Przystąpienie króla Stanisława Augusta Poniatowskiego do Targowicy było ciosem dla obozu reform. Warto opisywać to ostrożnie: nie sprowadzać całej postaci króla do jednego gestu, ale jasno pokazać konsekwencje tej decyzji."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Rozbiory i zniesienie konstytucji">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="W 1793 roku doszło do II rozbioru Polski i formalnego zniesienia konstytucji. Dwa lata później III rozbiór zakończył istnienie Rzeczypospolitej."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dokument był śmiały i nowoczesny, ale nie miał dość ochrony politycznej i militarnej, by obronić się przed przeciwnikami wewnętrznymi i zewnętrznymi."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Zachowane egzemplarze">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Dziś w Archiwum Głównym Akt Dawnych w Warszawie przechowywane są trzy oryginalne rękopiśmienne egzemplarze konstytucji oraz urzędowy druk tekstu Ustawy Rządowej."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Jeden egzemplarz pochodzi z Metryki Litewskiej, drugi z Archiwum Publicznego Potockich, a trzeci z Archiwum Sejmu Czteroletniego. Według opracowań AGAD właśnie z egzemplarza sejmowego sekretarz Antoni Siarczyński odczytywał treść konstytucji podczas obrad."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Archiwum Sejmu Czteroletniego"
+          text="Tom XX, karty 91-101."
+          href="https://agad.gov.pl/230K3M/3M.html"
+          variant="source"
+          icon="source"
+          sourceType="Rękopis / skan w prezentacji AGAD"
+          checked="Zweryfikowano 2026-05-19: HTTP 200. Oficjalna prezentacja AGAD; nie rehostujemy skanu bez osobnej decyzji licencyjnej."
+        />
+        <Card
+          title="Archiwum Publiczne Potockich"
+          text="Sygnatura 100, tom 2, strony 74-84."
+          href="https://agad.gov.pl/230K3M/3M.html"
+          variant="source"
+          icon="source"
+          sourceType="Rękopis / skan w prezentacji AGAD"
+          checked="Zweryfikowano 2026-05-19: HTTP 200. Oficjalna prezentacja AGAD; nie rehostujemy skanu bez osobnej decyzji licencyjnej."
+        />
+        <Card
+          title="Metryka Litewska"
+          text="Dział VII, sygnatura 4, karty 75-82."
+          href="https://agad.gov.pl/230K3M/3M.html"
+          variant="source"
+          icon="source"
+          sourceType="Rękopis / skan w prezentacji AGAD"
+          checked="Zweryfikowano 2026-05-19: HTTP 200. Oficjalna prezentacja AGAD; nie rehostujemy skanu bez osobnej decyzji licencyjnej."
+        />
+        <Card
+          title="Urzędowy druk"
+          text="Tekst Ustawy Rządowej z formułą wpisu do akt grodzkich warszawskich."
+          href="https://agad.gov.pl/wp-content/uploads/2022/02/Ustawa_Rzadowa1791_3-maja_PL.pdf"
+          variant="source"
+          icon="document"
+          sourceType="Urzędowy druk / opis AGAD"
+          checked="Zweryfikowano 2026-05-19: HTTP 200. Oficjalny PDF AGAD z opisem przekazów."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Trzy rękopisy - trzy drogi dokumentu">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Każdy zachowany rękopis mówi o konstytucji trochę inaczej. Nie są to tylko trzy kopie tego samego tekstu, ale trzy ślady działania państwa: pracy sejmu, obiegu magnackiego archiwum i kancelarii Wielkiego Księstwa Litewskiego."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dzięki temu można pokazać uczniowi, że dokument historyczny ma nie tylko treść, lecz także własną drogę: powstaje w konkretnej kancelarii, trafia do akt, jest przechowywany, opisywany i po latach digitalizowany."
+          />
+        </p>
+      </div>
+      <ContentTable
+        columns={["Przekaz", "Skąd pochodzi", "Co pomaga zrozumieć"]}
+        rows={[
+          [
+            "Archiwum Sejmu Czteroletniego",
+            "Egzemplarz związany bezpośrednio z pracami sejmu i procedurą uchwalenia Ustawy Rządowej.",
+            "Pokazuje konstytucję jako dokument obradującego sejmu, a nie tylko późniejszy symbol narodowy.",
+          ],
+          [
+            "Archiwum Publiczne Potockich",
+            "Przekaz zachowany w archiwum rodu silnie związanego z obozem reform.",
+            "Przypomina, że reforma miała zaplecze polityczne, rodzinne i środowiskowe, a dokument krążył także poza samą salą sejmową.",
+          ],
+          [
+            "Metryka Litewska",
+            "Egzemplarz w zespole akt kancelarii Wielkiego Księstwa Litewskiego.",
+            "Pomaga pamiętać, że Rzeczpospolita była państwem polsko-litewskim, a konstytucja dotyczyła całej wspólnoty politycznej.",
+          ],
+        ]}
+      />
+    </ContentSection>
+    <ContentSection title="Gdzie dziś są oryginały">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Najważniejszym miejscem dla zachowanych przekazów jest AGAD w Warszawie. W serwisie warto jednak prowadzić użytkownika szerzej: od sali, w której dokument uchwalono, przez archiwum przechowujące rękopisy, po instytucje pomagające czytać tekst i szukać skanów."
+          />
+        </p>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="AGAD w Warszawie"
+          text="Miejsce przechowywania trzech oryginalnych rękopisów i urzędowego druku Ustawy Rządowej."
+          href="https://agad.gov.pl/wp-content/uploads/2022/02/Ustawa_Rzadowa1791_3-maja_PL.pdf"
+          variant="source"
+          icon="document"
+          sourceType="Archiwum / opis przekazów"
+          checked="Zweryfikowano 2026-05-19: HTTP 200."
+        />
+        <Card
+          title="Zamek Królewski"
+          text="Sala Senatorska pozwala połączyć tekst konstytucji z miejscem jej uchwalenia."
+          href="https://www.zamek-krolewski.pl/strona/edukacja/771-konstytucja-3-maja"
+          variant="source"
+          icon="landmark"
+          sourceType="Miejsce pamięci / edukacja"
+          checked="Zweryfikowano 2026-05-19: HTTP 200."
+        />
+        <Card
+          title="Biblioteka Sejmowa"
+          text="Punkt odniesienia dla tekstu Ustawy Rządowej, wydań i tłumaczeń."
+          href="https://biblioteka.sejm.gov.pl/"
+          variant="source"
+          icon="source"
+          sourceType="Instytucja publiczna / teksty"
+          checked="Zweryfikowano 2026-05-19: HTTP 200."
+        />
+        <Card
+          title="Szukaj w Archiwach"
+          text="Cyfrowe miejsce, od którego warto zaczynać poszukiwanie skanów i opisów archiwalnych."
+          href="https://www.szukajwarchiwach.gov.pl/"
+          variant="source"
+          icon="map"
+          sourceType="Baza archiwalna online"
+          checked="Zweryfikowano 2026-05-19: HTTP 200."
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Dlaczego rękopis jest źródłem historycznym">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text='Rękopis pozwala zobaczyć konstytucję jako materialny ślad przeszłości. Historyk pyta nie tylko: "co zapisano?", lecz także: "kto to zapisał?", "w jakim celu?", "w jakim urzędzie?" i "jak dokument przetrwał?".'
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dlatego na lekcji warto porównać tekst drukowany z opisem rękopisu. Uczeń zobaczy wtedy, że źródło historyczne to nie dekoracja do podręcznika, ale dowód, który trzeba umieć czytać."
+          />
+        </p>
+      </div>
+      <ul class="k3m-body mt-5 grid gap-3 sm:grid-cols-2">
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Treść pokazuje decyzje polityczne i język epoki."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Miejsce przechowywania mówi o kancelarii, archiwum i drodze dokumentu."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Sygnatura pozwala odszukać konkretny egzemplarz, a nie tylko ogólną informację."
+            maxTooltips={2}
+          />
+        </li>
+        <li class="k3m-rich-list-item">
+          <GlossaryText
+            text="Skan albo opis archiwalny pomaga sprawdzić, czy korzystamy ze źródła, czy z późniejszego opracowania."
+            maxTooltips={2}
+          />
+        </li>
+      </ul>
+      <Callout
+        className="mt-6"
+        variant="question"
+        title="Pytanie do pracy ze źródłem"
+        body="Co możesz ustalić o Konstytucji 3 Maja, patrząc nie na samą treść artykułów, lecz na informację, z którego archiwum pochodzi dany egzemplarz?"
+      />
+    </ContentSection>
+    <ContentSection title="Krótko obowiązywała, długo inspirowała">
+      <blockquote class="k3m-quote mt-6">
+        <GlossaryText
+          text="Historia dokumentu nie kończy się na jego upadku. Trwa w archiwach, muzeach, świętach państwowych i pamięci historycznej."
+          maxTooltips={4}
+        />
+      </blockquote>
+    </ContentSection>
+    <ContentSection title="Uwaga na uproszczenie">
+      <Callout
+        className="mt-6"
+        variant="warning"
+        title="Krótki czas obowiązywania nie znaczy małe znaczenie"
+        body="Konstytucja została szybko obalona politycznie, ale jej rękopisy, pamięć i symboliczne znaczenie przetrwały znacznie dłużej niż sam porządek prawny z 1791 roku."
+      />
+    </ContentSection>
+    <ContentSection title={todaySections.losy.title}>
+      {
+        todaySections.losy.body && (
+          <div class="k3m-body mt-5 space-y-4">
+            {todaySections.losy.body.map((paragraph) => (
+              <p>
+                <GlossaryText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )
+      }
+      {
+        todaySections.losy.callout && (
+          <Callout
+            className="mt-6"
+            variant={todaySections.losy.callout.variant}
+            label={todaySections.losy.callout.label}
+            title={todaySections.losy.callout.title}
+            body={todaySections.losy.callout.body}
+          />
+        )
+      }
+    </ContentSection>
+  </div>
+</ContentPageLayout>

@@ -1,0 +1,58 @@
+---
+import type { TableData } from "../data/site";
+import GlossaryText from "./GlossaryText.astro";
+
+type Props = TableData;
+
+const { columns, rows } = Astro.props;
+---
+
+<div class="mt-6">
+  <div class="k3m-table-wrap">
+    <table
+      class:list={["k3m-table text-sm", rows.length > 5 && "k3m-table--sticky"]}
+    >
+      <thead>
+        <tr>
+          {
+            columns.map((column) => (
+              <th class="font-semibold" scope="col">
+                {column}
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr>
+              {row.map((cell) => (
+                <td>
+                  <GlossaryText text={cell} maxTooltips={2} />
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="k3m-table-cards">
+    {
+      rows.map((row) => (
+        <dl class="k3m-table-card">
+          {row.map((cell, index) => (
+            <div>
+              <dt>{columns[index]}</dt>
+              <dd>
+                <GlossaryText text={cell} maxTooltips={2} />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ))
+    }
+  </div>
+</div>

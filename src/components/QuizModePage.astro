@@ -1,0 +1,102 @@
+---
+import type { QuizQuestion } from "../data/site";
+import { quizQuestionLimit, quizTypeRoutes } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { absoluteWithBase, withBase } from "../utils/base";
+import Quiz from "./Quiz.astro";
+
+type Props = {
+  title: string;
+  eyebrow: string;
+  description: string;
+  lead: string;
+  questions: QuizQuestion[];
+  currentHref: string;
+  quizTitle: string;
+  quizIntro: string;
+};
+
+const {
+  title,
+  eyebrow,
+  description,
+  lead,
+  questions,
+  currentHref,
+  quizTitle,
+  quizIntro,
+} = Astro.props;
+const modes = [
+  {
+    navLabel: "Mieszany",
+    href: "/quiz/pytania",
+    description: "18 losowych pytań ze wszystkich typów.",
+  },
+  ...quizTypeRoutes,
+];
+const canonicalUrl = absoluteWithBase(currentHref, Astro.site ?? Astro.url);
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LearningResource", "Quiz"],
+  name: title,
+  description,
+  inLanguage: "pl",
+  url: canonicalUrl,
+  educationalLevel: ["szkoła podstawowa", "szkoła ponadpodstawowa"],
+  learningResourceType: "quiz",
+  about: "Konstytucja 3 Maja",
+};
+---
+
+<BaseLayout title={title} description={description} schema={pageSchema}>
+  <main class="k3m-container px-5 py-10 sm:px-8 lg:px-10">
+    <article class="mx-auto max-w-5xl">
+      <nav aria-label="Ścieżka" class="k3m-breadcrumb">
+        <a class="k3m-link" href={withBase("/")}>Start</a>
+        <span class="mx-2">/</span>
+        <a class="k3m-link" href={withBase("/quiz")}>Quiz</a>
+        <span class="mx-2">/</span>
+        <span>{title.replace(/^Quiz:\s*/u, "")}</span>
+      </nav>
+
+      <header class="k3m-card p-6 sm:p-8">
+        <p class="k3m-label">{eyebrow}</p>
+        <h1 class="k3m-h1 mt-4">{title}</h1>
+        <p class="k3m-lead mt-6">{lead}</p>
+        <p class="k3m-small-muted mt-5">
+          Baza pytań: {questions.length}. W jednym podejściu pojawi się
+          maksymalnie {Math.min(quizQuestionLimit, questions.length)} losowych pytań.
+        </p>
+      </header>
+
+      <nav class="k3m-quiz-mode-nav" aria-label="Tryby quizu">
+        {
+          modes.map((mode) => {
+            const isActive = mode.href === currentHref;
+
+            return (
+              <a
+                class:list={[
+                  "k3m-quiz-mode-nav__item",
+                  isActive && "k3m-quiz-mode-nav__item--active",
+                ]}
+                aria-current={isActive ? "page" : undefined}
+                href={withBase(mode.href)}
+              >
+                <span>{mode.navLabel}</span>
+                <small>{mode.description}</small>
+              </a>
+            );
+          })
+        }
+      </nav>
+
+      <Quiz
+        questions={questions}
+        questionLimit={quizQuestionLimit}
+        title={quizTitle}
+        intro={quizIntro}
+      />
+    </article>
+  </main>
+</BaseLayout>

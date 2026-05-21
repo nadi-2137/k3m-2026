@@ -1,0 +1,20 @@
+---
+type Props = {
+  term: string;
+  definition: string;
+  idSuffix?: string;
+};
+
+const { term, definition, idSuffix } = Astro.props;
+const idBase = `tooltip-${term.toLocaleLowerCase("pl-PL").replace(/[^a-z0-9ąćęłńóśźż]+/gi, "-")}`;
+const id = idSuffix ? `${idBase}-${idSuffix}` : idBase;
+---
+
+<span class="k3m-tooltip">
+  <button type="button" aria-describedby={id}>
+    {term}
+  </button>
+  <span class="k3m-tooltip__bubble" id={id} role="tooltip">
+    {definition}
+  </span>
+</span>

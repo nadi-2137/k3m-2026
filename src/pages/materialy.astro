@@ -1,0 +1,133 @@
+---
+import QuickReview from "../components/QuickReview.astro";
+import { quickReview, sourceLinks, wspolneRelated } from "../data/site";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import GlossaryText from "../components/GlossaryText.astro";
+import Card from "../components/Card.astro";
+import DownloadCard from "../components/DownloadCard.astro";
+import Callout from "../components/Callout.astro";
+
+const related = [
+  {
+    title: "Do pobrania",
+    text: "Lista planowanych PDF-ów i gotowych zestawów pracy.",
+    href: "/do-pobrania",
+  },
+  {
+    title: "Źródła",
+    text: "Bibliografia i najważniejsze miejsca dalszej nauki.",
+    href: "/zrodla",
+  },
+  ...wspolneRelated,
+];
+---
+
+<ContentPageLayout
+  slug="materialy"
+  title="Materiały do nauki o Konstytucji 3 Maja"
+  navLabel="Materiały"
+  eyebrow="Dla ucznia, nauczyciela i rodzica"
+  description="Tekst źródłowy, słownik, oś czasu, karta pracy, pytania do powtórki, źródła i materiały dla nauczyciela."
+  lead="Ta część zbiera wszystko, co pomaga uczyć się wygodnie: źródła, słownik, materiały do pobrania, scenariusze lekcji, fiszki i praktyczne odpowiedzi na sprawdzian."
+  quickQuestion="Po co historykowi skan rękopisu, skoro ma podręcznik?"
+  conceptTerm="Źródło historyczne"
+  conceptDefinition="Ślad przeszłości, na podstawie którego można badać wydarzenia: rękopis, druk, obraz, relacja albo dokument urzędowy."
+  related={related}
+  readingTopic="Od czego zacząć"
+>
+  <div class="mt-10 space-y-2">
+    <ContentSection title="Od czego zacząć">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Najbezpieczniej zaczynać od tekstu źródłowego Ustawy Rządowej, materiałów Biblioteki Sejmowej i AGAD, a potem korzystać z opracowań edukacyjnych Zamku Królewskiego oraz ZPE."
+          />
+        </p>
+        <p>
+          <GlossaryText
+            text="Dobra strona edukacyjna powinna oddzielać tekst źródłowy, archiwalia, materiały szkolne i opracowania pomocnicze. Dzięki temu uczeń wie, kiedy czyta źródło, a kiedy komentarz."
+          />
+        </p>
+      </div>
+    </ContentSection>
+    <ContentSection title="Materiały w serwisie">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <Card
+          title="Tekst konstytucji z komentarzem"
+          text="Preambuła i artykuły I-XI w formie akordeonu z prostym objaśnieniem."
+          href="/tekst-konstytucji"
+        />
+        <Card
+          title="Słownik pojęć"
+          text="Najważniejsze terminy potrzebne do zrozumienia epoki i dokumentu."
+          href="/slownik"
+        />
+        <Card
+          title="Oś czasu"
+          text="Wydarzenia od wyboru króla po przywrócenie święta 3 maja."
+          href="/os-czasu"
+        />
+        <Card
+          title="Mity i fakty"
+          text="Najczęstsze uproszczenia i spokojne wyjaśnienia."
+          href="/mity-i-fakty"
+        />
+        <Card
+          title="Przed i po"
+          text="Tabela porównująca ustrój przed reformą i po Konstytucji 3 Maja."
+          href="/przed-i-po"
+        />
+        <Card
+          title="Materiały dla nauczyciela"
+          text="Scenariusze lekcji 45 i 90 minut, zadania i kryteria sukcesu."
+          href="/dla-nauczyciela"
+        />
+        <Card
+          title="Pytania i odpowiedzi"
+          text="Krótki zestaw najczęstszych pytań uczniowskich z gotowymi odpowiedziami."
+          href="/pytania-i-odpowiedzi"
+        />
+        <Card
+          title="Jak odpowiedzieć na sprawdzianie"
+          text="Krótka i dłuższa odpowiedź na typowe pytanie o znaczenie konstytucji."
+          href="/jak-odpowiedziec-na-sprawdzianie"
+        />
+        <Card
+          title="Infografiki i mapa archiwów"
+          text="Pomysły na plansze, wykresy, miejsca pamięci i opisy ilustracji."
+          href="/infografiki-i-mapa-archiwow"
+        />
+      </div>
+    </ContentSection>
+    <ContentSection title="Materiały do pobrania">
+      <div class="k3m-body mt-5 space-y-4">
+        <p>
+          <GlossaryText
+            text="Materiały są dostępne w dwóch wariantach: jako gotowe PDF-y oraz jako strony drukowalne w przeglądarce. PDF-y powstają z tych samych stron, więc nie ma osobnej, rozjeżdżającej się wersji treści."
+          />
+        </p>
+      </div>
+      <Callout
+        className="mt-6"
+        variant="remember"
+        body="Pełna lista z linkami do PDF-ów i podglądem stron drukowalnych jest na stronie Do pobrania."
+      />
+    </ContentSection>
+    <ContentSection title="Najważniejsze źródła">
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          sourceLinks.map((card) =>
+            card.variant === "download" ? (
+              <DownloadCard {...card} />
+            ) : (
+              <Card {...card} />
+            ),
+          )
+        }
+      </div>
+    </ContentSection>
+  </div>
+
+  <QuickReview items={quickReview} />
+</ContentPageLayout>

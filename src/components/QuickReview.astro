@@ -1,0 +1,41 @@
+---
+import type { QuickReviewItem } from "../data/site";
+import { withBase } from "../utils/base";
+
+type Props = {
+  items: QuickReviewItem[];
+  variant?: "full" | "compact";
+};
+
+const { items, variant = "full" } = Astro.props;
+---
+
+<section
+  class:list={["k3m-quick-review", `k3m-quick-review--${variant}`]}
+  aria-labelledby="quick-review-title"
+>
+  <div class="k3m-quick-review__intro">
+    <p class="k3m-label">Dla zapracowanego ucznia</p>
+    <h2 id="quick-review-title" class="k3m-h2 mt-3">
+      Szybka powtórka przed lekcją
+    </h2>
+    <p class="k3m-body mt-4">
+      Wybierz tyle czasu, ile masz naprawdę. Każdy krok prowadzi do konkretnego
+      miejsca w serwisie, więc nie trzeba zgadywać, od czego zacząć.
+    </p>
+  </div>
+
+  <ol class="k3m-quick-review__list">
+    {
+      items.map((item) => (
+        <li>
+          <a class="k3m-quick-review__item" href={withBase(item.href)}>
+            <span class="k3m-quick-review__time">{item.title}</span>
+            <span class="k3m-quick-review__text">{item.text}</span>
+            <span class="k3m-quick-review__action">{item.action}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</section>

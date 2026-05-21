@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { withBase } from "../../utils/base";
+
+const targetHref = withBase("/do-pobrania");
+---
+
+<BaseLayout
+  title="Materiały do pobrania"
+  description="Materiały do druku zostały przeniesione do sekcji Do pobrania."
+>
+  <meta http-equiv="refresh" content={`0; url=${targetHref}`} slot="head" />
+  <main class="k3m-container px-5 py-10 sm:px-8 lg:px-10">
+    <article class="k3m-card max-w-[var(--k3m-reading)] p-6 sm:p-8">
+      <p class="k3m-label">Przekierowanie</p>
+      <h1 class="k3m-h1 mt-4">Materiały do pobrania</h1>
+      <p class="k3m-lead mt-5">
+        Materiały PDF i strony do druku są teraz zebrane w sekcji „Do pobrania”.
+      </p>
+      <a class="k3m-button k3m-button--primary mt-7" href={targetHref}>
+        Przejdź do materiałów
+      </a>
+    </article>
+  </main>
+</BaseLayout>
